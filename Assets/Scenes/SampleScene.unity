@@ -4864,7 +4864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adee5eae5dc5e7c4dabde7160400e61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gardenMaterial: {fileID: 2100000, guid: e6420b72408d948c39c63f3e38f58cfe, type: 2}
+  gardenMaterial: {fileID: 2100000, guid: 03315046045cfd54584d2e95deff601b, type: 2}
   vasePrefab: {fileID: 3797041032255217823, guid: 48d0924600f6c40febb7ce4d2a6dc2c7,
     type: 3}
 --- !u!4 &1170142957
