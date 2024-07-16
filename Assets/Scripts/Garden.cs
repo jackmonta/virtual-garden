@@ -29,7 +29,9 @@ public class Garden : MonoBehaviour
         MeshRenderer renderer = planeObj.GetComponent<MeshRenderer>();
         renderer.material = gardenMaterial;
 
-        PlaceVases();
+        //PlaceVases();
+
+        Inventory.Instance.ShowUI();
     }
 
     private void PlaceVases()
