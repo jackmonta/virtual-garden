@@ -22,6 +22,12 @@ public class InventoryUI : MonoBehaviour
 
     public static void SetSelectedPlant(GameObject selectedPlantObj)
     {
+        if (selectedPlantObj == null)
+        {
+            InventoryUI.selectedPlantObj = null;
+            return;
+        }
+        
         if (!plantObjs.Contains(selectedPlantObj))
             plantObjs.Add(selectedPlantObj);
 
