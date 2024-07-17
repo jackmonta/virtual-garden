@@ -31,7 +31,7 @@ public class Garden : MonoBehaviour
 
         //PlaceVases();
 
-        Inventory.Instance.ShowUI();
+        InventoryUI.ShowUI();
     }
 
     private void PlaceVases()
