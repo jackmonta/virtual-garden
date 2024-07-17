@@ -1,19 +1,27 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     private static Canvas inventoryCanvas;
+    private static GameObject inventoryButton;
     private static GameObject inventorySlider;
-    public static bool IsInventoryOpen { get; set; }
+    private static bool isInventoryOpen;
 
     void Start()
     {
-        IsInventoryOpen = false;
+        isInventoryOpen = false;
 
         inventoryCanvas = GetComponent<Canvas>();
         inventoryCanvas.enabled = false;
 
+        inventoryButton = transform.Find("InventoryButton").gameObject;
         inventorySlider = transform.Find("InventorySlider").gameObject;
+
+        inventoryButton.GetComponent<Button>().onClick.AddListener(() => {
+            if (!isInventoryOpen)
+                OpenInventory();
+        });
     }
 
     public static void ShowUI()
@@ -21,9 +29,9 @@ public class InventoryUI : MonoBehaviour
         inventoryCanvas.enabled = true;
     }
 
-    public static void OpenInventory()
+    private static void OpenInventory()
     {
         inventorySlider.SetActive(true);
-        IsInventoryOpen = true;
+        isInventoryOpen = true;
     }
 }
