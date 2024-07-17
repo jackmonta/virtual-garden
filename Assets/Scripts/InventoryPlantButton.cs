@@ -15,7 +15,14 @@ public class InventoryPlantButton : MonoBehaviour
         button.onClick.AddListener(() => {
             isSelected = !isSelected;
             border.SetActive(isSelected);
-            Debug.Log(gameObject.name + " is selected: " + isSelected);
+            
+            InventoryUI.SetSelectedPlant(gameObject);
         });
+    }
+
+    public void Deselect()
+    {
+        isSelected = false;
+        border.SetActive(isSelected);
     }
 }
