@@ -9,6 +9,7 @@ public class InventoryPlantButton : MonoBehaviour
     [SerializeField] private GameObject plantIcon;
     private Button button;
     private bool isSelected;
+    
     void Start()
     {
         isSelected = false;
@@ -16,6 +17,12 @@ public class InventoryPlantButton : MonoBehaviour
         button = GetComponent<Button>();
         button.onClick.AddListener(() => {
             isSelected = !isSelected;
+
+            if (isSelected)
+                InventoryUI.SetSelectedButton(gameObject);
+            else
+                InventoryUI.SetSelectedButton(null);
+
             border.SetActive(isSelected);
         });
     }

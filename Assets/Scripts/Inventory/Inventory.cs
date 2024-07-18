@@ -67,9 +67,9 @@ public class Inventory : MonoBehaviour
         {
             List<Plant> temp = new List<Plant>()
             {
-                new Plant("Plant 1", null),
-                new Plant("Plant 2", null),
-                new Plant("Plant 3", null)
+                new Plant(1, "Plant 1", null),
+                new Plant(2, "Plant 2", null),
+                new Plant(3, "Plant 3", null)
             };
             plantList.plants = temp;
         }
@@ -86,13 +86,25 @@ public class Inventory : MonoBehaviour
         while (InventoryUI.Instance == null)
             yield return null;
         
-
-        Debug.Log("Creating Plant Buttons...");
         InventoryUI.Instance.CreatePlantButtons(plants);
     }
+    
     public static void SetSelectedPlant(Plant selectedPlant)
     {
         Inventory.selectedPlant = selectedPlant;
+    }
+
+    public static void RemoveSelectedPlant()
+    {
+        plants.Remove(selectedPlant);
+        selectedPlant = null;
+        InventoryUI.RemoveButton(selectedPlant);
+    }
+
+    public static void AddPlant(Plant plant)
+    {
+        plants.Add(plant);
+        InventoryUI.Instance.CreatePlantButtons(new List<Plant>(){ plant });
     }
 }
 

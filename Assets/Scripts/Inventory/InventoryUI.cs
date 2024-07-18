@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
@@ -8,8 +7,8 @@ public class InventoryUI : MonoBehaviour
     public static InventoryUI Instance { get; private set; }
     [SerializeField] private GameObject buttonContainer;
     [SerializeField] private GameObject plantButtonPrefab;
-
-    private List<GameObject> plantButtons;
+    private static Dictionary<GameObject, Plant> plantButtons;
+    private static GameObject selectedButton;
 
 
     void Awake()
@@ -24,6 +23,7 @@ public class InventoryUI : MonoBehaviour
             Instance = this;
         }
     }
+    
     void Start()
     {
         inventoryCanvas = GetComponent<Canvas>();
@@ -38,7 +38,7 @@ public class InventoryUI : MonoBehaviour
     public void CreatePlantButtons(List<Plant> plants)
     {
         if (plantButtons == null)
-            plantButtons = new List<GameObject>();
+            plantButtons = new Dictionary<GameObject, Plant>();
 
         if (plants.Count == 0)
         {
@@ -50,7 +50,39 @@ public class InventoryUI : MonoBehaviour
         {
             GameObject plantButton = Instantiate(plantButtonPrefab, buttonContainer.transform);
             plantButton.GetComponent<InventoryPlantButton>().SetPlant(plant);
-            plantButtons.Add(plantButton);
+            plantButtons.Add(plantButton, plant);
         }
+    }
+
+    public static void SetSelectedButton(GameObject selectedButton)
+    {
+        InventoryUI.selectedButton = selectedButton;
+
+        // set selected plant
+        if (selectedButton != null)
+        {
+            Plant selectedPlant = plantButtons[InventoryUI.selectedButton];
+            Inventory.SetSelectedPlant(selectedPlant);
+        }
+        else
+            Inventory.SetSelectedPlant(null);
+
+        // deselect all other buttons
+        foreach (GameObject button in plantButtons.Keys)
+            if (button != selectedButton)
+                button.GetComponent<InventoryPlantButton>().Deselect();
+    }
+
+    public static void RemoveButton(Plant plant)
+    {
+        foreach (GameObject button in plantButtons.Keys)
+            if (plantButtons[button] == plant)
+            {
+                if (button == selectedButton)
+                    SetSelectedButton(null);
+
+                Destroy(button);
+                plantButtons.Remove(button);
+            }
     }
 }
