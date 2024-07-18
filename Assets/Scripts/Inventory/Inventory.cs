@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class Inventory : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class Inventory : MonoBehaviour
         inventoryDataPath = Application.persistentDataPath + "/inventoryData.json";
 
         LoadPlantsFromDisk();
+
+        StartCoroutine(CreatePlantButtons());
 
         selectedPlant = null;
     }
@@ -78,6 +81,15 @@ public class Inventory : MonoBehaviour
         Debug.Log("Inventory Saved: " + inventoryDataPath);
     }
 
+    private IEnumerator CreatePlantButtons()
+    {
+        while (InventoryUI.Instance == null)
+            yield return null;
+        
+
+        Debug.Log("Creating Plant Buttons...");
+        InventoryUI.Instance.CreatePlantButtons(plants);
+    }
     public static void SetSelectedPlant(Plant selectedPlant)
     {
         Inventory.selectedPlant = selectedPlant;
