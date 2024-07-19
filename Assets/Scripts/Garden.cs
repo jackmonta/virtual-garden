@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,10 +38,35 @@ public class Garden : MonoBehaviour
             Vector3 touchPosition = DetectGardenTouch().Value;
             Plant plantToSpawn = Inventory.GetSelectedPlant();
             GameObject plantObj = Instantiate(vasePrefab, touchPosition, Quaternion.Euler(-90, 0, 0));
-            Inventory.RemoveSelectedPlant();
+            
+            if (CollideWithOtherPlants(plantObj))
+            {
+                Destroy(plantObj);
+                Debug.Log("Collision detected");
+                return;
+            }
 
             plants.Add(plantToSpawn, plantObj);
+            Inventory.RemoveSelectedPlant();
         }
+    }
+
+    private bool CollideWithOtherPlants(GameObject plantObj)
+    {
+        if (plantObj.GetComponent<Collider>() == null)
+            throw new Exception("No collider for this gameObject");
+        
+        Collider collider = plantObj.GetComponent<Collider>();
+
+        foreach (GameObject otherPlantObj in plants.Values)
+        {
+            Collider otherCollider = otherPlantObj.GetComponent<Collider>();
+
+            if (collider.bounds.Intersects(otherCollider.bounds))
+                return true;
+        }
+
+        return false;
     }
 
     private Vector3? DetectGardenTouch()
