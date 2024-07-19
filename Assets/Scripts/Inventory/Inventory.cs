@@ -96,9 +96,15 @@ public class Inventory : MonoBehaviour
 
     public static void RemoveSelectedPlant()
     {
+        if (selectedPlant == null)
+        {
+            Debug.Log("No plant selected to remove.");
+            return;
+        }
+
         plants.Remove(selectedPlant);
-        selectedPlant = null;
         InventoryUI.RemoveButton(selectedPlant);
+        selectedPlant = null;
     }
 
     public static void AddPlant(Plant plant)

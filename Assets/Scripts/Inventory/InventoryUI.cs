@@ -75,14 +75,25 @@ public class InventoryUI : MonoBehaviour
 
     public static void RemoveButton(Plant plant)
     {
+        GameObject buttonToRemove = null;
+
         foreach (GameObject button in plantButtons.Keys)
             if (plantButtons[button] == plant)
             {
-                if (button == selectedButton)
-                    SetSelectedButton(null);
-
-                Destroy(button);
-                plantButtons.Remove(button);
+                buttonToRemove = button;
+                break;
             }
+
+        if (buttonToRemove == null)
+        {
+            Debug.Log("Button not found for plant: " + plant.Name);
+            return;
+        }
+        
+        if (buttonToRemove == selectedButton)
+            SetSelectedButton(null);
+
+        plantButtons.Remove(buttonToRemove);
+        Destroy(buttonToRemove);
     }
 }
