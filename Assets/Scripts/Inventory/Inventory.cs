@@ -94,6 +94,11 @@ public class Inventory : MonoBehaviour
         Inventory.selectedPlant = selectedPlant;
     }
 
+    public static Plant GetSelectedPlant()
+    {
+        return selectedPlant;
+    }
+    
     public static void RemoveSelectedPlant()
     {
         if (selectedPlant == null)

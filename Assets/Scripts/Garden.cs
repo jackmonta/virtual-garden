@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
@@ -7,6 +8,7 @@ public class Garden : MonoBehaviour
     [SerializeField] private GameObject vasePrefab;
     public static Garden Instance { get; set; }
     private ARPlane plane;
+    private Dictionary<Plant, GameObject> plants;
 
     private void Awake()
     {
@@ -18,6 +20,47 @@ public class Garden : MonoBehaviour
         {
             Instance = this;
         }
+
+        plants = new Dictionary<Plant, GameObject>();
+    }
+
+    private void Update()
+    {
+        if (plane == null) return;
+
+        if (Inventory.GetSelectedPlant() == null) return;
+
+        var touchPoint = DetectGardenTouch();
+        if (touchPoint.HasValue)
+        {
+            Debug.Log("Garden touch detected");
+            Vector3 touchPosition = DetectGardenTouch().Value;
+            Plant plantToSpawn = Inventory.GetSelectedPlant();
+            GameObject plantObj = Instantiate(plantToSpawn.Prefab, touchPosition, Quaternion.Euler(-90, 0, 0));
+            Inventory.RemoveSelectedPlant();
+
+            plants.Add(plantToSpawn, plantObj);
+        }
+    }
+
+    private Vector3? DetectGardenTouch()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Ended)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    if (hit.collider.gameObject == plane.GetComponent<MeshCollider>().gameObject)
+                        return hit.point;
+                    
+                    return null;
+                }
+            }
+        }
+        return null;
     }
 
     public void SetGardenPlane(ARPlane plane)

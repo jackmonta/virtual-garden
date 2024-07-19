@@ -4889,6 +4889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1170142957}
   - component: {fileID: 1170142956}
+  - component: {fileID: 1170142959}
   m_Layer: 0
   m_Name: Garden
   m_TagString: Untagged
@@ -4911,21 +4912,48 @@ MonoBehaviour:
   gardenMaterial: {fileID: 2100000, guid: 03315046045cfd54584d2e95deff601b, type: 2}
   vasePrefab: {fileID: 3797041032255217823, guid: 48d0924600f6c40febb7ce4d2a6dc2c7,
     type: 3}
---- !u!4 &1170142957
-Transform:
+--- !u!224 &1170142957
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170142955}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 550.25, y: 241.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 550.25, y: 241.25}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &1170142959
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170142955}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &1262986090
 GameObject:
   m_ObjectHideFlags: 0
@@ -8976,6 +9004,6 @@ SceneRoots:
   - {fileID: 2099970469}
   - {fileID: 331264285}
   - {fileID: 80198814}
-  - {fileID: 1170142957}
   - {fileID: 1940496808}
   - {fileID: 1073471945}
+  - {fileID: 1170142957}
