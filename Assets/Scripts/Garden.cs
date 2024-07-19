@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 
 public class Garden : MonoBehaviour
@@ -33,10 +34,9 @@ public class Garden : MonoBehaviour
         var touchPoint = DetectGardenTouch();
         if (touchPoint.HasValue)
         {
-            Debug.Log("Garden touch detected");
             Vector3 touchPosition = DetectGardenTouch().Value;
             Plant plantToSpawn = Inventory.GetSelectedPlant();
-            GameObject plantObj = Instantiate(plantToSpawn.Prefab, touchPosition, Quaternion.Euler(-90, 0, 0));
+            GameObject plantObj = Instantiate(vasePrefab, touchPosition, Quaternion.Euler(-90, 0, 0));
             Inventory.RemoveSelectedPlant();
 
             plants.Add(plantToSpawn, plantObj);
@@ -53,7 +53,10 @@ public class Garden : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(touch.position);
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    if (hit.collider.gameObject == plane.GetComponent<MeshCollider>().gameObject)
+                    bool uiHit = IsPointerOverUI(touch.position);
+                    bool gardenHit = hit.collider.gameObject == plane.GetComponent<MeshCollider>().gameObject;
+
+                    if (!uiHit && gardenHit)
                         return hit.point;
                     
                     return null;
@@ -61,6 +64,19 @@ public class Garden : MonoBehaviour
             }
         }
         return null;
+    }
+
+    private bool IsPointerOverUI(Vector2 pos)
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current)
+        {
+            position = pos
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        return results.Count > 0;
     }
 
     public void SetGardenPlane(ARPlane plane)
