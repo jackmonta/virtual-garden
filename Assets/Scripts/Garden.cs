@@ -37,7 +37,7 @@ public class Garden : MonoBehaviour
         {
             Vector3 touchPosition = DetectGardenTouch().Value;
             Plant plantToSpawn = Inventory.GetSelectedPlant();
-            GameObject plantObj = Instantiate(vasePrefab, touchPosition, Quaternion.Euler(-90, 0, 0));
+            GameObject plantObj = Instantiate(plantToSpawn.Prefab, touchPosition, Quaternion.Euler(-90, 0, 0));
             
             if (CollideWithOtherPlants(plantObj))
             {
