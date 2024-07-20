@@ -30,14 +30,56 @@ public class Garden : MonoBehaviour
     {
         if (plane == null) return;
 
-        if (Inventory.GetSelectedPlant() == null) return;
+        // plant touch
+        Plant plant = DetectPlantTouch();
+        if (plant != null)
+        {
+            GardenSelectedPlant.SetSelectedPlant(plant, plants[plant]);
+            return;
+        }
 
+        // garden touch
         var touchPoint = DetectGardenTouch();
-        if (touchPoint.HasValue)
+        if (touchPoint.HasValue && Inventory.GetSelectedPlant() != null)
         {
             Vector3 touchPosition = DetectGardenTouch().Value;
             Plant plantToSpawn = Inventory.GetSelectedPlant();
-            GameObject plantObj = Instantiate(plantToSpawn.Prefab, touchPosition, Quaternion.Euler(-90, 0, 0));
+            SpawnPlant(plantToSpawn, touchPosition);
+            return;
+        }
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+            GardenSelectedPlant.SetSelectedPlant(null, null);
+    }
+
+    private Plant DetectPlantTouch()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Ended)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    GameObject hitObject = hit.collider.gameObject;
+                    
+                    if (!plants.ContainsValue(hitObject))
+                        return null;
+                    
+                    foreach (Plant plant in plants.Keys)
+                        if (plants[plant] == hitObject)
+                            return plant;
+                }
+            }
+            return null;
+        }
+        return null;
+    }
+
+    private void SpawnPlant(Plant plantToSpawn, Vector3 touchPosition)
+    {
+        GameObject plantObj = Instantiate(plantToSpawn.Prefab, touchPosition, Quaternion.Euler(-90, 0, 0));
             
             if (CollideWithOtherPlants(plantObj))
             {
@@ -48,7 +90,6 @@ public class Garden : MonoBehaviour
 
             plants.Add(plantToSpawn, plantObj);
             Inventory.RemoveSelectedPlant();
-        }
     }
 
     private bool CollideWithOtherPlants(GameObject plantObj)
