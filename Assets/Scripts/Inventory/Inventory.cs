@@ -8,6 +8,7 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory Instance { get; set; }
     private static string inventoryDataPath;
+    [SerializeField] private List<Plant> starterPlants;
     private static List<Plant> plants;
     private static Plant selectedPlant;
 
@@ -53,7 +54,7 @@ public class Inventory : MonoBehaviour
 
             Debug.Log("No plants found in inventory data at " + inventoryDataPath);
             Debug.Log("Creating a new inventory...");
-            plants = new List<Plant>();
+            plants = starterPlants;
         }
         else
             Debug.Log("No inventory data found at " + inventoryDataPath);
@@ -64,15 +65,7 @@ public class Inventory : MonoBehaviour
         PlantList plantList = new PlantList();
 
         if (plants == null || plants.Count == 0)
-        {
-            List<Plant> temp = new List<Plant>()
-            {
-                new Plant(1, "Plant 1", null),
-                new Plant(2, "Plant 2", null),
-                new Plant(3, "Plant 3", null)
-            };
-            plantList.plants = temp;
-        }
+            plantList.plants = starterPlants;
         else
             plantList.plants = plants;
 

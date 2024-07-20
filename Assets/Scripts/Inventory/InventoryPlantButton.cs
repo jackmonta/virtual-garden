@@ -35,12 +35,9 @@ public class InventoryPlantButton : MonoBehaviour
 
     public void SetPlant(Plant plant)
     {
-        SetName(plant.Name);
-        //plantIcon.GetComponent<Image>().sprite = plant.Icon;
-    }
-
-    private void SetName(string name)
-    {
-        plantName.GetComponent<TextMeshProUGUI>().text = name;
+        plantName.GetComponent<TextMeshProUGUI>().text = plant.name;
+        
+        if (plant.Icon != null)
+            plantIcon.GetComponent<Image>().sprite = plant.Icon;
     }
 }
