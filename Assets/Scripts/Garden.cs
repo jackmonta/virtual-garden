@@ -5,7 +5,9 @@ public class Garden : MonoBehaviour
 {
     [SerializeField] private Material gardenMaterial;
     [SerializeField] private GameObject vasePrefab;
-    [SerializeField] private GameObject plantPrefab; // Add plant prefab reference
+    [SerializeField] private GameObject plantPrefab;
+    [SerializeField] private GameObject wateringCanPrefab;
+    
     public static Garden Instance { get; set; }
     private ARPlane plane;
 
@@ -30,7 +32,22 @@ public class Garden : MonoBehaviour
         MeshRenderer renderer = planeObj.GetComponent<MeshRenderer>();
         renderer.material = gardenMaterial;
 
+        PlaceWateringCan(); 
         PlaceVases();
+    }
+    
+    private void PlaceWateringCan()
+    {
+        Vector3 planeCenter = plane.center;
+        float planeWidth = plane.size.x;
+        float planeHeight = plane.size.y;
+
+        // Position the watering can near the center of the plane
+        Vector3 wateringCanPosition = planeCenter + new Vector3(planeWidth / 4, 0, planeHeight / 4);
+        GameObject wateringCan = Instantiate(wateringCanPrefab, wateringCanPosition, Quaternion.identity);
+
+        // Adjust the scale of the watering can if necessary
+        wateringCan.transform.localScale = Vector3.one * 0.5f; // Adjust scale as needed
     }
 
     private void PlaceVases()
