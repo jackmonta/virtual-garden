@@ -4913,7 +4913,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gardenMaterial: {fileID: 2100000, guid: 03315046045cfd54584d2e95deff601b, type: 2}
-  vasePrefab: {fileID: 3797041032255217823, guid: 48d0924600f6c40febb7ce4d2a6dc2c7,
+  vasePrefab: {fileID: 919132149155446097, guid: 8e610b7e4d28f40d0aca7b9c98405f19,
+    type: 3}
+  plantPrefab: {fileID: 1382615103653959344, guid: 35f2dfc214e124c98adada29357043d4,
+    type: 3}
+  wateringCanPrefab: {fileID: 342539753409945721, guid: 87ed3d8670a10433e99fbfd127e676c7,
     type: 3}
 --- !u!224 &1170142957
 RectTransform:

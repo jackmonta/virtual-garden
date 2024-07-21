@@ -26,6 +26,9 @@
 # Visual Studio cache directory
 .vs/
 
+# Mac directory cache
+.DS_Store
+
 # Ignore Visual Studio configuration file
 .vsconfig
 
