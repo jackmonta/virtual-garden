@@ -66,7 +66,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d19448c4590d54d209289cd67a4293a1,
         type: 3}
       propertyPath: m_Name
-      value: Red_rose
+      value: red_rose_prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -75,7 +75,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d19448c4590d54d209289cd67a4293a1,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: -2680952857749190038}
+      addedObject: {fileID: 9207884091134195809}
   m_SourcePrefab: {fileID: 100100000, guid: d19448c4590d54d209289cd67a4293a1, type: 3}
 --- !u!1 &1382615103653959344 stripped
 GameObject:
@@ -83,7 +83,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2301727319866174433}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &-2680952857749190038
+--- !u!64 &9207884091134195809
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,4 +104,4 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: -2432090755550338912, guid: d19448c4590d54d209289cd67a4293a1, type: 3}

@@ -82,17 +82,18 @@ public class Garden : MonoBehaviour
 
     private void SpawnPlant(Plant plantToSpawn, Vector3 touchPosition)
     {
-        GameObject plantObj = Instantiate(plantToSpawn.Prefab, touchPosition, Quaternion.Euler(-90, 0, 0));
-            
-            if (CollideWithOtherPlants(plantObj))
-            {
-                Destroy(plantObj);
-                Debug.Log("Collision detected");
-                return;
-            }
+        GameObject vaseObj = Instantiate(vasePrefab, touchPosition, Quaternion.identity);
 
-            plants.Add(plantToSpawn, plantObj);
-            Inventory.RemoveSelectedPlant();
+        if (CollideWithOtherPlants(vaseObj))
+        {
+            Destroy(vaseObj);
+            Debug.Log("Collision detected");
+            return;
+        }
+        
+        Inventory.RemoveSelectedPlant();
+        GameObject plantObj = PlacePlantInVase(plantToSpawn.Prefab, vaseObj, touchPosition);
+        plants.Add(plantToSpawn, plantObj);
     }
 
     private bool CollideWithOtherPlants(GameObject plantObj)
@@ -200,28 +201,28 @@ public class Garden : MonoBehaviour
                 if (vaseIndex >= numVases) break;
 
                 Vector3 vasePosition = planeCenter + new Vector3((i - vasesPerRow / 2) * spacingX, 0, (j - vasesPerRow / 2) * spacingZ);
-                GameObject vase = Instantiate(vasePrefab, vasePosition, Quaternion.identity);
+                GameObject vaseObj = Instantiate(vasePrefab, vasePosition, Quaternion.identity);
 
                 // Scale the vase based on the plane size
-                vase.transform.localScale = Vector3.one * 0.2f * planeScaleFactor;
+                vaseObj.transform.localScale = Vector3.one * 0.2f * planeScaleFactor;
 
                 // Ensure the vase fits within the plane boundaries
-                vase.transform.position = new Vector3(
-                    Mathf.Clamp(vase.transform.position.x, planeCenter.x - planeWidth / 2 + spacingX / 2, planeCenter.x + planeWidth / 2 - spacingX / 2),
-                    vase.transform.position.y,
-                    Mathf.Clamp(vase.transform.position.z, planeCenter.z - planeHeight / 2 + spacingZ / 2, planeCenter.z + planeHeight / 2 - spacingZ / 2)
+                vaseObj.transform.position = new Vector3(
+                    Mathf.Clamp(vaseObj.transform.position.x, planeCenter.x - planeWidth / 2 + spacingX / 2, planeCenter.x + planeWidth / 2 - spacingX / 2),
+                    vaseObj.transform.position.y,
+                    Mathf.Clamp(vaseObj.transform.position.z, planeCenter.z - planeHeight / 2 + spacingZ / 2, planeCenter.z + planeHeight / 2 - spacingZ / 2)
                 );
 
                 // Place plant prefab inside the vase
-                PlacePlantInVase(vase, vase.transform.position);
+                PlacePlantInVase(plantPrefab, vaseObj, vaseObj.transform.position);
             }
         }
     }
 
-    private void PlacePlantInVase(GameObject vase, Vector3 vasePosition)
+    private GameObject PlacePlantInVase(GameObject plantPrefab, GameObject vasePrefab, Vector3 vasePosition)
     {
         // Get the renderer of the vase to calculate its actual height
-        Renderer vaseRenderer = vase.GetComponentInChildren<Renderer>();
+        Renderer vaseRenderer = vasePrefab.GetComponentInChildren<Renderer>();
         if(vaseRenderer != null)
         {
             float vaseHeight = vaseRenderer.bounds.size.y;
@@ -230,19 +231,23 @@ public class Garden : MonoBehaviour
             Vector3 vaseTopPosition = vasePosition + new Vector3(0, vaseHeight / 2, 0);
 
             // Instantiate the plant and set its parent to the vase
-            GameObject plant = Instantiate(plantPrefab, vaseTopPosition, Quaternion.identity);
-            plant.transform.SetParent(vase.transform);
+            GameObject plantObj = Instantiate(plantPrefab, vaseTopPosition, Quaternion.identity);
+            plantObj.transform.SetParent(vasePrefab.transform);
 
             // Adjust the plant's scale (if needed)
-            plant.transform.localScale = Vector3.one * 0.2f; // Adjust scale as needed
+            plantObj.transform.localScale = Vector3.one * 0.2f; // Adjust scale as needed
 
             // Ensure the bottom of the plant is aligned with the top of the vase
-            Renderer plantRenderer = plant.GetComponentInChildren<Renderer>();
+            Renderer plantRenderer = plantObj.GetComponentInChildren<Renderer>();
             if (plantRenderer != null)
             {
                 float plantHeight = plantRenderer.bounds.size.y;
-                plant.transform.localPosition = new Vector3(0, vaseHeight / 2 + plantHeight / 2, 0);
+                plantObj.transform.localPosition = new Vector3(0, vaseHeight / 2 + plantHeight / 2, 0);
             }
+
+            return plantObj;
         }
+
+        return null;
     }
 }
