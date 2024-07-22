@@ -2,44 +2,54 @@ using UnityEngine;
 
 public class WateringCanController : MonoBehaviour
 {
-    public ParticleSystem waterParticles;
-    private Quaternion initialRotation;
-    private Quaternion targetRotation;
-    public float inclinationSpeed = 1.0f;
-    public float emissionThreshold = 20.0f; // Degrees
+    public ParticleSystem waterParticleSystem;
+    public float rotationSpeed = 20f; // Speed of rotation
+
+    private float particleSystemDuration;
+    private float elapsedTime;
 
     void Start()
     {
-        initialRotation = transform.rotation;
-        waterParticles.Stop();
+        // Get the duration of the particle system
+        var main = waterParticleSystem.main;
+        particleSystemDuration = main.duration;
+
+        // Start the particle system and reset elapsed time
+        waterParticleSystem.Play();
+        elapsedTime = 0f;
     }
 
     void Update()
     {
-        // Incline the watering can using input keys
-        if (Input.GetKey(KeyCode.I)) // 'I' for incline
+        // Rotate the watering can while the particle system is playing
+        if (waterParticleSystem.isPlaying)
         {
-            targetRotation = Quaternion.Euler(transform.eulerAngles.x + inclinationSpeed, transform.eulerAngles.y, transform.eulerAngles.z);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime);
-        }
+            elapsedTime += Time.deltaTime;
+            RotateWateringCan();
 
-        if (Input.GetKey(KeyCode.D)) // 'D' for decline
-        {
-            targetRotation = Quaternion.Euler(transform.eulerAngles.x - inclinationSpeed, transform.eulerAngles.y, transform.eulerAngles.z);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime);
+            // Stop the particle system and reset elapsed time if the duration is exceeded
+            if (elapsedTime > particleSystemDuration)
+            {
+                waterParticleSystem.Stop();
+            }
         }
+    }
 
-        // Check the inclination angle to control particle emission
-        float angle = Quaternion.Angle(initialRotation, transform.rotation);
-        if (angle > emissionThreshold)
+    void RotateWateringCan()
+    {
+        float downDuration = particleSystemDuration * 0.2f;
+        float upDuration = particleSystemDuration - downDuration;
+
+        // Determine rotation direction based on elapsed time
+        if (elapsedTime < downDuration)
         {
-            if (!waterParticles.isEmitting)
-                waterParticles.Play();
+            // Rotate right
+            transform.Rotate(Vector3.right, rotationSpeed * Time.deltaTime);
         }
-        else
+        else if (elapsedTime > upDuration && elapsedTime < particleSystemDuration)
         {
-            if (waterParticles.isEmitting)
-                waterParticles.Stop();
+            // Rotate left
+            transform.Rotate(Vector3.right, -rotationSpeed * Time.deltaTime);
         }
     }
 }

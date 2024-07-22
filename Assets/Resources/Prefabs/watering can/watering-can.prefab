@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 342539753409945721}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.134565, y: 0.00055842736, z: 168.39362}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -47,9 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 374cdc63ea72643f0a4f33bc3e8c91c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterParticles: {fileID: 1814480868929958537}
-  inclinationSpeed: 1
-  emissionThreshold: 20
+  waterParticleSystem: {fileID: 1814480868929958537}
+  rotationSpeed: 50
 --- !u!1 &2627437924252264794
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,13 +158,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3010899931297584312}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.21452272, y: -0.26423833, z: 0.28812313, w: -0.8950661}
-  m_LocalPosition: {x: 15.773, y: 14.763, z: 1.1186559}
+  m_LocalRotation: {x: -0.030282864, y: 0.3952671, z: 0.35793635, w: -0.8454162}
+  m_LocalPosition: {x: 0, y: 0.42199993, z: 0.4560547}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1120027122539395779}
-  m_LocalEulerAnglesHint: {x: -13.401, y: -322.169, z: -40.298}
+  m_LocalEulerAnglesHint: {x: -13.401, y: -405.18, z: -40.298}
 --- !u!198 &1814480868929958537
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -174,7 +173,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3010899931297584312}
   serializedVersion: 8
-  lengthInSec: 1
+  lengthInSec: 3
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -884,7 +883,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.0001
+      value: 0.05
       mode: 0
       spread: 0
       speed:
