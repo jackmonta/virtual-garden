@@ -33,85 +33,68 @@ public class Garden : MonoBehaviour
     {
         if (plane == null) return;
 
-        // plant touch
-        Plant plant = DetectPlantTouch();
-        if (plant != null)
-        {
-            GardenSelectedPlant.SetSelectedPlant(plant, plants[plant]);
-            return;
-        }
-
         // garden touch
         var touchPoint = DetectGardenTouch();
         if (touchPoint.HasValue && Inventory.GetSelectedPlant() != null)
         {
             Vector3 touchPosition = DetectGardenTouch().Value;
             Plant plantToSpawn = Inventory.GetSelectedPlant();
-            SpawnPlant(plantToSpawn, touchPosition);
+            GameObject plantObj = SpawnPlant(plantToSpawn, touchPosition);
+
+            if (plantObj != null)
+            {
+                plants.Add(plantToSpawn, plantObj);
+                Inventory.RemoveSelectedPlant();
+            }
             return;
         }
 
+        // hit outside the garden
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
-            GardenSelectedPlant.SetSelectedPlant(null, null);
+            GardenPlant.SetSelectedPlant(null);
     }
 
-    private Plant DetectPlantTouch()
+    private GameObject SpawnPlant(Plant plantToSpawn, Vector3 touchPosition)
     {
-        if (Input.touchCount > 0)
+        // instantiating vase object, if possible
+        if (!CanSpawnPrefab(vasePrefab, touchPosition))
         {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Ended)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                if (Physics.Raycast(ray, out RaycastHit hit))
-                {
-                    GameObject hitObject = hit.collider.gameObject;
-                    
-                    if (!plants.ContainsValue(hitObject))
-                        return null;
-                    
-                    foreach (Plant plant in plants.Keys)
-                        if (plants[plant] == hitObject)
-                            return plant;
-                }
-            }
+            Debug.Log("Vase collision detected");
             return null;
         }
-        return null;
-    }
-
-    private void SpawnPlant(Plant plantToSpawn, Vector3 touchPosition)
-    {
         GameObject vaseObj = Instantiate(vasePrefab, touchPosition, Quaternion.identity);
 
-        if (CollideWithOtherPlants(vaseObj))
+        // instantiating plant object, if possible
+        float vaseHeight = vaseObj.GetComponentInChildren<Renderer>().bounds.size.y;
+        Vector3 vaseTopPosition = vaseObj.transform.position + new Vector3(0, vaseHeight / 2, 0);
+        if (!CanSpawnPrefab(plantToSpawn.Prefab, vaseTopPosition))
         {
             Destroy(vaseObj);
-            Debug.Log("Collision detected");
-            return;
+            Debug.Log("Plant collision detected");
+            return null;
         }
+        GameObject plantObj = Instantiate(plantToSpawn.Prefab, vaseTopPosition, Quaternion.identity);
+
+        plantObj.transform.localScale = Vector3.one * 0.07f;
+        vaseObj.transform.SetParent(plantObj.transform);
+        plantObj.AddComponent<GardenPlant>();
+        plantObj.GetComponent<GardenPlant>().Plant = plantToSpawn;
         
-        Inventory.RemoveSelectedPlant();
-        GameObject plantObj = PlacePlantInVase(plantToSpawn.Prefab, vaseObj, touchPosition);
-        plants.Add(plantToSpawn, plantObj);
+        return plantObj;
     }
 
-    private bool CollideWithOtherPlants(GameObject plantObj)
+    bool CanSpawnPrefab(GameObject prefab, Vector3 position)
     {
-        if (plantObj.GetComponent<Collider>() == null)
-            throw new Exception("No collider for this gameObject");
-        
-        Collider collider = plantObj.GetComponent<Collider>();
+        // TODO: fix this method
+        Vector3 halfSize = prefab.GetComponent<Renderer>().bounds.size / 2;
+        Collider[] hitColliders = Physics.OverlapBox(position, halfSize, Quaternion.identity);
 
-        foreach (GameObject otherPlantObj in plants.Values)
-        {
-            Collider otherCollider = otherPlantObj.GetComponent<Collider>();
+        foreach (Collider hitCollider in hitColliders)
+            if (plane == null || hitCollider.gameObject != plane.gameObject)
+                return false; // collision detected
 
-            if (collider.bounds.Intersects(otherCollider.bounds))
-                return true;
-        }
-
-        return false;
+        Debug.Log("No collision detected");
+        return true;
     }
 
     private Vector3? DetectGardenTouch()
@@ -160,8 +143,8 @@ public class Garden : MonoBehaviour
         renderer.material = gardenMaterial;
 
         InventoryUI.ShowUI();
-        PlaceWateringCan(); 
-        PlaceVases();
+        //PlaceWateringCan(); 
+        //PlaceVases();
     }
     
     private void PlaceWateringCan()
@@ -219,35 +202,34 @@ public class Garden : MonoBehaviour
         }
     }
 
-    private GameObject PlacePlantInVase(GameObject plantPrefab, GameObject vasePrefab, Vector3 vasePosition)
+    private GameObject PlacePlantInVase(GameObject plantPrefab, GameObject vaseObj, Vector3 vasePosition)
     {
-        // Get the renderer of the vase to calculate its actual height
-        Renderer vaseRenderer = vasePrefab.GetComponentInChildren<Renderer>();
-        if(vaseRenderer != null)
+        Renderer vaseRenderer = vaseObj.GetComponentInChildren<Renderer>();
+        if(vaseRenderer == null)
         {
-            float vaseHeight = vaseRenderer.bounds.size.y;
-
-            // Calculate the top position of the vase using its actual height
-            Vector3 vaseTopPosition = vasePosition + new Vector3(0, vaseHeight / 2, 0);
-
-            // Instantiate the plant and set its parent to the vase
-            GameObject plantObj = Instantiate(plantPrefab, vaseTopPosition, Quaternion.identity);
-            plantObj.transform.SetParent(vasePrefab.transform);
-
-            // Adjust the plant's scale (if needed)
-            plantObj.transform.localScale = Vector3.one * 0.2f; // Adjust scale as needed
-
-            // Ensure the bottom of the plant is aligned with the top of the vase
-            Renderer plantRenderer = plantObj.GetComponentInChildren<Renderer>();
-            if (plantRenderer != null)
-            {
-                float plantHeight = plantRenderer.bounds.size.y;
-                plantObj.transform.localPosition = new Vector3(0, vaseHeight / 2 + plantHeight / 2, 0);
-            }
-
-            return plantObj;
+            Debug.Log("No renderer found for the vase");
+            return null;
         }
 
-        return null;
+        float vaseHeight = vaseRenderer.bounds.size.y; // height of the vase
+        Vector3 vaseTopPosition = vasePosition + new Vector3(0, vaseHeight / 2, 0);
+
+        // creating plant object
+        GameObject plantObj = Instantiate(plantPrefab, vaseTopPosition, Quaternion.identity);
+        plantObj.transform.localScale = Vector3.one * 0.05f;
+        vaseObj.transform.SetParent(plantObj.transform);
+
+        // positioning plant on top of the vase
+        Renderer plantRenderer = plantObj.GetComponent<Renderer>();
+        if (plantRenderer == null)
+        {
+            Debug.Log("No renderer found for the plant");
+            return null;
+        }
+        
+        float plantHeight = plantRenderer.bounds.size.y;
+        plantObj.transform.localPosition = new Vector3(0, vaseHeight / 2 + plantHeight / 2, 0);
+
+        return plantObj;
     }
 }
