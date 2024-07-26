@@ -4,6 +4,7 @@ using System.Collections;
 public class WaterinCanButtonAnimation : MonoBehaviour
 {
     [SerializeField] private GameObject wateringCanPrefab; // Il prefab da istanziare
+    [SerializeField] private Vector3 offset;
     private static bool isAvailable;
 
     private void Start()
@@ -18,14 +19,12 @@ public class WaterinCanButtonAnimation : MonoBehaviour
         Debug.Log("Starting animation...");
 
         Vector3 plantPosition = GardenPlant.selectedPlant.gameObject.transform.position;
-        Vector3 position = 
-            plantPosition +
-            Vector3.up * 0.4f +
-            Vector3.left * 0.5f;
+        Vector3 position = plantPosition + offset;
         
         GameObject wateringCan = Instantiate(wateringCanPrefab, position, Quaternion.identity);
         wateringCan.transform.localScale = Vector3.one * 0.3f;
-        AlignWithCamera(wateringCan);
+        //AlignWithCamera(wateringCan);
+        RotateTowardsPlant(wateringCan, plantPosition);
         
         ParticleSystem ps = wateringCan.GetComponentInChildren<ParticleSystem>();
         StartCoroutine(DestroyAfterParticleSystem(ps, wateringCan));
@@ -58,5 +57,13 @@ public class WaterinCanButtonAnimation : MonoBehaviour
         
         //Vector3 offset = - obj.transform.forward * 0.2f;
         //obj.transform.position += offset;
+    }
+
+    private void RotateTowardsPlant(GameObject obj, Vector3 plantPosition)
+    {
+        Vector3 direction = plantPosition - obj.transform.position;
+        direction.y = 0; // 0 rotation on the y-axis
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        obj.transform.rotation = targetRotation;
     }
 }
