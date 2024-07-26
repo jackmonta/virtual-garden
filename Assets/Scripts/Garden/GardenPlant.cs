@@ -45,11 +45,15 @@ public class GardenPlant : MonoBehaviour
         if (plant == null)
         {
             selectedPlant = null;
+            PlantUI.ShowUI(false);
             return;
         }
 
         selectedPlant = plant;
         HighlightSelectedPlant(true);
+
+        if (PlantUI.isActive() == false)
+            PlantUI.ShowUI(true);
     } 
     
     private static void HighlightSelectedPlant(bool highlight)
