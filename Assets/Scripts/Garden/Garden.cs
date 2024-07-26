@@ -49,7 +49,7 @@ public class Garden : MonoBehaviour
         }
 
         // hit outside the garden
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && !IsPointerOverUI(Input.GetTouch(0).position))
             GardenPlant.SetSelectedPlant(null);
     }
 
