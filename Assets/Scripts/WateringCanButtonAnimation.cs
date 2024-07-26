@@ -18,7 +18,10 @@ public class WaterinCanButtonAnimation : MonoBehaviour
         Debug.Log("Starting animation...");
 
         Vector3 plantPosition = GardenPlant.selectedPlant.gameObject.transform.position;
-        Vector3 position = plantPosition + Vector3.up * 0.2f;
+        Vector3 position = 
+            plantPosition +
+            Vector3.up * 0.4f +
+            Vector3.left * 0.5f;
         
         GameObject wateringCan = Instantiate(wateringCanPrefab, position, Quaternion.identity);
         wateringCan.transform.localScale = Vector3.one * 0.3f;
