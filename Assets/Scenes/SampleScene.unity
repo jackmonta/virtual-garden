@@ -4912,7 +4912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gardenMaterial: {fileID: 2100000, guid: 03315046045cfd54584d2e95deff601b, type: 2}
-  vasePrefab: {fileID: 5829942184932698900, guid: cd9204e95f09bb647a427c4bfc39de16,
+  vasePrefab: {fileID: 5829942184932698900, guid: 2d96a0ce369457d4ba673bcb9e178303,
     type: 3}
   plantPrefab: {fileID: 1382615103653959344, guid: 35f2dfc214e124c98adada29357043d4,
     type: 3}
