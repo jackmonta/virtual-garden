@@ -1182,7 +1182,7 @@ PrefabInstance:
     - target: {fileID: 2512387470528047737, guid: 48cb3fb68c91eb94999fd99957eb0cae,
         type: 3}
       propertyPath: m_DetectionMode
-      value: -1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2512387470528047738, guid: 48cb3fb68c91eb94999fd99957eb0cae,
         type: 3}
@@ -4892,7 +4892,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1170142957}
   - component: {fileID: 1170142956}
-  - component: {fileID: 1170142958}
   m_Layer: 0
   m_Name: Garden
   m_TagString: Untagged
@@ -4913,7 +4912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gardenMaterial: {fileID: 2100000, guid: 03315046045cfd54584d2e95deff601b, type: 2}
-  vasePrefab: {fileID: 919132149155446097, guid: 8e610b7e4d28f40d0aca7b9c98405f19,
+  vasePrefab: {fileID: 5829942184932698900, guid: cd9204e95f09bb647a427c4bfc39de16,
     type: 3}
   plantPrefab: {fileID: 1382615103653959344, guid: 35f2dfc214e124c98adada29357043d4,
     type: 3}
@@ -4938,19 +4937,6 @@ RectTransform:
   m_AnchoredPosition: {x: 550.25, y: 241.25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1170142958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170142955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d888e91b8bbaad438d120f96ee3217f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 6680644d44dd1104197b7190c9859798, type: 2}
 --- !u!1 &1262986090
 GameObject:
   m_ObjectHideFlags: 0
