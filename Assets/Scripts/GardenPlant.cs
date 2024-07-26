@@ -5,22 +5,27 @@ using UnityEngine;
 public class GardenPlant : MonoBehaviour
 {
     public static GardenPlant selectedPlant;
+    public static List<Collider> colliderList;
     private static Material highlightMaterial;
     public Plant Plant { get; set; }
-    public GameObject PlantObj { get; private set;}
-    public GameObject VaseObj { get; private set;}
+    public GameObject PlantObj { get; private set; }
+    public GameObject VaseObj { get; private set; }
     
     void Start()
     {
         PlantObj = this.gameObject;
-        VaseObj = this.gameObject.transform.GetChild(0).gameObject;
+        VaseObj = this.gameObject.transform.Find("Vase").gameObject;
+    
+        if (colliderList == null)
+            colliderList = new List<Collider>();
 
-        // TODO: check collision with other plants
-
-        Debug.Log("Created new GardenPlant");
-
+        colliderList.Add(PlantObj.GetComponent<Collider>());
+        colliderList.Add(VaseObj.GetComponent<Collider>());
+    
         if (highlightMaterial == null)
             highlightMaterial = Resources.Load<Material>("Shaders/Outline Material");
+        
+        Debug.Log("Created new GardenPlant");
     }
 
     void Update()
@@ -49,22 +54,25 @@ public class GardenPlant : MonoBehaviour
     
     private static void HighlightSelectedPlant(bool highlight)
     {
-        GameObject plantObj = selectedPlant.PlantObj;
-        GameObject vaseObj = selectedPlant.VaseObj;
-        List<GameObject> objects = new List<GameObject> {plantObj, vaseObj};
+        List<GameObject> objects = new List<GameObject>
+        {
+            selectedPlant.PlantObj,
+            selectedPlant.VaseObj
+        };
 
         if (highlight)
         {
             foreach (GameObject obj in objects)
             {
                 Material[] materials = obj.GetComponent<MeshRenderer>().materials;
-                
+                Debug.Log("Original materials for " + obj.name + ": " + string.Join(", ", materials.Select(m => m.name)));
                 List<Material> materialList = new List<Material>(materials)
                 {
                     highlightMaterial
                 };
                 obj.GetComponent<MeshRenderer>().materials = materialList.ToArray();
-                Debug.Log("Highlighted " + obj.name);
+                Debug.Log("Updated materials for " + obj.name + ": " + string.Join(", ", obj.GetComponent<MeshRenderer>().materials.Select(m => m.name)));
+                Debug.Log("HIGHLIGHTED " + obj.name);
             }
         }
         else
@@ -73,8 +81,8 @@ public class GardenPlant : MonoBehaviour
             {
                 Material[] materials = obj.GetComponent<MeshRenderer>().materials;
                 obj.GetComponent<MeshRenderer>().materials = materials.Take(materials.Length - 1).ToArray();
+                Debug.Log("UN-HIGHLIGHTED " + obj.name);
             }
-            Debug.Log("Plant unhighlighted");
         }
     }
     

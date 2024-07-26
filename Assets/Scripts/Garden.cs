@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -56,24 +55,25 @@ public class Garden : MonoBehaviour
 
     private GameObject SpawnPlant(Plant plantToSpawn, Vector3 touchPosition)
     {
-        // instantiating vase object, if possible
-        if (!CanSpawnPrefab(vasePrefab, touchPosition))
+        GameObject vaseObj = SpawnPrefab(vasePrefab, touchPosition);
+        if (vaseObj == null)
         {
             Debug.Log("Vase collision detected");
             return null;
         }
-        GameObject vaseObj = Instantiate(vasePrefab, touchPosition, Quaternion.identity);
+        vaseObj.name = "Vase";
 
-        // instantiating plant object, if possible
         float vaseHeight = vaseObj.GetComponentInChildren<Renderer>().bounds.size.y;
         Vector3 vaseTopPosition = vaseObj.transform.position + new Vector3(0, vaseHeight / 2, 0);
-        if (!CanSpawnPrefab(plantToSpawn.Prefab, vaseTopPosition))
+
+        GameObject plantObj = SpawnPrefab(plantToSpawn.Prefab, vaseTopPosition);
+        if (plantObj == null)
         {
-            Destroy(vaseObj);
             Debug.Log("Plant collision detected");
+            Destroy(vaseObj);
             return null;
         }
-        GameObject plantObj = Instantiate(plantToSpawn.Prefab, vaseTopPosition, Quaternion.identity);
+        plantObj.name = "Plant";
 
         plantObj.transform.localScale = Vector3.one * 0.07f;
         vaseObj.transform.SetParent(plantObj.transform);
@@ -83,18 +83,24 @@ public class Garden : MonoBehaviour
         return plantObj;
     }
 
-    bool CanSpawnPrefab(GameObject prefab, Vector3 position)
+    GameObject SpawnPrefab(GameObject prefab, Vector3 position)
     {
-        // TODO: fix this method
-        Vector3 halfSize = prefab.GetComponent<Renderer>().bounds.size / 2;
-        Collider[] hitColliders = Physics.OverlapBox(position, halfSize, Quaternion.identity);
+        GameObject obj = Instantiate(prefab, position, Quaternion.identity);
 
-        foreach (Collider hitCollider in hitColliders)
-            if (plane == null || hitCollider.gameObject != plane.gameObject)
-                return false; // collision detected
+        // checking collisions TODO: improve this
+        if (GardenPlant.colliderList != null)
+        {
+            Collider collider = obj.GetComponent<Collider>();
 
-        Debug.Log("No collision detected");
-        return true;
+            foreach (Collider otherCollider in GardenPlant.colliderList)    
+                if (collider.bounds.Intersects(otherCollider.bounds))
+                {
+                    Destroy(obj);
+                    return null;
+                }
+        }
+
+        return obj;
     }
 
     private Vector3? DetectGardenTouch()
