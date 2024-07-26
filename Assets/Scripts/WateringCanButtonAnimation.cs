@@ -1,65 +1,31 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Collections;
-using UnityEngine.XR.ARFoundation;
 
 public class WaterinCanButtonAnimation : MonoBehaviour
 {
-    public GameObject wateringCanPrefab; // Il prefab da istanziare
-    private bool isEnabled = false; // Variabile per abilitare/disabilitare l'istanziazionee
+    [SerializeField] private GameObject wateringCanPrefab; // Il prefab da istanziare
+    private static bool isAvailable;
 
-    void Update()
+    private void Start()
     {
-        if (isEnabled && Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Ended && !IsPointerOverUIObject(touch))
-            {
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                if (Physics.Raycast(ray, out RaycastHit hit))
-                {
-                    GameObject hitObject = hit.collider.gameObject;
-                    
-                    // Verifica se l'oggetto ha un componente ARPlane
-                    if (hitObject.GetComponent<ARPlane>() != null)
-                    {
-                        Debug.Log("Tocco su ARPlane ignorato.");
-                        return; // Ignora questo tocco
-                    }
-                    
-                    Vector3 position = hitObject.transform.position + Vector3.up * 0.2f;
-                    
-                    GameObject wateringCan = Instantiate(wateringCanPrefab, position, Quaternion.identity);
-                    wateringCan.transform.localScale = Vector3.one * 0.3f;
-                    AlignWithCamera(wateringCan);
-                    
-                    ParticleSystem ps = wateringCan.GetComponentInChildren<ParticleSystem>();
-                    if (ps != null)
-                    {
-                        StartCoroutine(DestroyAfterParticleSystem(ps, wateringCan));
-                    }
-                    else
-                    {
-                        Destroy(wateringCan); // Distruggi immediatamente se non c'è un Particle System
-                    }
-                }
-            }
-        }
+        isAvailable = true;
     }
 
-    // Metodo per abilitare l'istanziazione
-    public void EnableInstantiation()
+    public void StartAnimation()
     {
-        isEnabled = true;
-    }
-    
-    private bool IsPointerOverUIObject(Touch touch)
-    {
-        PointerEventData eventData = new PointerEventData(EventSystem.current);
-        eventData.position = new Vector2(touch.position.x, touch.position.y);
-        var results = new System.Collections.Generic.List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventData, results);
-        return results.Count > 0;
+        if (!isAvailable) return;
+        isAvailable = false;
+        Debug.Log("Starting animation...");
+
+        Vector3 plantPosition = GardenPlant.selectedPlant.gameObject.transform.position;
+        Vector3 position = plantPosition + Vector3.up * 0.2f;
+        
+        GameObject wateringCan = Instantiate(wateringCanPrefab, position, Quaternion.identity);
+        wateringCan.transform.localScale = Vector3.one * 0.3f;
+        AlignWithCamera(wateringCan);
+        
+        ParticleSystem ps = wateringCan.GetComponentInChildren<ParticleSystem>();
+        StartCoroutine(DestroyAfterParticleSystem(ps, wateringCan));
     }
     
     private IEnumerator DestroyAfterParticleSystem(ParticleSystem ps, GameObject obj)
@@ -67,8 +33,8 @@ public class WaterinCanButtonAnimation : MonoBehaviour
         // Attendi la durata del Particle System
         yield return new WaitForSeconds(ps.main.duration);
         
-        // Distruggi l'oggetto
         Destroy(obj);
+        isAvailable = true;
     }
     
     private void AlignWithCamera(GameObject obj)
