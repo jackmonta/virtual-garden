@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,7 +13,7 @@ public class GardenPlant : MonoBehaviour
     public GameObject PlantObj { get; private set; }
     public GameObject VaseObj { get; private set; }
     
-    void Start()
+    IEnumerator Start()
     {
         PlantObj = this.gameObject;
         VaseObj = this.gameObject.transform.Find("Vase").gameObject;
@@ -26,6 +28,18 @@ public class GardenPlant : MonoBehaviour
             highlightMaterial = Resources.Load<Material>("Shaders/Outline Material");
         
         Debug.Log("Created new GardenPlant");
+
+        while(true) 
+        {
+            yield return new WaitForSeconds(3f);
+            DecreaseHealth(2f);
+        }
+    }
+
+    private void DecreaseHealth(float amount)
+    {
+        Plant.DecreaseHealth(amount);
+        Debug.Log("Plant health: " + Plant.CurrentHealth);
     }
 
     void Update()
@@ -110,4 +124,11 @@ public class GardenPlant : MonoBehaviour
         return false;
     }
 
+    void OnParticleCollision(GameObject other)
+    {
+        if (Plant == null) return;
+
+        Plant.IncreaseHealth(1f);
+        Debug.Log("Plant health: " + Plant.CurrentHealth);
+    }
 }
