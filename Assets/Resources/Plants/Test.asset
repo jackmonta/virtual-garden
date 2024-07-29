@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2750323b5cee874bacb87b9b969e676, type: 3}
-  m_Name: Pot 1
+  m_Name: Test
   m_EditorClassIdentifier: 
-  name: Pot
-  health: 100
-  icon: {fileID: 21300000, guid: 8a45b30277e4e4bf0a2104b9870d433b, type: 3}
-  prefab: {fileID: 3797041032255217823, guid: 48d0924600f6c40febb7ce4d2a6dc2c7, type: 3}
+  name: Test
+  health: 2000
+  icon: {fileID: 21300000, guid: ed3bd8bef796a438dac8b778a887af91, type: 3}
+  prefab: {fileID: 1382615103653959344, guid: 35f2dfc214e124c98adada29357043d4, type: 3}
