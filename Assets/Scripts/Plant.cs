@@ -9,6 +9,10 @@ public class Plant : ScriptableObject
     public string Name { get { return name; } }
     
     [SerializeField]
+    private int price;
+    public int Price { get { return price; } }
+    
+    [SerializeField]
     private float health;
     public float Health { get { return health; } }
     
