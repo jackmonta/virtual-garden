@@ -39,7 +39,7 @@ public class GardenPlant : MonoBehaviour
     private void DecreaseHealth(float amount)
     {
         Plant.DecreaseHealth(amount);
-        Debug.Log("Plant health: " + Plant.CurrentHealth);
+        HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
     }
 
     void Update()
@@ -68,6 +68,8 @@ public class GardenPlant : MonoBehaviour
 
         if (PlantUI.isActive() == false)
             PlantUI.ShowUI(true);
+        HealthBar.Instance.SetMaxHealth(plant.Plant.Health);
+        HealthBar.Instance.UpdateHealthBar(plant.Plant.CurrentHealth.Value);
     } 
     
     private static void HighlightSelectedPlant(bool highlight)
@@ -129,6 +131,6 @@ public class GardenPlant : MonoBehaviour
         if (Plant == null) return;
 
         Plant.IncreaseHealth(1f);
-        Debug.Log("Plant health: " + Plant.CurrentHealth);
+        HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
     }
 }

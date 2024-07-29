@@ -12,8 +12,8 @@ public class Plant : ScriptableObject
     private float health;
     public float Health { get { return health; } }
     
-    private float currentHealth;
-    public float CurrentHealth { get { return currentHealth; } }
+    private float? currentHealth;
+    public float? CurrentHealth { get { return currentHealth.HasValue ? currentHealth.Value : null; } }
     
     [SerializeField]
     private Sprite icon;
