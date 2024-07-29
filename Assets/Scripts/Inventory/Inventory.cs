@@ -24,9 +24,13 @@ public class Inventory : MonoBehaviour
             Instance = this;
         }
 
+        // loading data from disk
         inventoryDataPath = Application.persistentDataPath + "/inventoryData.json";
-
-        LoadPlantsFromDisk();
+        List<Plant> plants = DataManager.LoadFromDisk<List<Plant>>(inventoryDataPath);
+        if (plants != null)
+            Inventory.plants = plants;
+        else
+            Inventory.plants = starterPlants;
 
         StartCoroutine(CreatePlantButtons());
 
@@ -35,43 +39,7 @@ public class Inventory : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        SavePlantsToDisk();
-    }
-
-    private void LoadPlantsFromDisk()
-    {
-        if (File.Exists(inventoryDataPath))
-        {
-            string json = File.ReadAllText(inventoryDataPath);
-            PlantList plantList = JsonUtility.FromJson<PlantList>(json);
-
-            if (plantList != null && plantList.plants != null)
-            {
-                plants = plantList.plants;
-                Debug.Log("Inventory Loaded: " + inventoryDataPath);
-                return;
-            }
-
-            Debug.Log("No plants found in inventory data at " + inventoryDataPath);
-            Debug.Log("Creating a new inventory...");
-            plants = starterPlants;
-        }
-        else
-            Debug.Log("No inventory data found at " + inventoryDataPath);
-    }
-
-    private void SavePlantsToDisk()
-    {
-        PlantList plantList = new PlantList();
-
-        if (plants == null || plants.Count == 0)
-            plantList.plants = starterPlants;
-        else
-            plantList.plants = plants;
-
-        string json = JsonUtility.ToJson(plantList);
-        File.WriteAllText(inventoryDataPath, json);
-        Debug.Log("Inventory Saved: " + inventoryDataPath);
+        DataManager.SaveToDisk(inventoryDataPath, plants);
     }
 
     private IEnumerator CreatePlantButtons()
@@ -110,10 +78,4 @@ public class Inventory : MonoBehaviour
         plants.Add(plant);
         InventoryUI.Instance.CreatePlantButtons(new List<Plant>(){ plant });
     }
-}
-
-[Serializable]
-public class PlantList
-{
-    public List<Plant> plants;
 }
