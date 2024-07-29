@@ -3,20 +3,20 @@ using UnityEngine;
 public class WateringCanController : MonoBehaviour
 {
     public ParticleSystem waterParticleSystem;
-    public float rotationSpeed = 20f; // Speed of rotation
+    public static bool isAvailable = true;
+    public float rotationSpeed = 20f; // rotation speed
 
     private float particleSystemDuration;
     private float elapsedTime;
 
     void Start()
     {
-        // Get the duration of the particle system
+        isAvailable = false;
         var main = waterParticleSystem.main;
         particleSystemDuration = main.duration;
 
-        // Start the particle system and reset elapsed time
-        waterParticleSystem.Play();
         elapsedTime = 0f;
+        waterParticleSystem.Play();
     }
 
     void Update()
@@ -27,10 +27,12 @@ public class WateringCanController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             RotateWateringCan();
 
-            // Stop the particle system and reset elapsed time if the duration is exceeded
+            // animation ended
             if (elapsedTime > particleSystemDuration)
             {
                 waterParticleSystem.Stop();
+                isAvailable = true;
+                Destroy(gameObject);
             }
         }
     }
