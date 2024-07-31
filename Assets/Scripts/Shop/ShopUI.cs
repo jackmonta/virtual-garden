@@ -26,16 +26,12 @@ public class ShopUI : MonoBehaviour
 
         openButton.onClick.AddListener(() => {
             shopPanel.SetActive(true);
-
-            openButton.enabled = false;
-            closeButton.enabled = true;
+            openButton.gameObject.SetActive(false);
         });
 
         closeButton.onClick.AddListener(() => {
             shopPanel.SetActive(false);
-            
-            closeButton.enabled = false;
-            openButton.enabled = true;
+            openButton.gameObject.SetActive(true);
         });
 
         openButton.gameObject.SetActive(false);
