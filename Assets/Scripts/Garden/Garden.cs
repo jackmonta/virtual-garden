@@ -149,8 +149,8 @@ public class Garden : MonoBehaviour
         renderer.material = gardenMaterial;
 
         InventoryUI.ShowUI();
-        ShopUI.ShowUI();
-        PlaceWateringCan(); 
+        ShopUI.Instance.ShowUI();
+        //PlaceWateringCan(); 
         //PlaceVases();
     }
     
