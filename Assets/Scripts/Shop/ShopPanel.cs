@@ -5,6 +5,7 @@ public class ShopPanel : MonoBehaviour
 {
     public static ShopPanel Instance { get; private set; }
     [SerializeField] private Button closeShopButton;
+    [SerializeField] private GameObject ButtonsContent;
     [SerializeField] private GameObject shopItemButtonPrefab;
     private bool isLoaded;
 
@@ -44,6 +45,8 @@ public class ShopPanel : MonoBehaviour
     {
         Shop.ShopPlants.ForEach((Plant p) => {
             GameObject shopItemButtonObj = Instantiate(shopItemButtonPrefab, transform);
+            shopItemButtonObj.transform.SetParent(ButtonsContent.transform, false);
+            
             ShopItemButton shopItemButton = shopItemButtonObj.GetComponent<ShopItemButton>();
             shopItemButton.SetPlant(p);
         });
@@ -51,7 +54,7 @@ public class ShopPanel : MonoBehaviour
 
     public void Refresh()
     {
-        foreach (Transform child in transform)
+        foreach (Transform child in ButtonsContent.transform)
             Destroy(child.gameObject);
 
         LoadShopItems();
