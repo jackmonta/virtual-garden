@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class Shop : MonoBehaviour
     public static Wallet wallet;
 
     [SerializeField] private List<Plant> starterShopPlants;
-    private static List<Plant> shopPlants;
+    public static List<Plant> ShopPlants { get; private set; }
 
     void Awake()
     {
@@ -26,20 +27,28 @@ public class Shop : MonoBehaviour
         shopDataPath = Application.persistentDataPath + "/shopData.json";
         List<Plant> plants = DataManager.LoadFromDisk<List<Plant>>(shopDataPath);
         if (plants != null)
-            shopPlants = plants;
+            ShopPlants = plants;
         else
         {
-            shopPlants = starterShopPlants;
+            ShopPlants = starterShopPlants;
             Debug.Log("No file found, created new shop");
         }
 
         walletDataPath = Application.persistentDataPath + "walletData.json";
         wallet = Wallet.Load(walletDataPath);
     }
-
     void OnApplicationQuit()
     {
-        DataManager.SaveToDisk(shopDataPath, shopPlants);
+        DataManager.SaveToDisk(shopDataPath, ShopPlants);
         wallet.Save(walletDataPath);
+    }
+
+    public static void RemovePlant(Plant plant)
+    {
+        if (ShopPlants.Contains(plant))
+        {
+            ShopPlants.Remove(plant);
+            ShopPanel.Instance.Refresh();
+        }
     }
 }

@@ -4735,6 +4735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starterShopPlants:
   - {fileID: 11400000, guid: ee1c0ddc405695a4783075e53def6662, type: 2}
+  - {fileID: 11400000, guid: 93e175cb69d77d847b1c6e17d4a484b6, type: 2}
 --- !u!4 &1078596127
 Transform:
   m_ObjectHideFlags: 0

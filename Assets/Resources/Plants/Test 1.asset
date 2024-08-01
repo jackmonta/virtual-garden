@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2750323b5cee874bacb87b9b969e676, type: 3}
-  m_Name: Test
+  m_Name: Test 1
   m_EditorClassIdentifier: 
-  name: Test
+  name: Test 1
   price: 0
   health: 20
   icon: {fileID: 21300000, guid: 4216aa950c3d04665ba85191ced11370, type: 3}

@@ -36,4 +36,19 @@ public class Wallet
             return new Wallet();
         }
     }
+
+    public void AddMoney(int amount)
+    {
+        Money += amount;
+    }
+
+    public void SubtractMoney(int amount)
+    {
+        Money -= amount;
+    }
+
+    public bool CanAfford(int amount)
+    {
+        return Money >= amount;
+    }
 }
