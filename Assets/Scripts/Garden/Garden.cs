@@ -9,6 +9,7 @@ public class Garden : MonoBehaviour
     [SerializeField] private GameObject vasePrefab;
     [SerializeField] private GameObject plantPrefab;
     [SerializeField] private GameObject wateringCanPrefab;
+    [SerializeField] private GameObject insectPrefab;
     
     public static Garden Instance { get; set; }
     private ARPlane plane;
@@ -79,6 +80,7 @@ public class Garden : MonoBehaviour
         vaseObj.transform.SetParent(plantObj.transform);
         plantObj.AddComponent<GardenPlant>();
         plantObj.GetComponent<GardenPlant>().Plant = plantToSpawn;
+        plantObj.GetComponent<GardenPlant>().insectPrefab = insectPrefab;
         
         return plantObj;
     }

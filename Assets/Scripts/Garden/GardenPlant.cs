@@ -10,6 +10,9 @@ public class GardenPlant : MonoBehaviour
     public static List<Collider> colliderList;
     private static Material highlightMaterial;
     public Plant Plant { get; set; }
+    
+    public GameObject insectPrefab { get; set; }
+    private List<GameObject> spawnedInsects = new List<GameObject>();
     public GameObject PlantObj { get; private set; }
     public GameObject VaseObj { get; private set; }
     
@@ -33,6 +36,7 @@ public class GardenPlant : MonoBehaviour
         {
             yield return new WaitForSeconds(3f);
             DecreaseHealth(2f);
+            TrySpawnInsect();
         }
     }
 
@@ -132,5 +136,48 @@ public class GardenPlant : MonoBehaviour
 
         Plant.IncreaseHealth(1f);
         HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
+    }
+    
+    private void TrySpawnInsect()
+    {
+        if (spawnedInsects.Count >= 10) return; 
+        /*float spawnChance = UnityEngine.Random.Range(0f, 100f);
+        if (spawnChance <= 2f)  // 2% di probabilità
+        {
+            SpawnInsects(20);
+        }*/
+        SpawnInsects(10 - spawnedInsects.Count);
+    }
+    
+    // Metodo per spawnare 20 insetti attorno alla pianta
+    private void SpawnInsects(int numberOfInsects)
+    {
+        float insectSpawnRadius = 0.1f;
+        for (int i = 0; i < numberOfInsects; i++)
+        {
+            Vector3 randomPosition = transform.position + new Vector3(
+                UnityEngine.Random.Range(-insectSpawnRadius, insectSpawnRadius), 
+                UnityEngine.Random.Range(1f, 2f),  // Altezza casuale
+                UnityEngine.Random.Range(-insectSpawnRadius, insectSpawnRadius)
+            );
+
+            GameObject insect = Instantiate(insectPrefab, randomPosition, Quaternion.identity);
+            insect.transform.localScale /= 30f;
+            spawnedInsects.Add(insect);
+
+            // Aggiungi il comportamento di volo attorno alla pianta
+            FlyAround flyScript = insect.GetComponent<FlyAround>();
+            if (flyScript != null)
+            {
+                flyScript.target = this.transform;  // La pianta diventa il target
+                flyScript.radius = insectSpawnRadius;  // Imposta il raggio di volo
+                flyScript.speed = UnityEngine.Random.Range(0.5f, 2f);  // Velocità casuale per ogni insetto
+            }
+
+            Debug.Log("Insetto creato vicino alla pianta " + this.name);
+        }
+        
+        //Destroy(insect);
+        //spawnedInsects.Remove(insect);  
     }
 }
