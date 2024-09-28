@@ -13,7 +13,7 @@ public class FlyAround : MonoBehaviour
     private void Start()
     {
         // Posiziona l'insetto a una distanza casuale dal target
-        offset = new Vector3(Random.Range(-radius, radius), Random.Range(-heightVariation, heightVariation), Random.Range(-radius, radius));
+        offset = new Vector3(Random.Range(-radius, radius), Random.Range(heightVariation, 2*heightVariation), Random.Range(-radius, radius));
     }
 
     private void Update()
@@ -27,6 +27,6 @@ public class FlyAround : MonoBehaviour
 
         Vector3 newPosition = new Vector3(x, offset.y, z) + target.position;
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * speed);
-        transform.LookAt(target); // Mantieni l'insetto rivolto verso la pianta
+        transform.LookAt(target.position + Vector3.up * (2*heightVariation)); // Mantieni l'insetto rivolto verso la pianta
     }
 }

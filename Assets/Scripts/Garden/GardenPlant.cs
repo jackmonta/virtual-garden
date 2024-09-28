@@ -141,28 +141,28 @@ public class GardenPlant : MonoBehaviour
     private void TrySpawnInsect()
     {
         if (spawnedInsects.Count >= 10) return; 
-        /*float spawnChance = UnityEngine.Random.Range(0f, 100f);
-        if (spawnChance <= 2f)  // 2% di probabilità
+        float spawnChance = UnityEngine.Random.Range(0f, 100f);
+        if (spawnChance <= 10f)  // 10% di probabilità ogni 3 secondi
         {
-            SpawnInsects(20);
-        }*/
-        SpawnInsects(10 - spawnedInsects.Count);
+            SpawnInsects(10 - spawnedInsects.Count);
+        }
     }
     
     // Metodo per spawnare 20 insetti attorno alla pianta
     private void SpawnInsects(int numberOfInsects)
     {
         float insectSpawnRadius = 0.1f;
+        float insectSpawnHeight = VaseObj.GetComponent<Collider>().bounds.size.y + PlantObj.GetComponent<Collider>().bounds.size.y;
         for (int i = 0; i < numberOfInsects; i++)
         {
             Vector3 randomPosition = transform.position + new Vector3(
                 UnityEngine.Random.Range(-insectSpawnRadius, insectSpawnRadius), 
-                UnityEngine.Random.Range(1f, 2f),  // Altezza casuale
+                insectSpawnHeight,
                 UnityEngine.Random.Range(-insectSpawnRadius, insectSpawnRadius)
             );
 
             GameObject insect = Instantiate(insectPrefab, randomPosition, Quaternion.identity);
-            insect.transform.localScale /= 30f;
+            insect.transform.localScale /= 50f;
             spawnedInsects.Add(insect);
 
             // Aggiungi il comportamento di volo attorno alla pianta
@@ -173,11 +173,14 @@ public class GardenPlant : MonoBehaviour
                 flyScript.radius = insectSpawnRadius;  // Imposta il raggio di volo
                 flyScript.speed = UnityEngine.Random.Range(0.5f, 2f);  // Velocità casuale per ogni insetto
             }
-
-            Debug.Log("Insetto creato vicino alla pianta " + this.name);
+            
         }
-        
-        //Destroy(insect);
-        //spawnedInsects.Remove(insect);  
+    }
+    
+    public void RemoveInsects()
+    {
+        foreach (GameObject insect in spawnedInsects)
+            Destroy(insect);
+        spawnedInsects.Clear();
     }
 }

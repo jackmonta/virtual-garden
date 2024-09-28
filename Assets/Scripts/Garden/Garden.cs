@@ -8,8 +8,9 @@ public class Garden : MonoBehaviour
     [SerializeField] private Material gardenMaterial;
     [SerializeField] private GameObject vasePrefab;
     [SerializeField] private GameObject plantPrefab;
-    [SerializeField] private GameObject wateringCanPrefab;
+    //[SerializeField] private GameObject wateringCanPrefab;
     [SerializeField] private GameObject insectPrefab;
+    //[SerializeField] private GameObject insecticidePrefab;
     
     public static Garden Instance { get; set; }
     private ARPlane plane;
@@ -156,7 +157,7 @@ public class Garden : MonoBehaviour
         //PlaceVases();
     }
     
-    private void PlaceWateringCan()
+    /*private void PlaceWateringCan()
     {
         Vector3 planeCenter = plane.center;
         float planeWidth = plane.size.x;
@@ -164,10 +165,10 @@ public class Garden : MonoBehaviour
 
         // Position the watering can near the center of the plane
         Vector3 wateringCanPosition = planeCenter + new Vector3(planeWidth / 4, 0, planeHeight / 4);
-        GameObject wateringCan = Instantiate(wateringCanPrefab, wateringCanPosition, Quaternion.identity);
+        GameObject wateringCan = Instantiate(insecticidePrefab, wateringCanPosition, Quaternion.identity);
 
         // Adjust the scale of the watering can if necessary
-        wateringCan.transform.localScale = Vector3.one * 0.5f; // Adjust scale as needed
+        wateringCan.transform.localScale = Vector3.one / 50f; // Adjust scale as needed
     }
 
     private void PlaceVases()
@@ -240,5 +241,5 @@ public class Garden : MonoBehaviour
         plantObj.transform.localPosition = new Vector3(0, vaseHeight / 2 + plantHeight / 2, 0);
 
         return plantObj;
-    }
+    }*/
 }
