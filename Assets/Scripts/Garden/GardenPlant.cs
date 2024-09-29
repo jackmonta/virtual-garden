@@ -43,7 +43,8 @@ public class GardenPlant : MonoBehaviour
     private void DecreaseHealth(float amount)
     {
         Plant.DecreaseHealth(amount);
-        HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
+        if (selectedPlant == this)
+            HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
     }
 
     void Update()
@@ -135,7 +136,8 @@ public class GardenPlant : MonoBehaviour
         if (Plant == null) return;
 
         Plant.IncreaseHealth(1f);
-        HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
+        if (selectedPlant == this)
+            HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
     }
     
     private void TrySpawnInsect()
