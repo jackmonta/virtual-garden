@@ -26,20 +26,43 @@ public class Inventory : MonoBehaviour
 
         // loading data from disk
         inventoryDataPath = Application.persistentDataPath + "/inventoryData.json";
-        List<Plant> plants = DataManager.LoadFromDisk<List<Plant>>(inventoryDataPath);
-        if (plants != null)
-            Inventory.plants = plants;
+        List<Plant> loadedPlants = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plants;
+        if (loadedPlants != null && loadedPlants.Count > 0)
+        {
+            Debug.Log(loadedPlants.Count + " plants loaded from disk.");
+            Inventory.plants = loadedPlants;
+        }
         else
+        {
+            Debug.Log("No plants loaded from disk, loading starter set.");
             Inventory.plants = starterPlants;
+        }
 
         StartCoroutine(CreatePlantButtons());
+        StartCoroutine(AutoSaveCoroutine(15f));
 
         selectedPlant = null;
     }
 
+    private void SaveInventory()
+    {
+        PlantList plantsToSerialize = new PlantList();
+        plantsToSerialize.plants = plants;
+        //plantsToSerialize.plants = starterPlants;
+        DataManager.SaveToDisk(inventoryDataPath, plantsToSerialize);
+    }
+
     void OnApplicationQuit()
     {
-        DataManager.SaveToDisk(inventoryDataPath, plants);
+        SaveInventory();
+    }
+    private IEnumerator AutoSaveCoroutine(float saveInterval)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(saveInterval);
+            SaveInventory();
+        }
     }
 
     private IEnumerator CreatePlantButtons()
