@@ -14,10 +14,7 @@ public static class DataManager
     public static T LoadFromDisk<T>(string filePath)
     {
         if (!File.Exists(filePath))
-        {
-            Debug.Log("No file found at " + filePath);
-            return default;
-        }
+            throw new FileNotFoundException("The file does not exist.", filePath);
 
         string json = File.ReadAllText(filePath);
         Debug.Log("Json Data: " + json);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class Inventory : MonoBehaviour
 {
@@ -26,16 +27,13 @@ public class Inventory : MonoBehaviour
         inventoryDataPath = Application.persistentDataPath + "/inventoryData.json";
         
         // loading data from disk
-        List<Plant> loadedPlants = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plants;
-        if (loadedPlants != null && loadedPlants.Count > 0)
-        {
-            Debug.Log(loadedPlants.Count + " plants loaded from disk.");
-            Inventory.plants = loadedPlants;
-        }
-        else
+        try {
+            plants = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plants;
+            Debug.Log(plants.Count + " inventory plants loaded from disk.");
+        } catch (Exception)
         {
             Debug.Log("No plants loaded from disk, loading starter set.");
-            Inventory.plants = starterPlants;
+            plants = starterPlants;
         }
 
         StartCoroutine(CreatePlantButtons());
