@@ -1,24 +1,7 @@
-using System.Collections;
 using UnityEngine;
 
 public class GameSaver : MonoBehaviour
 {
-    private float interval = 15f;
-
-    void Start()
-    {
-        StartCoroutine(StartAutoSaveCoroutine());
-    }
-
-    private IEnumerator StartAutoSaveCoroutine()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(interval);
-            SaveAll();
-            Debug.Log("Game Saved!");
-        }
-    }
 
     private void SaveInventory()
     {
@@ -44,7 +27,7 @@ public class GameSaver : MonoBehaviour
         DataManager.SaveToDisk(Shop.shopDataPath, plantsToSerialize);
     }
     
-    public void SaveWallet()
+    private void SaveWallet()
     {
         if (Wallet.Instance == null)
         {
@@ -56,9 +39,18 @@ public class GameSaver : MonoBehaviour
 
     private void SaveAll()
     {
+        Debug.Log("Saving Game...");
+
         SaveInventory();
         SaveShop();
         SaveWallet();
+
+        Debug.Log("Game Saved!");
+    }
+
+    void OnApplicationPause()
+    {
+        SaveAll();
     }
 
     void OnApplicationQuit()
