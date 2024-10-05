@@ -1,15 +1,15 @@
-using System;
-using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance { get; set; }
-    private static string inventoryDataPath;
+    public static string inventoryDataPath;
     [SerializeField] private List<Plant> starterPlants;
     private static List<Plant> plants;
+    public static List<Plant> Plants { get { return plants; } }
     private static Plant selectedPlant;
 
     void Awake()
@@ -24,22 +24,21 @@ public class Inventory : MonoBehaviour
             Instance = this;
         }
 
-        // loading data from disk
         inventoryDataPath = Application.persistentDataPath + "/inventoryData.json";
-        List<Plant> plants = DataManager.LoadFromDisk<List<Plant>>(inventoryDataPath);
-        if (plants != null)
-            Inventory.plants = plants;
-        else
-            Inventory.plants = starterPlants;
+        
+        // loading data from disk
+        try {
+            plants = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plants;
+            Debug.Log(plants.Count + " inventory plants loaded from disk.");
+        } catch (Exception)
+        {
+            Debug.Log("No plants loaded from disk, loading starter set.");
+            plants = starterPlants;
+        }
 
         StartCoroutine(CreatePlantButtons());
 
         selectedPlant = null;
-    }
-
-    void OnApplicationQuit()
-    {
-        DataManager.SaveToDisk(inventoryDataPath, plants);
     }
 
     private IEnumerator CreatePlantButtons()

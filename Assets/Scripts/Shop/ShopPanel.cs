@@ -36,7 +36,7 @@ public class ShopPanel : MonoBehaviour
     {
         if (isLoaded == false)
         {
-            LoadShopItems();
+            Refresh();
             isLoaded = true;
         }
     }

@@ -18,9 +18,9 @@ public class ShopItemButton : MonoBehaviour
 
     private void OnButtonClick()
     {
-        if (Shop.wallet.CanAfford(Plant.Price))
+        if (Wallet.Instance.CanAfford(Plant.Price))
         {
-            Shop.wallet.SubtractMoney(Plant.Price);
+            Wallet.Instance.SubtractMoney(Plant.Price);
             Shop.RemovePlant(Plant);
             Inventory.AddPlant(Plant);
         }
