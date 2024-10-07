@@ -4855,6 +4855,9 @@ MonoBehaviour:
   starterShopPlants:
   - {fileID: 11400000, guid: ee1c0ddc405695a4783075e53def6662, type: 2}
   - {fileID: 11400000, guid: 93e175cb69d77d847b1c6e17d4a484b6, type: 2}
+  - {fileID: 11400000, guid: 2f79b4740cf8f4ea7871738d6181e122, type: 2}
+  - {fileID: 11400000, guid: e6d5e072e3ddb41af9a04a3d6fd215eb, type: 2}
+  - {fileID: 11400000, guid: e72f1f7a2a366454e9c32471c0f39366, type: 2}
 --- !u!4 &1078596127
 Transform:
   m_ObjectHideFlags: 0
@@ -5609,8 +5612,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gardenMaterial: {fileID: 2100000, guid: 03315046045cfd54584d2e95deff601b, type: 2}
   vasePrefab: {fileID: 5829942184932698900, guid: 2d96a0ce369457d4ba673bcb9e178303,
-    type: 3}
-  plantPrefab: {fileID: 1382615103653959344, guid: 35f2dfc214e124c98adada29357043d4,
     type: 3}
   insectPrefab: {fileID: 2318808441750598162, guid: e83964681f4e64415b0b409e9b861629,
     type: 3}

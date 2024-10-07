@@ -7,7 +7,7 @@ public class Garden : MonoBehaviour
 {
     [SerializeField] private Material gardenMaterial;
     [SerializeField] private GameObject vasePrefab;
-    [SerializeField] private GameObject plantPrefab;
+    //[SerializeField] private GameObject plantPrefab;
     //[SerializeField] private GameObject wateringCanPrefab;
     [SerializeField] private GameObject insectPrefab;
     //[SerializeField] private GameObject insecticidePrefab;
@@ -68,13 +68,14 @@ public class Garden : MonoBehaviour
         float vaseHeight = vaseObj.GetComponentInChildren<Renderer>().bounds.size.y;
         Vector3 vaseTopPosition = vaseObj.transform.position + new Vector3(0, vaseHeight / 2, 0);
 
-        GameObject plantObj = SpawnPrefab(plantToSpawn.Prefab, vaseTopPosition);
+        /*GameObject plantObj = SpawnPrefab(plantToSpawn.Prefab, vaseTopPosition);
         if (plantObj == null)
         {
             Debug.Log("Plant collision detected");
             Destroy(vaseObj);
             return null;
-        }
+        }*/
+        GameObject plantObj = Instantiate(plantToSpawn.Prefab, vaseTopPosition, Quaternion.identity);
         plantObj.name = "Plant";
 
         plantObj.transform.localScale = Vector3.one * 0.07f;
