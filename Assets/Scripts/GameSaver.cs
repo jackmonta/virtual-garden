@@ -34,7 +34,8 @@ public class GameSaver : MonoBehaviour
             Debug.Log("No wallet instance");
             return;
         }
-        DataManager.SaveToDisk(Wallet.walletDataPath, Wallet.Instance.Money);
+        int money = Wallet.Instance.Money;
+        DataManager.SaveToDisk(Wallet.walletDataPath, money);
     }
 
     private void SaveAll()
