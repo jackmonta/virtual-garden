@@ -23,7 +23,7 @@ public class Wallet : MonoBehaviour
 
         // loading data from disk
         try {
-            Instance.Money = DataManager.LoadFromDisk<int>(walletDataPath);
+            Instance.Money = DataManager.LoadFromDisk<IntWrapper>(walletDataPath).value;
             Debug.Log("Wallet loaded from disk: " + Instance.Money + " coins.");
         } catch (Exception)
         {
