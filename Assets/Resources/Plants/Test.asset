@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: 
   name: Test
-  price: 0
+  price: 25
   health: 20
   icon: {fileID: 21300000, guid: 4216aa950c3d04665ba85191ced11370, type: 3}
   prefab: {fileID: 1382615103653959344, guid: 35f2dfc214e124c98adada29357043d4, type: 3}
