@@ -10,9 +10,8 @@ public class InsecticideController : MonoBehaviour
     private float singleActivationDuration;
     private float particleSystemDuration;
     private float elapsedTime;
+    private GardenPlant insecticideSelectedPlant;
 
-    private GardenPlant insecticidePlant;
-    
     void Start()
     {
         isAvailable = false;
@@ -22,6 +21,7 @@ public class InsecticideController : MonoBehaviour
         particleSystemDuration = singleActivationDuration * particleSystemActivations;
 
         elapsedTime = 0f;
+        insecticideSelectedPlant = GardenPlant.selectedPlant;
         insecticideParticleSystem.Play();
     }
 
@@ -45,7 +45,7 @@ public class InsecticideController : MonoBehaviour
                 insecticideParticleSystem.Stop();
                 isAvailable = true;
                 particleSystemActivations = 3;
-                GardenPlant.selectedPlant?.RemoveInsects(); 
+                insecticideSelectedPlant?.RemoveInsects(); 
                 Destroy(gameObject);
             }
         }

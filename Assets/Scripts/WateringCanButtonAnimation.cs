@@ -8,7 +8,7 @@ public class WaterinCanButtonAnimation : MonoBehaviour
     public void StartAnimation()
     {
         if (!WateringCanController.isAvailable) return;
-        Debug.Log("Starting animation...");
+        Debug.Log("Starting watering can animation...");
 
         Vector3 plantPosition = GardenPlant.selectedPlant.gameObject.transform.position;
         Vector3 position = plantPosition + offset;

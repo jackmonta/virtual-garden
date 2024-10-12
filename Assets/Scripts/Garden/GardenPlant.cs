@@ -15,11 +15,17 @@ public class GardenPlant : MonoBehaviour
     private List<GameObject> spawnedInsects = new List<GameObject>();
     public GameObject PlantObj { get; private set; }
     public GameObject VaseObj { get; private set; }
+
+    public bool plantIsDead = false;
+    
+    private Color originalColor;
     
     IEnumerator Start()
     {
         PlantObj = this.gameObject;
         VaseObj = this.gameObject.transform.Find("Vase").gameObject;
+        
+        originalColor = PlantObj.GetComponent<Renderer>().material.color;
     
         if (colliderList == null)
             colliderList = new List<Collider>();
@@ -36,7 +42,11 @@ public class GardenPlant : MonoBehaviour
         {
             yield return new WaitForSeconds(3f);
             DecreaseHealth(2f);
-            TrySpawnInsect();
+            if(spawnedInsects.Count == 0){
+               TrySpawnInsect();
+            } else {
+               DecreaseHealth(1f);
+            }
         }
     }
 
@@ -46,11 +56,32 @@ public class GardenPlant : MonoBehaviour
         if (selectedPlant == this)
             HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
     }
+    
+    public void potionRevitalizing()
+    {
+        plantIsDead = false;
+        Plant.SetMaxHealth();
+        if (selectedPlant == this)
+            HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
+    }
+    
+    
 
     void Update()
     {
         if (DetectTouch())
             SetSelectedPlant(this);
+        
+        if (Plant.CurrentHealth.Value <= 0){
+            plantIsDead = true;
+            Color darkGrey = new Color(0.2f, 0.2f, 0.2f); 
+            SetPlantColor(darkGrey); 
+        } else if (Plant.CurrentHealth.Value >= 0 && PlantObj.GetComponent<Renderer>().materials[0].color != originalColor)
+        {
+            plantIsDead = false;
+            SetPlantColor(originalColor);
+        }
+
     }
     
     public static void SetSelectedPlant(GardenPlant plant)
@@ -133,7 +164,7 @@ public class GardenPlant : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
-        if (Plant == null) return;
+        if (Plant == null || plantIsDead) return;
 
         Plant.IncreaseHealth(1f);
         if (selectedPlant == this)
@@ -144,7 +175,7 @@ public class GardenPlant : MonoBehaviour
     {
         if (spawnedInsects.Count >= 10) return; 
         float spawnChance = UnityEngine.Random.Range(0f, 100f);
-        if (spawnChance <= 10f)  // 10% di probabilità ogni 3 secondi
+        if (spawnChance <= 5f)  // 5% di probabilità ogni 3 secondi
         {
             SpawnInsects(10 - spawnedInsects.Count);
         }
@@ -184,5 +215,25 @@ public class GardenPlant : MonoBehaviour
         foreach (GameObject insect in spawnedInsects)
             Destroy(insect);
         spawnedInsects.Clear();
+    }
+    
+    private void SetPlantColor(Color color)
+    {
+        List<GameObject> objects = new List<GameObject> { PlantObj, VaseObj };
+        foreach (GameObject obj in objects)
+        {
+            Renderer renderer = obj.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                foreach (Material mat in renderer.materials)
+                {
+                    mat.color = color;  // Imposta un colore grigio o marrone
+                }
+            }
+        }
+    }
+    
+    public bool IsDead() {
+        return plantIsDead;
     }
 }

@@ -8,7 +8,7 @@ public class InsecticideButtonAnimation : MonoBehaviour
     public void StartAnimation()
     {
         if (!InsecticideController.isAvailable) return;
-        Debug.Log("Starting animation...");
+        Debug.Log("Starting insecticide animation...");
 
         Vector3 plantPosition = GardenPlant.selectedPlant.gameObject.transform.position;
         Vector3 position = plantPosition + offset;

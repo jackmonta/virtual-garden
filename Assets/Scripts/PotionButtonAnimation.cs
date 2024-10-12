@@ -4,18 +4,21 @@ public class PotionButtonAnimation : MonoBehaviour
 {
     [SerializeField] private GameObject potionPrefab;
     [SerializeField] private Vector3 offset;
+    
+    private GardenPlant potionSelectedPlant;
 
     public void StartAnimation() 
     {
-        //if (!PotionController.isAvailable) return;
-        //Debug.Log("Starting animation...");
+        
+        Debug.Log("Starting potion animation...");
+        potionSelectedPlant = GardenPlant.selectedPlant;
+        if (!potionSelectedPlant.IsDead()) return;
 
-        Vector3 plantPosition = GardenPlant.selectedPlant.gameObject.transform.position;
+        Vector3 plantPosition = potionSelectedPlant.gameObject.transform.position;
         Vector3 position = plantPosition + offset;
         
         GameObject potion = Instantiate(potionPrefab, position, Quaternion.identity);
-        potion.transform.localScale = Vector3.one * 0.3f;
-        potion.AddComponent<ForcePosition>().Initialize(position);
+        potion.AddComponent<ForcePosition>().Initialize(position, potionSelectedPlant);
         RotateTowardsPlant(potion, plantPosition);
     }
     private void RotateTowardsPlant(GameObject obj, Vector3 plantPosition)
@@ -30,11 +33,14 @@ public class PotionButtonAnimation : MonoBehaviour
 public class ForcePosition : MonoBehaviour
 {
     private Vector3 targetPosition;
+    private GardenPlant potionSelectedPlant;
     private float lifeTime = 2.3f; // Durata vita dell'oggetto in secondi
 
-    public void Initialize(Vector3 position)
+    public void Initialize(Vector3 position, GardenPlant potionSelectedPlant)
     {
         targetPosition = position;
+        this.potionSelectedPlant = potionSelectedPlant;
+        
     }
 
     private void LateUpdate()
@@ -45,6 +51,7 @@ public class ForcePosition : MonoBehaviour
         if (lifeTime <= 0) {
             Debug.Log("Tempo scaduto. Distruggo l'oggetto.");
             Destroy(gameObject);
+            potionSelectedPlant.potionRevitalizing();
         }
     }
 }
