@@ -1831,7 +1831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   potionPrefab: {fileID: 6872559616872381144, guid: 58763e8b420594cca8d52a6bc4152ced,
     type: 3}
-  offset: {x: 0, y: 0.3, z: 0.3}
+  offset: {x: 0, y: 0.25, z: 0.25}
 --- !u!114 &484662611
 MonoBehaviour:
   m_ObjectHideFlags: 0

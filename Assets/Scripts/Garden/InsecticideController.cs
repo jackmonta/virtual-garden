@@ -11,6 +11,8 @@ public class InsecticideController : MonoBehaviour
     private float particleSystemDuration;
     private float elapsedTime;
 
+    private GardenPlant insecticidePlant;
+    
     void Start()
     {
         isAvailable = false;

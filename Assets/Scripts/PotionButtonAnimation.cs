@@ -30,6 +30,7 @@ public class PotionButtonAnimation : MonoBehaviour
 public class ForcePosition : MonoBehaviour
 {
     private Vector3 targetPosition;
+    private float lifeTime = 2.3f; // Durata vita dell'oggetto in secondi
 
     public void Initialize(Vector3 position)
     {
@@ -39,5 +40,11 @@ public class ForcePosition : MonoBehaviour
     private void LateUpdate()
     {
         transform.position = targetPosition; // Forza la posizione corretta
+        
+        lifeTime -= Time.deltaTime;
+        if (lifeTime <= 0) {
+            Debug.Log("Tempo scaduto. Distruggo l'oggetto.");
+            Destroy(gameObject);
+        }
     }
 }
