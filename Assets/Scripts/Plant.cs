@@ -53,8 +53,11 @@ public class Plant : ScriptableObject
         return currentHealth == null;
     }
 
-    public void SetMaxHealth()
-    {
+    public void SetMaxHealth() {
         currentHealth = health;
+    }
+    
+    public float getHealth() {
+        return health;
     }
 }

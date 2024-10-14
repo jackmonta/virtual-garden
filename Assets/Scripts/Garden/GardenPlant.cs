@@ -12,13 +12,16 @@ public class GardenPlant : MonoBehaviour
     public Plant Plant { get; set; }
     
     public GameObject insectPrefab { get; set; }
+    public GameObject dropPrefab { get; set; }
+    private GameObject dropObj;
+    
     private List<GameObject> spawnedInsects = new List<GameObject>();
     public GameObject PlantObj { get; private set; }
     public GameObject VaseObj { get; private set; }
 
     public bool plantIsDead = false;
-    
     private Color originalColor;
+    
     
     IEnumerator Start()
     {
@@ -41,11 +44,10 @@ public class GardenPlant : MonoBehaviour
         while(true) 
         {
             yield return new WaitForSeconds(3f);
-            DecreaseHealth(2f);
             if(spawnedInsects.Count == 0){
                TrySpawnInsect();
             } else {
-               DecreaseHealth(1f);
+               DecreaseHealth(2f);
             }
         }
     }
@@ -69,6 +71,8 @@ public class GardenPlant : MonoBehaviour
 
     void Update()
     {
+        DecreaseHealth(1f * Time.deltaTime);
+        
         if (DetectTouch())
             SetSelectedPlant(this);
         
@@ -76,10 +80,17 @@ public class GardenPlant : MonoBehaviour
             plantIsDead = true;
             Color darkGrey = new Color(0.2f, 0.2f, 0.2f); 
             SetPlantColor(darkGrey); 
-        } else if (Plant.CurrentHealth.Value >= 0 && PlantObj.GetComponent<Renderer>().materials[0].color != originalColor)
-        {
+        } else if (Plant.CurrentHealth.Value <= Plant.getHealth()*0.2 && dropObj == null){
+            Collider plantCollider = PlantObj.GetComponent<Collider>();
+            Vector3 topOfPlant = plantCollider.bounds.center + new Vector3(0, plantCollider.bounds.extents.y, 0) + new Vector3(0, 0.15f, 0); ;
+            dropObj = Instantiate(dropPrefab, topOfPlant, Quaternion.identity);
+        } else if (Plant.CurrentHealth.Value >= 0 && PlantObj.GetComponent<Renderer>().materials[0].color != originalColor){
             plantIsDead = false;
             SetPlantColor(originalColor);
+        } else if (Plant.CurrentHealth.Value > Plant.getHealth()*0.2 && dropObj != null)
+        {
+            Destroy(dropObj);
+            dropObj = null;
         }
 
     }

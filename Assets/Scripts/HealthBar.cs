@@ -29,11 +29,10 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateHealthBar(float health)
     {
-        float roundedHealth = Mathf.Round(health);
+        //float roundedHealth = Mathf.Round(health);
+        //if (healthBar.value == roundedHealth) return;
 
-        if (healthBar.value == roundedHealth) return;
-
-        healthBar.value = roundedHealth;
+        healthBar.value = health;
         healthFill.color = gradient.Evaluate(healthBar.normalizedValue);
     }
 }

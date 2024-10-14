@@ -1831,7 +1831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   potionPrefab: {fileID: 6872559616872381144, guid: 58763e8b420594cca8d52a6bc4152ced,
     type: 3}
-  offset: {x: 0, y: 0.25, z: 0.25}
+  offset: {x: 0, y: 0.25, z: 0.3}
 --- !u!114 &484662611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5780,6 +5780,8 @@ MonoBehaviour:
   vasePrefab: {fileID: 5829942184932698900, guid: 2d96a0ce369457d4ba673bcb9e178303,
     type: 3}
   insectPrefab: {fileID: 2318808441750598162, guid: e83964681f4e64415b0b409e9b861629,
+    type: 3}
+  dropPrefab: {fileID: 9167287300125332905, guid: 58bb9ed7f28b64a1caf4d3ca47662dd4,
     type: 3}
 --- !u!224 &1170142957
 RectTransform:
