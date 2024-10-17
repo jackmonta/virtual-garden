@@ -1,12 +1,10 @@
 using UnityEngine;
-using TMPro; 
 
 public class PotionButtonAnimation : MonoBehaviour
 {
     [SerializeField] private GameObject potionPrefab;
     [SerializeField] private Vector3 offset;
-    [SerializeField] private NonPlantItem nonPlantItem; 
-    [SerializeField] private TextMeshProUGUI notificationText; 
+    [SerializeField] private NonPlantItem nonPlantItem;
     
     private GardenPlant potionSelectedPlant;
 
@@ -18,7 +16,6 @@ public class PotionButtonAnimation : MonoBehaviour
         
         if(nonPlantItem.ClickCount <= 0) return;
         nonPlantItem.DecrementCounter();
-        notificationText.text = nonPlantItem.ClickCount.ToString();
         Debug.Log(nonPlantItem.Name + " selected " + nonPlantItem.ClickCount + " times. animation started");
 
         Vector3 plantPosition = potionSelectedPlant.gameObject.transform.position;

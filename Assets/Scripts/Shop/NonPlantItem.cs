@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro;
+//using TMPro;
 
 [CreateAssetMenu(fileName = "New nonPlant", menuName = "nonPlant", order = 1)]
 [System.Serializable]
@@ -21,28 +21,28 @@ public class NonPlantItem : ScriptableObject
     private int clickCount;
     public int  ClickCount { get { return clickCount; } }
     
-    [SerializeField]
-    public TextMeshProUGUI notificationText;
+    //[SerializeField]
+    //private TextMeshProUGUI notificationText;
     
     public void IncrementCounter()
     {
         clickCount++;
-        UpdateCounterText(); 
+        //UpdateCounterText(); 
     }
     
     public void DecrementCounter()
     {
         if(clickCount > 0){
             clickCount--;
-            UpdateCounterText();
+            //UpdateCounterText();
         }
     }
     
-    private void UpdateCounterText()
+    /*private void UpdateCounterText()
     {
         if (notificationText != null)
         {
             notificationText.text = clickCount.ToString();
         }
-    }
+    }*/
 }

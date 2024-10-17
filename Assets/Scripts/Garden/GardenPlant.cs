@@ -247,4 +247,8 @@ public class GardenPlant : MonoBehaviour
     public bool IsDead() {
         return plantIsDead;
     }
+
+    public bool IsInfected() {
+        return spawnedInsects.Count > 0;
+    }
 }
