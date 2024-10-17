@@ -43,12 +43,22 @@ public class ShopPanel : MonoBehaviour
 
     private void LoadShopItems()
     {
+        // Carica le piante
         Shop.ShopPlants.ForEach((Plant p) => {
             GameObject shopItemButtonObj = Instantiate(shopItemButtonPrefab, transform);
             shopItemButtonObj.transform.SetParent(ButtonsContent.transform, false);
-            
+
             ShopItemButton shopItemButton = shopItemButtonObj.GetComponent<ShopItemButton>();
             shopItemButton.SetPlant(p);
+        });
+
+        // Carica gli oggetti non vegetali
+        Shop.ShopNonPlantItems.ForEach((NonPlantItem item) => {
+            GameObject shopItemButtonObj = Instantiate(shopItemButtonPrefab, transform);
+            shopItemButtonObj.transform.SetParent(ButtonsContent.transform, false);
+
+            ShopItemButton shopItemButton = shopItemButtonObj.GetComponent<ShopItemButton>();
+            shopItemButton.SetNonPlantItem(item);
         });
     }
 
