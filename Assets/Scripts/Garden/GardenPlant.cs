@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using TMPro;
 
 public class GardenPlant : MonoBehaviour
 {
@@ -14,7 +15,6 @@ public class GardenPlant : MonoBehaviour
     public GameObject insectPrefab { get; set; }
     public GameObject dropPrefab { get; set; }
     private GameObject dropObj;
-    
     private List<GameObject> spawnedInsects = new List<GameObject>();
     public GameObject PlantObj { get; private set; }
     public GameObject VaseObj { get; private set; }
@@ -108,14 +108,7 @@ public class GardenPlant : MonoBehaviour
             
             if (CanCollectCoins())
             {
-                Wallet.Instance.AddMoney(Coins);
-                Coins = 0;
-
-                // removing coins from the scene
-                foreach (GameObject coin in coinGameobjects)
-                    Destroy(coin);
-                coinGameobjects.Clear();
-                spawnedCoins = false;
+                StartCoroutine(AnimateCoinsToWallet());
             }
         }
         
@@ -321,4 +314,37 @@ public class GardenPlant : MonoBehaviour
     {
         return coinGameobjects.Count > 0;
     }
+    
+    private IEnumerator AnimateCoinsToWallet()
+        {
+            foreach (GameObject coin in coinGameobjects)
+            {
+                Vector3 startPosition = coin.transform.position;
+                
+                float duration = 0.5f; // durata dell'animazione
+                float elapsedTime = 0f;
+    
+                // Animazione dei coins verso il wallet
+                while (elapsedTime < duration)
+                {
+                    Vector3 targetScreenPosition = new Vector3(0, Screen.height*0.9f, Camera.main.nearClipPlane);
+                    Vector3 targetPosition = Camera.main.ScreenToWorldPoint(targetScreenPosition);
+                    coin.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+                    coin.transform.localScale = Vector3.Lerp(Vector3.one, new Vector3(0.05f, 0.05f, 0.05f), elapsedTime / duration);
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+                }
+    
+                Destroy(coin);
+                Wallet.Instance.AddMoney(1);
+            }
+    
+            coinGameobjects.Clear();
+            spawnedCoins = false; // Permette di spawnare nuovi coin
+            
+            //Wallet.Instance.AddMoney(Coins);
+            Debug.Log("Colleccted: " + Coins + " coins");
+            Coins = 0;
+            
+        }
 }
