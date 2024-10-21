@@ -1,7 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class GardenPlant : MonoBehaviour
@@ -21,7 +21,36 @@ public class GardenPlant : MonoBehaviour
 
     public bool plantIsDead = false;
     private Color originalColor;
-    
+
+    private int _coins = 0;
+    private bool spawnedCoins = false;
+    public int Coins
+    {
+        get => _coins;
+        private set {
+            _coins = value;
+            if (_coins >= 10 && !spawnedCoins) 
+            {
+                Debug.Log("Spawning coins...");
+                SpawnCoins();
+                spawnedCoins = true;
+            }
+        } 
+    }
+    private List<GameObject> coinGameobjects = new List<GameObject>();
+    private float lastCoinDropTime = 0f;
+    private float waterCoinDropCooldown = 3f;
+    private static GameObject coinPrefab;
+    private static readonly (Vector3 position, Quaternion rotation)[] coinSpawnOffsets = new (Vector3, Quaternion)[]
+    {
+        (new Vector3(0.00419999985024333f,0.12040000408887863f,-0.04270000755786896f), Quaternion.Euler(0, 0, 1)),
+        (new Vector3(0,0.300000012f,-1.07000005f), Quaternion.Euler(20, 0, 0)),
+        (new Vector3(0.689999998f,0.300000012f,-0.74000001f), Quaternion.Euler(20, -40, 0)),
+        (new Vector3(0.949999988f,0.150000006f,0.730000019f), Quaternion.Euler(90, 0, 0)),
+        (new Vector3(-0.920000017f,0.150000006f,0.519999981f), Quaternion.Euler(90, 0, 0)),
+        (new Vector3(-0.456889004f,1.65999997f,0.25999999f), Quaternion.Euler(0, 45, 0)),
+        (new Vector3(0.49000001f,1.74000001f,0.460000008f), Quaternion.Euler(20, 50, 0))                    
+    };
     
     IEnumerator Start()
     {
@@ -74,7 +103,21 @@ public class GardenPlant : MonoBehaviour
         DecreaseHealth(1f * Time.deltaTime);
         
         if (DetectTouch())
+        {
             SetSelectedPlant(this);
+            
+            if (CanCollectCoins())
+            {
+                Wallet.Instance.AddMoney(Coins);
+                Coins = 0;
+
+                // removing coins from the scene
+                foreach (GameObject coin in coinGameobjects)
+                    Destroy(coin);
+                coinGameobjects.Clear();
+                spawnedCoins = false;
+            }
+        }
         
         if (Plant.CurrentHealth.Value <= 0){
             plantIsDead = true;
@@ -178,6 +221,12 @@ public class GardenPlant : MonoBehaviour
         if (Plant == null || plantIsDead) return;
 
         Plant.IncreaseHealth(1f);
+        if (Plant.Health == Plant.CurrentHealth.Value && Time.time - lastCoinDropTime > waterCoinDropCooldown)
+        {
+            Coins += 3;
+            lastCoinDropTime = Time.time;
+        }
+
         if (selectedPlant == this)
             HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
     }
@@ -226,6 +275,7 @@ public class GardenPlant : MonoBehaviour
         foreach (GameObject insect in spawnedInsects)
             Destroy(insect);
         spawnedInsects.Clear();
+        Coins += 7;
     }
     
     private void SetPlantColor(Color color)
@@ -250,5 +300,25 @@ public class GardenPlant : MonoBehaviour
 
     public bool IsInfected() {
         return spawnedInsects.Count > 0;
+    }
+    private void SpawnCoins()
+    {
+        if (coinPrefab == null)
+        {
+            coinPrefab = Resources.Load<GameObject>("Prefabs/GoldCoin/Coin");
+            coinPrefab.gameObject.transform.localScale = new Vector3(0.7142857909202576f, 0.7142857909202576f, 0.7142857909202576f);
+        }
+
+        foreach (var spawnOffset in coinSpawnOffsets)
+        {
+            Vector3 worldPos = VaseObj.transform.TransformPoint(spawnOffset.position);
+            GameObject coin = Instantiate(coinPrefab, worldPos, spawnOffset.rotation, VaseObj.transform);
+            coinGameobjects.Add(coin);
+        }
+    }
+
+    private bool CanCollectCoins()
+    {
+        return coinGameobjects.Count > 0;
     }
 }
