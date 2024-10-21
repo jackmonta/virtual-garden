@@ -37,6 +37,7 @@ public class GardenPlant : MonoBehaviour
             }
         } 
     }
+    private List<GameObject> coinGameobjects = new List<GameObject>();
     private float lastCoinDropTime = 0f;
     private float waterCoinDropCooldown = 3f;
     private static GameObject coinPrefab;
@@ -102,7 +103,21 @@ public class GardenPlant : MonoBehaviour
         DecreaseHealth(1f * Time.deltaTime);
         
         if (DetectTouch())
+        {
             SetSelectedPlant(this);
+            
+            if (CanCollectCoins())
+            {
+                Wallet.Instance.AddMoney(Coins);
+                Coins = 0;
+
+                // removing coins from the scene
+                foreach (GameObject coin in coinGameobjects)
+                    Destroy(coin);
+                coinGameobjects.Clear();
+                spawnedCoins = false;
+            }
+        }
         
         if (Plant.CurrentHealth.Value <= 0){
             plantIsDead = true;
@@ -294,7 +309,13 @@ public class GardenPlant : MonoBehaviour
         foreach (var spawnOffset in coinSpawnOffsets)
         {
             Vector3 worldPos = VaseObj.transform.TransformPoint(spawnOffset.position);
-            Instantiate(coinPrefab, worldPos, spawnOffset.rotation, VaseObj.transform);
+            GameObject coin = Instantiate(coinPrefab, worldPos, spawnOffset.rotation, VaseObj.transform);
+            coinGameobjects.Add(coin);
         }
+    }
+
+    private bool CanCollectCoins()
+    {
+        return coinGameobjects.Count > 0;
     }
 }
