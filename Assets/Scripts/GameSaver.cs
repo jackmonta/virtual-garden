@@ -22,9 +22,13 @@ public class GameSaver : MonoBehaviour
             Debug.Log("No shop instance");
             return;
         }
-        PlantList plantsToSerialize = new PlantList();
-        plantsToSerialize.plants = Shop.ShopPlants;
-        DataManager.SaveToDisk(Shop.shopDataPath, plantsToSerialize);
+        
+        ShopData shopData = new ShopData();
+        shopData.plants = Shop.ShopPlants;
+        shopData.nonPlantItems = Shop.ShopNonPlantItems;
+        
+        DataManager.SaveToDisk(Shop.shopDataPath, shopData);
+        
     }
     
     private void SaveWallet()
@@ -37,6 +41,7 @@ public class GameSaver : MonoBehaviour
         int money = Wallet.Instance.Money;
         DataManager.SaveToDisk(Wallet.walletDataPath, money);
     }
+    
 
     private void SaveAll()
     {
