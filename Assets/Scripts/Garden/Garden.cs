@@ -7,11 +7,8 @@ public class Garden : MonoBehaviour
 {
     [SerializeField] private Material gardenMaterial;
     [SerializeField] private GameObject vasePrefab;
-    //[SerializeField] private GameObject plantPrefab;
-    //[SerializeField] private GameObject wateringCanPrefab;
     [SerializeField] private GameObject insectPrefab;
     [SerializeField] private GameObject dropPrefab;
-    //[SerializeField] private GameObject insecticidePrefab;
     
     public static Garden Instance { get; set; }
     private ARPlane plane;
@@ -69,13 +66,6 @@ public class Garden : MonoBehaviour
         float vaseHeight = vaseObj.GetComponentInChildren<Renderer>().bounds.size.y;
         Vector3 vaseTopPosition = vaseObj.transform.position + new Vector3(0, vaseHeight / 2, 0);
 
-        /*GameObject plantObj = SpawnPrefab(plantToSpawn.Prefab, vaseTopPosition);
-        if (plantObj == null)
-        {
-            Debug.Log("Plant collision detected");
-            Destroy(vaseObj);
-            return null;
-        }*/
         GameObject plantObj = Instantiate(plantToSpawn.Prefab, vaseTopPosition, Quaternion.identity);
         plantObj.name = "Plant";
 
@@ -93,7 +83,7 @@ public class Garden : MonoBehaviour
     {
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
 
-        // checking collisions TODO: improve this
+        // checking collisions
         if (GardenPlant.colliderList != null)
         {
             Collider collider = obj.GetComponent<Collider>();
@@ -156,93 +146,6 @@ public class Garden : MonoBehaviour
 
         InventoryUI.ShowUI();
         ShopUI.Instance.ShowUI();
-        //PlaceWateringCan(); 
-        //PlaceVases();
-    }
-    
-    /*private void PlaceWateringCan()
-    {
-        Vector3 planeCenter = plane.center;
-        float planeWidth = plane.size.x;
-        float planeHeight = plane.size.y;
-
-        // Position the watering can near the center of the plane
-        Vector3 wateringCanPosition = planeCenter + new Vector3(planeWidth / 4, 0, planeHeight / 4);
-        GameObject wateringCan = Instantiate(insecticidePrefab, wateringCanPosition, Quaternion.identity);
-
-        // Adjust the scale of the watering can if necessary
-        wateringCan.transform.localScale = Vector3.one / 50f; // Adjust scale as needed
     }
 
-    private void PlaceVases()
-    {
-        Vector3 planeCenter = plane.center;
-        //Vector3 planeNormal = plane.normal;
-        float planeWidth = plane.size.x;
-        float planeHeight = plane.size.y;
-
-        int numVases = 10; // Number of vases to place
-        int vasesPerRow = Mathf.CeilToInt(Mathf.Sqrt(numVases));
-        float spacingX = planeWidth / vasesPerRow;
-        float spacingZ = planeHeight / vasesPerRow;
-
-        // Calculate the scale factor based on the plane size
-        float planeScaleFactor = Mathf.Max(planeWidth, planeHeight);
-
-        for (int i = 0; i < vasesPerRow; i++)
-        {
-            for (int j = 0; j < vasesPerRow; j++)
-            {
-                int vaseIndex = i * vasesPerRow + j;
-                if (vaseIndex >= numVases) break;
-
-                Vector3 vasePosition = planeCenter + new Vector3((i - vasesPerRow / 2) * spacingX, 0, (j - vasesPerRow / 2) * spacingZ);
-                GameObject vaseObj = Instantiate(vasePrefab, vasePosition, Quaternion.identity);
-
-                // Scale the vase based on the plane size
-                vaseObj.transform.localScale = Vector3.one * 0.2f * planeScaleFactor;
-
-                // Ensure the vase fits within the plane boundaries
-                vaseObj.transform.position = new Vector3(
-                    Mathf.Clamp(vaseObj.transform.position.x, planeCenter.x - planeWidth / 2 + spacingX / 2, planeCenter.x + planeWidth / 2 - spacingX / 2),
-                    vaseObj.transform.position.y,
-                    Mathf.Clamp(vaseObj.transform.position.z, planeCenter.z - planeHeight / 2 + spacingZ / 2, planeCenter.z + planeHeight / 2 - spacingZ / 2)
-                );
-
-                // Place plant prefab inside the vase
-                PlacePlantInVase(plantPrefab, vaseObj, vaseObj.transform.position);
-            }
-        }
-    }
-
-    private GameObject PlacePlantInVase(GameObject plantPrefab, GameObject vaseObj, Vector3 vasePosition)
-    {
-        Renderer vaseRenderer = vaseObj.GetComponentInChildren<Renderer>();
-        if(vaseRenderer == null)
-        {
-            Debug.Log("No renderer found for the vase");
-            return null;
-        }
-
-        float vaseHeight = vaseRenderer.bounds.size.y; // height of the vase
-        Vector3 vaseTopPosition = vasePosition + new Vector3(0, vaseHeight / 2, 0);
-
-        // creating plant object
-        GameObject plantObj = Instantiate(plantPrefab, vaseTopPosition, Quaternion.identity);
-        plantObj.transform.localScale = Vector3.one * 0.05f;
-        vaseObj.transform.SetParent(plantObj.transform);
-
-        // positioning plant on top of the vase
-        Renderer plantRenderer = plantObj.GetComponent<Renderer>();
-        if (plantRenderer == null)
-        {
-            Debug.Log("No renderer found for the plant");
-            return null;
-        }
-        
-        float plantHeight = plantRenderer.bounds.size.y;
-        plantObj.transform.localPosition = new Vector3(0, vaseHeight / 2 + plantHeight / 2, 0);
-
-        return plantObj;
-    }*/
 }
