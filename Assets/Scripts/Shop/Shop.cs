@@ -29,8 +29,9 @@ public class Shop : MonoBehaviour
 
         // Carica dati da disco
         try {
-            ShopPlants = DataManager.LoadFromDisk<PlantList>(shopDataPath).plants;
-            ShopNonPlantItems = DataManager.LoadFromDisk<NonPlantItemList>(shopDataPath).nonPlantItems;
+            ShopData data = DataManager.LoadFromDisk<ShopData>(shopDataPath);
+            ShopPlants = data.plants;
+            ShopNonPlantItems = data.nonPlantItems;
             Debug.Log(ShopPlants.Count + " shop plants loaded from disk.");
             Debug.Log(ShopNonPlantItems.Count + " non-plant items loaded from disk.");
         } catch (Exception)
