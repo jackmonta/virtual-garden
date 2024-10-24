@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameSaver : MonoBehaviour
 {
@@ -25,10 +26,19 @@ public class GameSaver : MonoBehaviour
         
         ShopData shopData = new ShopData();
         shopData.plants = Shop.ShopPlants;
-        shopData.nonPlantItems = Shop.ShopNonPlantItems;
+        shopData.nonPlantItems = new List<NonPlantItemData>();
+        
+        foreach (var item in Shop.ShopNonPlantItems) // Modifica qui
+        {
+            NonPlantItemData nonPlantItemData = new NonPlantItemData
+            {
+                name = item.Name,
+                clickCount = item.ClickCount,
+            };
+            shopData.nonPlantItems.Add(nonPlantItemData);
+        }
         
         DataManager.SaveToDisk(Shop.shopDataPath, shopData);
-        
     }
     
     private void SaveWallet()

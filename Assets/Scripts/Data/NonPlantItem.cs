@@ -1,5 +1,5 @@
 using UnityEngine;
-//using TMPro;
+using System;
 
 [CreateAssetMenu(fileName = "New nonPlant", menuName = "nonPlant", order = 1)]
 [System.Serializable]
@@ -17,32 +17,35 @@ public class NonPlantItem : ScriptableObject
     private Sprite icon;
     public Sprite Icon { get { return icon; } }
     
-    [SerializeField]
     private int clickCount;
-    public int  ClickCount { get { return clickCount; } }
+    public int ClickCount 
+    { 
+        get { return clickCount; } 
+        set { clickCount = value; }
+    }
     
-    //[SerializeField]
-    //private TextMeshProUGUI notificationText;
-    
+
+    // Evento che segnala il cambiamento del contatore di click
+    public event Action OnClickCountChanged;
+
     public void IncrementCounter()
     {
         clickCount++;
-        //UpdateCounterText(); 
+        OnClickCountChanged?.Invoke(); // Solleva l'evento se ci sono listener
     }
-    
+
     public void DecrementCounter()
     {
-        if(clickCount > 0){
+        if (clickCount > 0)
+        {
             clickCount--;
-            //UpdateCounterText();
+            OnClickCountChanged?.Invoke(); // Solleva l'evento se ci sono listener
         }
     }
-    
-    /*private void UpdateCounterText()
+
+    // Metodo per forzare la notifica di cambiamento, utile quando vengono caricati i dati
+    public void NotifyCountChanged()
     {
-        if (notificationText != null)
-        {
-            notificationText.text = clickCount.ToString();
-        }
-    }*/
+        OnClickCountChanged?.Invoke(); // Solleva l'evento
+    }
 }

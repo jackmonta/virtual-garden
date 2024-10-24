@@ -1,9 +1,16 @@
 using System;
 using System.Collections.Generic;
 
-[Serializable]
+[System.Serializable]
 public class ShopData
 {
     public List<Plant> plants;
-    public List<NonPlantItem> nonPlantItems;
+    public List<NonPlantItemData> nonPlantItems;
+}
+
+[System.Serializable]
+public class NonPlantItemData
+{
+    public string name;
+    public int clickCount;
 }

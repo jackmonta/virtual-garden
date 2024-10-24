@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Potion
   price: 10
-  icon: {fileID: 21300000, guid: 930e939e9def94ef69711892eaa9af81, type: 3}
   clickCount: 0
+  icon: {fileID: 21300000, guid: 930e939e9def94ef69711892eaa9af81, type: 3}

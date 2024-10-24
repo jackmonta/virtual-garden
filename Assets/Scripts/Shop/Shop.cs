@@ -31,7 +31,20 @@ public class Shop : MonoBehaviour
         try {
             ShopData data = DataManager.LoadFromDisk<ShopData>(shopDataPath);
             ShopPlants = data.plants;
-            ShopNonPlantItems = data.nonPlantItems;
+            ShopNonPlantItems = starterShopNonPlantItems;
+            foreach (var itemData in data.nonPlantItems)
+            {
+                foreach (NonPlantItem nonPlantItem in ShopNonPlantItems)
+                {
+                    if (nonPlantItem.Name == itemData.name)
+                    {
+                        nonPlantItem.ClickCount = itemData.clickCount;
+                        nonPlantItem.NotifyCountChanged(); // Questo solleva l'evento OnClickCountChanged
+                        Debug.Log("Notification counter for " + nonPlantItem.Name + " ... " + nonPlantItem.ClickCount.ToString());
+                    }
+                }
+                
+            }
             Debug.Log(ShopPlants.Count + " shop plants loaded from disk.");
             Debug.Log(ShopNonPlantItems.Count + " non-plant items loaded from disk.");
         } catch (Exception)
