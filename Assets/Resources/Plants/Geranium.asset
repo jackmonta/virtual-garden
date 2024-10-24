@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Geranium
   price: 0
   health: 100
-  icon: {fileID: 21300000, guid: 4216aa950c3d04665ba85191ced11370, type: 3}
+  icon: {fileID: 21300000, guid: 7404f92868a414414ab1114f13ffb1f8, type: 3}
   prefab: {fileID: 363813997328107391, guid: 8060a77496d57447bbed961c6848948b, type: 3}
