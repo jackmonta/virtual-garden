@@ -5,4 +5,5 @@ using System.Collections.Generic;
 public class PlantList
 {
     public List<Plant> plants;
+    public List<float> plantHealths;
 }

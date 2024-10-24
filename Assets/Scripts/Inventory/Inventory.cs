@@ -29,7 +29,12 @@ public class Inventory : MonoBehaviour
         // loading data from disk
         try {
             plants = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plants;
+            List<float> currentHealths = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plantHealths;
             Debug.Log(plants.Count + " inventory plants loaded from disk.");
+            for (int i = 0; i < plants.Count; i++){
+                plants[i].CurrentHealth = currentHealths[i];
+                Debug.Log(plants[i].Name + " current health: " + plants[i].CurrentHealth);
+            }
         } catch (Exception)
         {
             Debug.Log("No plants loaded from disk, loading starter set.");

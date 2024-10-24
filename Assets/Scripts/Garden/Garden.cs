@@ -147,5 +147,16 @@ public class Garden : MonoBehaviour
         InventoryUI.ShowUI();
         ShopUI.Instance.ShowUI();
     }
+    
+    public List<Plant> GetCopyPlantList()
+    {
+        List<Plant> copy = new List<Plant>();
+        foreach (GameObject plantObj in plants.Values)
+        {
+            Plant p = plantObj.gameObject.GetComponent<GardenPlant>().Plant;
+            copy.Add(p);
+        }
+        return copy;
+    }
 
 }

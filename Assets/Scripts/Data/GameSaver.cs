@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class GameSaver : MonoBehaviour
 {
-
     private void SaveInventory()
     {
         if (Inventory.Instance == null)
@@ -11,8 +10,16 @@ public class GameSaver : MonoBehaviour
             Debug.Log("No inventory instance");
             return;
         }
+        List<Plant> combinedPlants = new List<Plant>(Inventory.Plants);
+        combinedPlants.AddRange(Garden.Instance.GetCopyPlantList());
         PlantList plantsToSerialize = new PlantList();
-        plantsToSerialize.plants = Inventory.Plants;
+        plantsToSerialize.plants = combinedPlants;
+        plantsToSerialize.plantHealths = new List<float>();
+        foreach (var plant in combinedPlants)
+        {
+            //plantsToSerialize.plantHealths.Add(plant.CurrentHealth.Value);
+            plantsToSerialize.plantHealths.Add(plant.CurrentHealth.HasValue ? plant.CurrentHealth.Value : plant.Health);
+        }
         DataManager.SaveToDisk(Inventory.inventoryDataPath, plantsToSerialize);
     }
 
