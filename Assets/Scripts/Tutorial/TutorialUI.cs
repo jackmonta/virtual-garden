@@ -10,8 +10,9 @@ public class TutorialUI : MonoBehaviour
     private static Button invisibleButton;
     private static TextMeshProUGUI tutorialText;
     public static TutorialUI Instance { get; private set; }
+    public static int firstLaunch;
 
-    private static List<String> sentences = new List<String>()
+    private static List<String> tutorialSentences = new List<String>()
     {
         "Hi, welcome to Virtual Garden!",
         "Now select a plant from the inventory below.",
@@ -44,6 +45,8 @@ public class TutorialUI : MonoBehaviour
     
     void Start()
     {
+        firstLaunch = PlayerPrefs.GetInt("FirstLaunch");
+
         invisibleButton = GetComponentInChildren<Button>();
         invisibleButton.gameObject.SetActive(false);
 
@@ -56,11 +59,26 @@ public class TutorialUI : MonoBehaviour
     {
         tutorialCanvas.enabled = true;
 
-        iterator = sentences.GetEnumerator();
+        if (firstLaunch == 0)
+            Instance.StartTutorial();
+        else
+            Instance.WelcomeBackGreetings();
+    }
+
+    private void StartTutorial()
+    {
+        iterator = tutorialSentences.GetEnumerator();
         SetNextSentence();
 
         invisibleButton.gameObject.SetActive(true);
         invisibleButton.onClick.AddListener(() => SetNextSentence());
+    }
+
+    private void WelcomeBackGreetings()
+    {
+        tutorialText.text = "Welcome back to Virtual Garden!";
+        invisibleButton.gameObject.SetActive(true);
+        invisibleButton.onClick.AddListener(() => HideUI());
     }
 
     private static void HideUI()
@@ -77,6 +95,8 @@ public class TutorialUI : MonoBehaviour
         }
         else
         {
+            PlayerPrefs.SetInt("FirstLaunch", 1);
+            PlayerPrefs.Save();
             HideUI();
         }
     }
