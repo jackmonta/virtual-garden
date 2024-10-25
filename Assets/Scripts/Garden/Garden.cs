@@ -146,6 +146,7 @@ public class Garden : MonoBehaviour
 
         InventoryUI.ShowUI();
         ShopUI.Instance.ShowUI();
+        TutorialUI.ShowUI();
     }
     
     public List<Plant> GetCopyPlantList()
