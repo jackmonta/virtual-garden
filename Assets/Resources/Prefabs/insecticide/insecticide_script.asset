@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: insecticide_script
   m_EditorClassIdentifier: 
   name: Insecticide
-  price: 10
-  icon: {fileID: 21300000, guid: 930e939e9def94ef69711892eaa9af81, type: 3}
-  clickCount: 0
+  price: 20
+  icon: {fileID: 21300000, guid: 9bc1bb9f8edb546f58f14bc80f5bae87, type: 3}

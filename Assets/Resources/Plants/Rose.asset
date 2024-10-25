@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2750323b5cee874bacb87b9b969e676, type: 3}
-  m_Name: Monstera
+  m_Name: Rose
   m_EditorClassIdentifier: 
-  name: Monstera
-  price: 50
-  health: 20
-  icon: {fileID: 21300000, guid: 64463897a25aa44f4abd0d6724c9758d, type: 3}
-  prefab: {fileID: 8141138377590759617, guid: 501b506c1d3cd4b0d9463f7fb72e3805, type: 3}
+  name: Rose
+  price: 0
+  health: 100
+  icon: {fileID: 21300000, guid: 28699641a4fc14d558dfed77bdc0913d, type: 3}
+  prefab: {fileID: 1382615103653959344, guid: 35f2dfc214e124c98adada29357043d4, type: 3}

@@ -18,6 +18,7 @@ public class GardenPlant : MonoBehaviour
     private List<GameObject> spawnedInsects = new List<GameObject>();
     public GameObject PlantObj { get; private set; }
     public GameObject VaseObj { get; private set; }
+    private ParticleSystem vaseParticleSystem;
 
     public bool plantIsDead = false;
     private Color originalColor;
@@ -56,6 +57,18 @@ public class GardenPlant : MonoBehaviour
     {
         PlantObj = this.gameObject;
         VaseObj = this.gameObject.transform.Find("Vase").gameObject;
+        vaseParticleSystem = VaseObj.GetComponentInChildren<ParticleSystem>();
+        
+        if (vaseParticleSystem == null)
+        {
+            Debug.LogError("ParticleSystem is missing from VaseObj 2.");
+            
+            foreach (Transform child in VaseObj.transform)
+            {
+                Debug.Log("Child: " + child.name);
+            }
+        }
+
         
         originalColor = PlantObj.GetComponent<Renderer>().material.color;
     
@@ -127,6 +140,16 @@ public class GardenPlant : MonoBehaviour
         {
             Destroy(dropObj);
             dropObj = null;
+        }
+        
+        if (Plant.CurrentHealth.Value > Plant.getHealth() * 0.8) {
+            if (!vaseParticleSystem.isPlaying) {
+                vaseParticleSystem.Play();
+            }
+        } else {
+            if (vaseParticleSystem.isPlaying) {
+                vaseParticleSystem.Stop();
+            }
         }
 
     }
@@ -316,35 +339,42 @@ public class GardenPlant : MonoBehaviour
     }
     
     private IEnumerator AnimateCoinsToWallet()
+    {
+        int totalCoins = Coins;
+        int baseAmount = totalCoins / coinGameobjects.Count;
+        int remainder = totalCoins % coinGameobjects.Count;
+        int index = 0;
+        foreach (GameObject coin in coinGameobjects)
         {
-            foreach (GameObject coin in coinGameobjects)
-            {
-                Vector3 startPosition = coin.transform.position;
+            int amount = baseAmount + (index < remainder ? 1 : 0); // Aggiunge 1 solo ai primi 'remainder' coin
+            index++;
                 
-                float duration = 0.5f; // durata dell'animazione
-                float elapsedTime = 0f;
+            Vector3 startPosition = coin.transform.position;
+                
+            float duration = 0.5f; // durata dell'animazione
+            float elapsedTime = 0f;
     
-                // Animazione dei coins verso il wallet
-                while (elapsedTime < duration)
-                {
-                    Vector3 targetScreenPosition = new Vector3(0, Screen.height*0.9f, Camera.main.nearClipPlane);
-                    Vector3 targetPosition = Camera.main.ScreenToWorldPoint(targetScreenPosition);
-                    coin.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
-                    coin.transform.localScale = Vector3.Lerp(Vector3.one, new Vector3(0.05f, 0.05f, 0.05f), elapsedTime / duration);
-                    elapsedTime += Time.deltaTime;
-                    yield return null;
-                }
-    
-                Destroy(coin);
-                Wallet.Instance.AddMoney(1);
+            // Animazione dei coins verso il wallet
+            while (elapsedTime < duration)
+            {
+                Vector3 targetScreenPosition = new Vector3(0, Screen.height*0.9f, Camera.main.nearClipPlane);
+                Vector3 targetPosition = Camera.main.ScreenToWorldPoint(targetScreenPosition);
+                coin.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / duration);
+                coin.transform.localScale = Vector3.Lerp(Vector3.one, new Vector3(0.05f, 0.05f, 0.05f), elapsedTime / duration);
+                elapsedTime += Time.deltaTime;
+                yield return null;
             }
     
-            coinGameobjects.Clear();
-            spawnedCoins = false; // Permette di spawnare nuovi coin
-            
-            //Wallet.Instance.AddMoney(Coins);
-            Debug.Log("Colleccted: " + Coins + " coins");
-            Coins = 0;
-            
+            Wallet.Instance.AddMoney(amount);
+            Destroy(coin);
         }
+    
+        coinGameobjects.Clear();
+        spawnedCoins = false; // Permette di spawnare nuovi coin
+            
+        //Wallet.Instance.AddMoney(Coins);
+        Debug.Log("Colleccted: " + Coins + " coins");
+        Coins = 0;
+            
+    }
 }
