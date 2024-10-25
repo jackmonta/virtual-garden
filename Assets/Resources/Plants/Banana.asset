@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Banana
   m_EditorClassIdentifier: 
   name: Banana
-  price: 15
+  price: 75
   health: 20
   icon: {fileID: 21300000, guid: f5cd6031f9fc04c1a995725f32014a2f, type: 3}
   prefab: {fileID: 6240509830933233505, guid: ad963ee717c64463ba984e0abcaaca68, type: 3}

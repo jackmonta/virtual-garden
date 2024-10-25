@@ -548,7 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9626423, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.99607843, g: 0.84705883, b: 0.003921569, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4347,6 +4347,31 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2240928084865921105, guid: f8f4f1940e2bdc149ba7f1f985507936,
+        type: 3}
+      propertyPath: m_Spacing.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240928084865921105, guid: f8f4f1940e2bdc149ba7f1f985507936,
+        type: 3}
+      propertyPath: m_Spacing.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240928084865921105, guid: f8f4f1940e2bdc149ba7f1f985507936,
+        type: 3}
+      propertyPath: m_CellSize.x
+      value: 225
+      objectReference: {fileID: 0}
+    - target: {fileID: 2240928084865921105, guid: f8f4f1940e2bdc149ba7f1f985507936,
+        type: 3}
+      propertyPath: m_CellSize.y
+      value: 225
+      objectReference: {fileID: 0}
+    - target: {fileID: 4018165207937644459, guid: f8f4f1940e2bdc149ba7f1f985507936,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -27.94043
+      objectReference: {fileID: 0}
     - target: {fileID: 5721782339359205727, guid: f8f4f1940e2bdc149ba7f1f985507936,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4380,12 +4405,12 @@ PrefabInstance:
     - target: {fileID: 5721782339359205727, guid: f8f4f1940e2bdc149ba7f1f985507936,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -150
+      value: -66
       objectReference: {fileID: 0}
     - target: {fileID: 5721782339359205727, guid: f8f4f1940e2bdc149ba7f1f985507936,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -200
+      value: -170
       objectReference: {fileID: 0}
     - target: {fileID: 5721782339359205727, guid: f8f4f1940e2bdc149ba7f1f985507936,
         type: 3}
@@ -5524,14 +5549,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starterShopPlants:
-  - {fileID: 11400000, guid: ee1c0ddc405695a4783075e53def6662, type: 2}
-  - {fileID: 11400000, guid: 93e175cb69d77d847b1c6e17d4a484b6, type: 2}
-  - {fileID: 11400000, guid: 2f79b4740cf8f4ea7871738d6181e122, type: 2}
   - {fileID: 11400000, guid: e6d5e072e3ddb41af9a04a3d6fd215eb, type: 2}
+  - {fileID: 11400000, guid: 93e175cb69d77d847b1c6e17d4a484b6, type: 2}
+  - {fileID: 11400000, guid: ee1c0ddc405695a4783075e53def6662, type: 2}
   - {fileID: 11400000, guid: e72f1f7a2a366454e9c32471c0f39366, type: 2}
+  - {fileID: 11400000, guid: 2f79b4740cf8f4ea7871738d6181e122, type: 2}
   starterShopNonPlantItems:
-  - {fileID: 11400000, guid: bdd5fff7ce19a4d5688fbde88bd04bc7, type: 2}
   - {fileID: 11400000, guid: 91016cdc1db55437c91aff376a59a4be, type: 2}
+  - {fileID: 11400000, guid: bdd5fff7ce19a4d5688fbde88bd04bc7, type: 2}
 --- !u!4 &1078596127
 Transform:
   m_ObjectHideFlags: 0
@@ -7961,8 +7986,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 11.893555, y: 0}
+  m_SizeDelta: {x: -11.8935, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1553500801
 MonoBehaviour:
@@ -9017,8 +9042,8 @@ RectTransform:
   m_GameObject: {fileID: 1818438357}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 143451662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9047,7 +9072,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: baf43316e72beec42925245c006a3070, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9417c6ffd40344e23b4216ac71f27111, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10506,6 +10531,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 143451662}
     m_Modifications:
+    - target: {fileID: 1934902951949864026, guid: c29ffce676d81e943b4f3057aaf3e4ea,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.7
+      objectReference: {fileID: 0}
     - target: {fileID: 2114366350807062432, guid: c29ffce676d81e943b4f3057aaf3e4ea,
         type: 3}
       propertyPath: m_Pivot.x
@@ -10630,6 +10660,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WalletHUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 7884167306615521485, guid: c29ffce676d81e943b4f3057aaf3e4ea,
+        type: 3}
+      propertyPath: m_text
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7884167306615521485, guid: c29ffce676d81e943b4f3057aaf3e4ea,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7884167306615521485, guid: c29ffce676d81e943b4f3057aaf3e4ea,
+        type: 3}
+      propertyPath: m_margin.x
+      value: 0.010063164
+      objectReference: {fileID: 0}
+    - target: {fileID: 7884167306615521485, guid: c29ffce676d81e943b4f3057aaf3e4ea,
+        type: 3}
+      propertyPath: m_margin.z
+      value: 0.79129124
+      objectReference: {fileID: 0}
+    - target: {fileID: 7884167306615521485, guid: c29ffce676d81e943b4f3057aaf3e4ea,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7884167306615521485, guid: c29ffce676d81e943b4f3057aaf3e4ea,
+        type: 3}
+      propertyPath: m_fontSizeMin
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7884167306615521485, guid: c29ffce676d81e943b4f3057aaf3e4ea,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7884167306615521485, guid: c29ffce676d81e943b4f3057aaf3e4ea,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

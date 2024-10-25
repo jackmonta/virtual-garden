@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443d20af45ee4508ad7bbb20f812dab0, type: 3}
   m_Name: potion_script
   m_EditorClassIdentifier: 
-  name: Potion
-  price: 10
+  name: Revitalizing
+  price: 50
   icon: {fileID: 21300000, guid: 909cda4c98e9d4ece9fae31fb54cda93, type: 3}
