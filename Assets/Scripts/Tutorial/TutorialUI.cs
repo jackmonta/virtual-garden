@@ -1,8 +1,10 @@
 using UnityEngine;
+using TMPro;
 
 public class TutorialUI : MonoBehaviour
 {
     private static Canvas tutorialCanvas;
+    private static TextMeshProUGUI tutorialText;
     public static TutorialUI Instance { get; private set; }
 
     void Awake()
@@ -18,9 +20,12 @@ public class TutorialUI : MonoBehaviour
         }
     }
     
+    
+    
     void Start()
     {
         tutorialCanvas = GetComponent<Canvas>();
+        tutorialText = GetComponentInChildren<TextMeshProUGUI>();
         tutorialCanvas.enabled = false;
     }
 
