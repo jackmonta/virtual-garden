@@ -16,14 +16,14 @@ public class TutorialUI : MonoBehaviour
     {
         "Hi, welcome to Virtual Garden!",
         "Now select a plant from the inventory below.",
-        "Now, tap on the garden to place the plant.",
-        "You can select a flower from the inventory below.",
+        "Then, tap on the garden to place the plant.",
+        //"You can select a flower from the inventory below.",
         "Tap on the flower to select it.",
         "Here you can operate various actions on the flower.",
-        "Click on the Water button to water the flower.",
+        "Click on the Water button to water the plant.",
         "If a swarm of insects attacks the flower, click on the Insect button to kill them.",
         "If a plant run out of water, then it will die.",
-        "To revive it, click on the Revive button.",
+        "To revive it, click on the revitalizing button.",
         "By doing these actions, you can keep your garden healthy, and you will farm coins.",
         "You can then use them to buy more plants and tools.",
         "Enjoy your garden!"

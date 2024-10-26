@@ -9,6 +9,7 @@ public class Garden : MonoBehaviour
     [SerializeField] private GameObject vasePrefab;
     [SerializeField] private GameObject insectPrefab;
     [SerializeField] private GameObject dropPrefab;
+    public AudioSource audioSource;
     
     public static Garden Instance { get; set; }
     private ARPlane plane;
@@ -143,6 +144,8 @@ public class Garden : MonoBehaviour
         GameObject planeObj = this.plane.gameObject;
         MeshRenderer renderer = planeObj.GetComponent<MeshRenderer>();
         renderer.material = gardenMaterial;
+
+        audioSource.Play();  //birds
 
         InventoryUI.ShowUI();
         ShopUI.Instance.ShowUI();

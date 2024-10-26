@@ -9,6 +9,7 @@ public class InsecticideController : MonoBehaviour
     public int particleSystemActivations = 3;
     private float singleActivationDuration;
     private float particleSystemDuration;
+    public AudioSource audioSource;
     private float elapsedTime;
     private GardenPlant insecticideSelectedPlant;
 
@@ -23,6 +24,7 @@ public class InsecticideController : MonoBehaviour
         elapsedTime = 0f;
         insecticideSelectedPlant = GardenPlant.selectedPlant;
         insecticideParticleSystem.Play();
+        audioSource.Play();
     }
 
     void Update()
@@ -38,11 +40,14 @@ public class InsecticideController : MonoBehaviour
             {
                 insecticideParticleSystem.Stop();
                 insecticideParticleSystem.Play();
+                audioSource.Stop(); 
+                audioSource.Play();
                 elapsedTime = 0f;
                 particleSystemActivations--;
             } else if (particleSystemActivations <= 0 && elapsedTime >= singleActivationDuration) // animation ended
             {
                 insecticideParticleSystem.Stop();
+                audioSource.Stop(); 
                 isAvailable = true;
                 particleSystemActivations = 3;
                 insecticideSelectedPlant?.RemoveInsects(); 

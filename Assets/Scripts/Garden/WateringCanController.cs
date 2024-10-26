@@ -4,7 +4,9 @@ public class WateringCanController : MonoBehaviour
 {
     public ParticleSystem waterParticleSystem;
     public static bool isAvailable = true;
-    public float rotationSpeed = 20f; // rotation speed
+    public float rotationSpeed = 40f; // rotation speed
+    
+    public AudioSource audioSource;
 
     private float particleSystemDuration;
     private float elapsedTime;
@@ -17,6 +19,7 @@ public class WateringCanController : MonoBehaviour
 
         elapsedTime = 0f;
         waterParticleSystem.Play();
+        audioSource.Play();
     }
 
     void Update()
@@ -32,6 +35,7 @@ public class WateringCanController : MonoBehaviour
             {
                 waterParticleSystem.Stop();
                 isAvailable = true;
+                audioSource.Stop();
                 Destroy(gameObject);
             }
         }

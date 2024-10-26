@@ -81,5 +81,6 @@ public class Inventory : MonoBehaviour
     {
         plants.Add(plant);
         InventoryUI.Instance.CreatePlantButtons(new List<Plant>(){ plant });
+        
     }
 }

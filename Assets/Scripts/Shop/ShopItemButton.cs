@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class ShopItemButton : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class ShopItemButton : MonoBehaviour
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemPrice;
+    public AudioSource audioSource_buy;
+    public AudioSource audioSource_wrong;
 
     public Plant Plant { get; private set; }
     public NonPlantItem NonPlantItem { get; private set; }
@@ -20,21 +24,41 @@ public class ShopItemButton : MonoBehaviour
 
     private void OnButtonClick()
     {
+        StartCoroutine(HandleButtonClick());
+    }
+
+    private IEnumerator HandleButtonClick()
+    {
         if (Plant != null)
         {
             if (Wallet.Instance.CanAfford(Plant.Price))
             {
+                audioSource_buy.Play();
                 Wallet.Instance.SubtractMoney(Plant.Price);
+                
+                // Wait until the audio is finished playing
+                yield return new WaitUntil(() => !audioSource_buy.isPlaying);
+                
                 Shop.RemovePlant(Plant);
                 Inventory.AddPlant(Plant);
+            }
+            else
+            {
+                audioSource_wrong.Play();
             }
         }
         else if (NonPlantItem != null)
         {
             if (Wallet.Instance.CanAfford(NonPlantItem.Price))
             {
+                audioSource_buy.Play();
                 Wallet.Instance.SubtractMoney(NonPlantItem.Price);
+                
                 Shop.SelectNonPlantItem(NonPlantItem); // Incrementa il contatore
+            }
+            else
+            {
+                audioSource_wrong.Play();
             }
         }
     }

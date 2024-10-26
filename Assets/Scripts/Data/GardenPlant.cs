@@ -346,6 +346,7 @@ public class GardenPlant : MonoBehaviour
         int index = 0;
         foreach (GameObject coin in coinGameobjects)
         {
+            coin.GetComponent<AudioSource>().Play();
             int amount = baseAmount + (index < remainder ? 1 : 0); // Aggiunge 1 solo ai primi 'remainder' coin
             index++;
                 
@@ -366,6 +367,7 @@ public class GardenPlant : MonoBehaviour
             }
     
             Wallet.Instance.AddMoney(amount);
+            coin.GetComponent<AudioSource>().Stop();
             Destroy(coin);
         }
     
