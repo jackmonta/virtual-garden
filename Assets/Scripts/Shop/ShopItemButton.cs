@@ -24,28 +24,17 @@ public class ShopItemButton : MonoBehaviour
 
     private void OnButtonClick()
     {
-        StartCoroutine(HandleButtonClick());
-    }
-
-    private IEnumerator HandleButtonClick()
-    {
         if (Plant != null)
         {
             if (Wallet.Instance.CanAfford(Plant.Price))
             {
-                audioSource_buy.Play();
+                AudioSource tempAudioSource = Instantiate(audioSource_buy, transform.position, Quaternion.identity);
+                tempAudioSource.Play();
                 Wallet.Instance.SubtractMoney(Plant.Price);
-                
-                // Wait until the audio is finished playing
-                yield return new WaitUntil(() => !audioSource_buy.isPlaying);
-                
                 Shop.RemovePlant(Plant);
                 Inventory.AddPlant(Plant);
             }
-            else
-            {
-                audioSource_wrong.Play();
-            }
+            else audioSource_wrong.Play();
         }
         else if (NonPlantItem != null)
         {
@@ -53,13 +42,9 @@ public class ShopItemButton : MonoBehaviour
             {
                 audioSource_buy.Play();
                 Wallet.Instance.SubtractMoney(NonPlantItem.Price);
-                
                 Shop.SelectNonPlantItem(NonPlantItem); // Incrementa il contatore
             }
-            else
-            {
-                audioSource_wrong.Play();
-            }
+            else audioSource_wrong.Play();  
         }
     }
 
