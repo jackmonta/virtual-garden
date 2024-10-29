@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using TMPro;
 
 public class GardenPlant : MonoBehaviour
 {
@@ -82,6 +81,7 @@ public class GardenPlant : MonoBehaviour
             highlightMaterial = Resources.Load<Material>("Shaders/Outline Material");
         
         Debug.Log("Created new GardenPlant");
+        TutorialUI.onPlantPlaced.Invoke();
 
         while(true) 
         {
@@ -136,6 +136,7 @@ public class GardenPlant : MonoBehaviour
         } else if (Plant.CurrentHealth.Value >= 0 && PlantObj.GetComponent<Renderer>().materials[0].color != originalColor){
             plantIsDead = false;
             SetPlantColor(originalColor);
+            TutorialUI.onPlantRevived.Invoke();
         } else if (Plant.CurrentHealth.Value > Plant.getHealth()*0.2 && dropObj != null)
         {
             Destroy(dropObj);
@@ -171,6 +172,7 @@ public class GardenPlant : MonoBehaviour
 
         selectedPlant = plant;
         HighlightSelectedPlant(true);
+        TutorialUI.onPlantHightlighted.Invoke();
 
         if (PlantUI.isActive() == false)
             PlantUI.ShowUI(true);
@@ -245,6 +247,8 @@ public class GardenPlant : MonoBehaviour
 
         if (selectedPlant == this)
             HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
+
+        TutorialUI.onPlantWatered.Invoke();
     }
     
     private void TrySpawnInsect()
@@ -292,6 +296,8 @@ public class GardenPlant : MonoBehaviour
             Destroy(insect);
         spawnedInsects.Clear();
         Coins += 7;
+
+        TutorialUI.onInsectsKilled.Invoke();
     }
     
     private void SetPlantColor(Color color)

@@ -1,8 +1,8 @@
 using UnityEngine;
 using TMPro;
-using System;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class TutorialUI : MonoBehaviour
 {
@@ -12,24 +12,31 @@ public class TutorialUI : MonoBehaviour
     public static TutorialUI Instance { get; private set; }
     public static int firstLaunch;
 
-    private static List<String> tutorialSentences = new List<String>()
+    private static List<TutorialStep> tutorialSteps = new List<TutorialStep>()
     {
-        "Hi, welcome to Virtual Garden!",
-        "Now select a plant from the inventory below.",
-        "Then, tap on the garden to place the plant.",
-        //"You can select a flower from the inventory below.",
-        "Tap on the flower to select it.",
-        "Here you can operate various actions on the flower.",
-        "Click on the Water button to water the plant.",
-        "If a swarm of insects attacks the flower, click on the Insect button to kill them.",
-        "If a plant run out of water, then it will die.",
-        "To revive it, click on the revitalizing button.",
-        "By doing these actions, you can keep your garden healthy, and you will farm coins.",
-        "You can then use them to buy more plants and tools.",
-        "Enjoy your garden!"
+        new TutorialStep("Hi, welcome to Virtual Garden!"),
+        new TutorialStep("Now select a plant from the inventory below.", TutorialAction.SelectPlant),
+        new TutorialStep("Then, tap on the garden to place the plant.", TutorialAction.PlacePlant),
+        new TutorialStep("Tap on the flower to select it.", TutorialAction.HighlightPlant),
+        new TutorialStep("Here you can operate various actions on the flower."),
+        new TutorialStep("Click on the Water button to water the plant.", TutorialAction.WaterPlant),
+        new TutorialStep("If a swarm of insects attacks the flower, click on the Insect button to kill them.", TutorialAction.KillInsects),
+        new TutorialStep("If a plant runs out of water, then it will die."),
+        new TutorialStep("To revive it, click on the revitalizing button.", TutorialAction.RevivePlant),
+        new TutorialStep("By doing these actions, you can keep your garden healthy, and you will farm coins."),
+        new TutorialStep("You can then use them to buy more plants and tools."),
+        new TutorialStep("Enjoy your garden!")
     };
 
-    private static IEnumerator<String> iterator;
+    private static IEnumerator<TutorialStep> iterator;
+
+    public static UnityEvent onPlantSelected = new UnityEvent();
+    public static UnityEvent onPlantPlaced = new UnityEvent();
+    public static UnityEvent onPlantHightlighted = new UnityEvent();
+    public static UnityEvent onPlantWatered = new UnityEvent();
+    public static UnityEvent onInsectsKilled = new UnityEvent();
+    public static UnityEvent onPlantRevived = new UnityEvent();
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -59,19 +66,19 @@ public class TutorialUI : MonoBehaviour
     {
         tutorialCanvas.enabled = true;
 
-        if (firstLaunch == 0)
+        //if (firstLaunch == 0)
             Instance.StartTutorial();
-        else
-            Instance.WelcomeBackGreetings();
+        //else
+            //Instance.WelcomeBackGreetings();
     }
 
     private void StartTutorial()
     {
-        iterator = tutorialSentences.GetEnumerator();
-        SetNextSentence();
+        iterator = tutorialSteps.GetEnumerator();
+        SetNextStep();
 
         invisibleButton.gameObject.SetActive(true);
-        invisibleButton.onClick.AddListener(() => SetNextSentence());
+        invisibleButton.onClick.AddListener(() => SetNextStep());
     }
 
     private void WelcomeBackGreetings()
@@ -87,17 +94,67 @@ public class TutorialUI : MonoBehaviour
         invisibleButton.gameObject.SetActive(false);
     }
 
-    private static void SetNextSentence()
+    private static void SetNextStep()
     {
         if (iterator.MoveNext())
         {
-            tutorialText.text = iterator.Current;
+            TutorialStep step = iterator.Current;
+
+            tutorialText.text = step.Sentence;
+
+            if (step.ActionRequired != TutorialAction.None)
+                ListenForActionCompletion(step.ActionRequired);
         }
         else
         {
-            PlayerPrefs.SetInt("FirstLaunch", 1);
-            PlayerPrefs.Save();
+            //PlayerPrefs.SetInt("FirstLaunch", 1);
+            //PlayerPrefs.Save();
             HideUI();
         }
+    }
+
+    private static void ListenForActionCompletion(TutorialAction action)
+    {
+        invisibleButton.gameObject.SetActive(false);
+
+        switch (action)
+        {
+            case TutorialAction.SelectPlant:
+                onPlantSelected.AddListener(EnableNextButton);
+                break;
+            case TutorialAction.PlacePlant:
+                onPlantPlaced.AddListener(EnableNextButton);
+                break;
+            case TutorialAction.HighlightPlant:
+                onPlantHightlighted.AddListener(EnableNextButton);
+                break;
+            case TutorialAction.WaterPlant:
+                onPlantWatered.AddListener(EnableNextButton);
+                break;
+            case TutorialAction.KillInsects:
+                onInsectsKilled.AddListener(EnableNextButton);
+                break;
+            case TutorialAction.RevivePlant:
+                onPlantRevived.AddListener(EnableNextButton);
+                break;
+        }
+
+        Debug.Log("Waiting for action: " + action);
+    }
+
+    private static void EnableNextButton()
+    {
+        Debug.Log("Action completed");
+        invisibleButton.gameObject.SetActive(true);
+
+        // Unsubscribe from the event so it doesn’t trigger again
+        onPlantSelected.RemoveListener(EnableNextButton);
+        onPlantPlaced.RemoveListener(EnableNextButton);
+        onPlantHightlighted.RemoveListener(EnableNextButton);
+        onPlantWatered.RemoveListener(EnableNextButton);
+        onInsectsKilled.RemoveListener(EnableNextButton);
+        onPlantRevived.RemoveListener(EnableNextButton);
+
+        SetNextStep();
     }
 }
