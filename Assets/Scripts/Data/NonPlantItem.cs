@@ -17,7 +17,7 @@ public class NonPlantItem : ScriptableObject
     private Sprite icon;
     public Sprite Icon { get { return icon; } }
     
-    private int clickCount;
+    private int clickCount = 1;
     public int ClickCount 
     { 
         get { return clickCount; } 

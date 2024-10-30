@@ -6,5 +6,6 @@ public enum TutorialAction
     HighlightPlant,
     WaterPlant,
     KillInsects,
-    RevivePlant
+    RevivePlant,
+    CollectCoins
 }

@@ -23,13 +23,13 @@ public class GardenPlant : MonoBehaviour
     private Color originalColor;
 
     private int _coins = 0;
-    private bool spawnedCoins = false;
+    public bool spawnedCoins = false;
     public int Coins
     {
         get => _coins;
         private set {
             _coins = value;
-            if (_coins >= 10 && !spawnedCoins) 
+            if (_coins >= 10 && !spawnedCoins && TutorialUI.firstLaunch != 0) 
             {
                 Debug.Log("Spawning coins...");
                 SpawnCoins();
@@ -82,6 +82,7 @@ public class GardenPlant : MonoBehaviour
         
         Debug.Log("Created new GardenPlant");
         TutorialUI.onPlantPlaced.Invoke();
+        TutorialUI.selectedPlant = this;
 
         while(true) 
         {
@@ -248,12 +249,14 @@ public class GardenPlant : MonoBehaviour
         if (selectedPlant == this)
             HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
 
-        TutorialUI.onPlantWatered.Invoke();
+        //TutorialUI.onPlantWatered.Invoke();
+        //if(TutorialUI.firstLaunch == 0)
+            //SpawnInsects(10 - spawnedInsects.Count);
     }
     
     private void TrySpawnInsect()
     {
-        if (spawnedInsects.Count >= 10) return; 
+        if (spawnedInsects.Count >= 10 && TutorialUI.firstLaunch == 0) return; 
         float spawnChance = UnityEngine.Random.Range(0f, 100f);
         if (spawnChance <= 5f)  // 5% di probabilità ogni 3 secondi
         {
@@ -262,7 +265,7 @@ public class GardenPlant : MonoBehaviour
     }
     
     // Metodo per spawnare 20 insetti attorno alla pianta
-    private void SpawnInsects(int numberOfInsects)
+    public void SpawnInsects(int numberOfInsects)
     {
         float insectSpawnRadius = 0.1f;
         float insectSpawnHeight = VaseObj.GetComponent<Collider>().bounds.size.y + PlantObj.GetComponent<Collider>().bounds.size.y;
@@ -297,7 +300,9 @@ public class GardenPlant : MonoBehaviour
         spawnedInsects.Clear();
         Coins += 7;
 
-        TutorialUI.onInsectsKilled.Invoke();
+        //TutorialUI.onInsectsKilled.Invoke();
+        //if(TutorialUI.firstLaunch == 0)
+            //Plant.CurrentHealth = 0f;
     }
     
     private void SetPlantColor(Color color)
@@ -323,7 +328,7 @@ public class GardenPlant : MonoBehaviour
     public bool IsInfected() {
         return spawnedInsects.Count > 0;
     }
-    private void SpawnCoins()
+    public void SpawnCoins()
     {
         if (coinPrefab == null)
         {
@@ -383,6 +388,7 @@ public class GardenPlant : MonoBehaviour
         //Wallet.Instance.AddMoney(Coins);
         Debug.Log("Colleccted: " + Coins + " coins");
         Coins = 0;
+        TutorialUI.onCoinsCollected.Invoke();
             
     }
 }

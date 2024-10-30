@@ -52,6 +52,7 @@ public class InsecticideController : MonoBehaviour
                 particleSystemActivations = 3;
                 insecticideSelectedPlant?.RemoveInsects(); 
                 Destroy(gameObject);
+                TutorialUI.onInsectsKilled.Invoke();
             }
         }
     }

@@ -37,6 +37,7 @@ public class WateringCanController : MonoBehaviour
                 isAvailable = true;
                 audioSource.Stop();
                 Destroy(gameObject);
+                TutorialUI.onPlantWatered.Invoke();
             }
         }
     }

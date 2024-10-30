@@ -11,6 +11,8 @@ public class TutorialUI : MonoBehaviour
     private static TextMeshProUGUI tutorialText;
     public static TutorialUI Instance { get; private set; }
     public static int firstLaunch;
+    
+    public static GardenPlant selectedPlant;
 
     private static List<TutorialStep> tutorialSteps = new List<TutorialStep>()
     {
@@ -20,10 +22,11 @@ public class TutorialUI : MonoBehaviour
         new TutorialStep("Tap on the flower to select it.", TutorialAction.HighlightPlant),
         new TutorialStep("Here you can operate various actions on the flower."),
         new TutorialStep("Click on the Water button to water the plant.", TutorialAction.WaterPlant),
-        new TutorialStep("If a swarm of insects attacks the flower, click on the Insect button to kill them.", TutorialAction.KillInsects),
-        new TutorialStep("If a plant runs out of water, then it will die."),
+        new TutorialStep("Oh no! insects are attacking the flower, click on the Insect button to kill them.", TutorialAction.KillInsects),
+        new TutorialStep("If a plant runs out of water, then it will die and become dark."),
         new TutorialStep("To revive it, click on the revitalizing button.", TutorialAction.RevivePlant),
         new TutorialStep("By doing these actions, you can keep your garden healthy, and you will farm coins."),
+        new TutorialStep("Tap on the plant to collect the coins.", TutorialAction.CollectCoins),
         new TutorialStep("You can then use them to buy more plants and tools."),
         new TutorialStep("Enjoy your garden!")
     };
@@ -36,6 +39,8 @@ public class TutorialUI : MonoBehaviour
     public static UnityEvent onPlantWatered = new UnityEvent();
     public static UnityEvent onInsectsKilled = new UnityEvent();
     public static UnityEvent onPlantRevived = new UnityEvent();
+    
+    public static UnityEvent onCoinsCollected = new UnityEvent();
 
     void Awake()
     {
@@ -66,10 +71,10 @@ public class TutorialUI : MonoBehaviour
     {
         tutorialCanvas.enabled = true;
 
-        //if (firstLaunch == 0)
+        if (firstLaunch == 0)
             Instance.StartTutorial();
-        //else
-            //Instance.WelcomeBackGreetings();
+        else
+            Instance.WelcomeBackGreetings();
     }
 
     private void StartTutorial()
@@ -101,14 +106,20 @@ public class TutorialUI : MonoBehaviour
             TutorialStep step = iterator.Current;
 
             tutorialText.text = step.Sentence;
+            
+            if (step.Sentence.Contains("If a plant runs out of water"))
+            {
+                selectedPlant.Plant.CurrentHealth = 0f;
+            }
 
             if (step.ActionRequired != TutorialAction.None)
                 ListenForActionCompletion(step.ActionRequired);
         }
         else
         {
-            //PlayerPrefs.SetInt("FirstLaunch", 1);
-            //PlayerPrefs.Save();
+            firstLaunch = 1;
+            PlayerPrefs.SetInt("FirstLaunch", 1);
+            PlayerPrefs.Save();
             HideUI();
         }
     }
@@ -132,10 +143,16 @@ public class TutorialUI : MonoBehaviour
                 onPlantWatered.AddListener(EnableNextButton);
                 break;
             case TutorialAction.KillInsects:
+                selectedPlant.SpawnInsects(10);
                 onInsectsKilled.AddListener(EnableNextButton);
                 break;
             case TutorialAction.RevivePlant:
                 onPlantRevived.AddListener(EnableNextButton);
+                break;
+            case TutorialAction.CollectCoins:
+                selectedPlant.spawnedCoins = true;
+                selectedPlant.SpawnCoins();
+                onCoinsCollected.AddListener(EnableNextButton);
                 break;
         }
 
@@ -154,6 +171,7 @@ public class TutorialUI : MonoBehaviour
         onPlantWatered.RemoveListener(EnableNextButton);
         onInsectsKilled.RemoveListener(EnableNextButton);
         onPlantRevived.RemoveListener(EnableNextButton);
+        onCoinsCollected.RemoveListener(EnableNextButton);
 
         SetNextStep();
     }

@@ -5359,7 +5359,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starterPlants:
   - {fileID: 11400000, guid: c2cd83a59d34c62458374d27fe2c5850, type: 2}
-  - {fileID: 11400000, guid: 4f339c61529fd574b94cc7b3da1f165a, type: 2}
 --- !u!1 &1075000274
 GameObject:
   m_ObjectHideFlags: 0
@@ -5512,6 +5511,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 93e175cb69d77d847b1c6e17d4a484b6, type: 2}
   - {fileID: 11400000, guid: ee1c0ddc405695a4783075e53def6662, type: 2}
   - {fileID: 11400000, guid: e72f1f7a2a366454e9c32471c0f39366, type: 2}
+  - {fileID: 11400000, guid: 4f339c61529fd574b94cc7b3da1f165a, type: 2}
   - {fileID: 11400000, guid: 2f79b4740cf8f4ea7871738d6181e122, type: 2}
   starterShopNonPlantItems:
   - {fileID: 11400000, guid: 91016cdc1db55437c91aff376a59a4be, type: 2}
