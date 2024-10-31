@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class TutorialUI : MonoBehaviour
 {
     private static Canvas tutorialCanvas;
-    private static Button invisibleButton;
+    public static Button invisibleButton;
     private static TextMeshProUGUI tutorialText;
     public static TutorialUI Instance { get; private set; }
     public static int firstLaunch;
@@ -25,7 +25,7 @@ public class TutorialUI : MonoBehaviour
         new TutorialStep("Oh no! insects are attacking the flower, click on the Insect button to kill them.", TutorialAction.KillInsects),
         new TutorialStep("If a plant runs out of water, then it will die and become dark."),
         new TutorialStep("To revive it, click on the revitalizing button.", TutorialAction.RevivePlant),
-        new TutorialStep("By doing these actions, you can keep your garden healthy, and you will farm coins."),
+        new TutorialStep("By doing these actions, you can keep your garden healthy, and you will farm coins."), 
         new TutorialStep("Tap on the plant to collect the coins.", TutorialAction.CollectCoins),
         new TutorialStep("You can then use them to buy more plants and tools."),
         new TutorialStep("Enjoy your garden!")
@@ -59,8 +59,10 @@ public class TutorialUI : MonoBehaviour
     void Start()
     {
         firstLaunch = PlayerPrefs.GetInt("FirstLaunch");
-
-        invisibleButton = GetComponentInChildren<Button>();
+        
+        invisibleButton = GameObject.Find("UI/Idle/InvisibleButton").GetComponent<Button>();
+        Debug.Log(invisibleButton.gameObject.name);
+        invisibleButton.onClick.AddListener(() => Debug.Log("Button clicked"));
         invisibleButton.gameObject.SetActive(false);
 
         tutorialCanvas = GetComponent<Canvas>();
@@ -112,6 +114,9 @@ public class TutorialUI : MonoBehaviour
             if (step.Sentence.Contains("If a plant runs out of water"))
             {
                 selectedPlant.Plant.CurrentHealth = 0f;
+            } else if (step.Sentence.Contains("By doing these actions"))
+            {
+                GardenPlant.SetSelectedPlant(null);
             }
 
             if (step.ActionRequired != TutorialAction.None)
@@ -119,8 +124,9 @@ public class TutorialUI : MonoBehaviour
         }
         else
         {
+            selectedPlant = null;
             firstLaunch = 1;
-            PlayerPrefs.SetInt("FirstLaunch", 1);
+            //PlayerPrefs.SetInt("FirstLaunch", 1);
             PlayerPrefs.Save();
             HideUI();
         }
@@ -152,6 +158,7 @@ public class TutorialUI : MonoBehaviour
                 onPlantRevived.AddListener(EnableNextButton);
                 break;
             case TutorialAction.CollectCoins:
+                GardenPlant.SetSelectedPlant(null);
                 selectedPlant.spawnedCoins = true;
                 selectedPlant.SpawnCoins();
                 onCoinsCollected.AddListener(EnableNextButton);

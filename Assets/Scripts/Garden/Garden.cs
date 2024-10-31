@@ -32,7 +32,7 @@ public class Garden : MonoBehaviour
     private void Update()
     {
         if (plane == null) return;
-
+        
         // garden touch
         var touchPoint = DetectGardenTouch();
         if (touchPoint.HasValue && Inventory.GetSelectedPlant() != null)
@@ -51,7 +51,8 @@ public class Garden : MonoBehaviour
 
         // hit outside the garden
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && !IsPointerOverUI(Input.GetTouch(0).position))
-            GardenPlant.SetSelectedPlant(null);
+            if(TutorialUI.selectedPlant == null)
+                GardenPlant.SetSelectedPlant(null);
     }
 
     private GameObject SpawnPlant(Plant plantToSpawn, Vector3 touchPosition)
@@ -124,7 +125,7 @@ public class Garden : MonoBehaviour
     }
 
     private bool IsPointerOverUI(Vector2 pos)
-    {
+    {   
         PointerEventData eventData = new PointerEventData(EventSystem.current)
         {
             position = pos

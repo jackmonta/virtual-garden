@@ -256,9 +256,9 @@ public class GardenPlant : MonoBehaviour
     
     private void TrySpawnInsect()
     {
-        if (spawnedInsects.Count >= 10 && TutorialUI.firstLaunch == 0) return; 
+        if (spawnedInsects.Count >= 10 || TutorialUI.firstLaunch == 0) return; 
         float spawnChance = UnityEngine.Random.Range(0f, 100f);
-        if (spawnChance <= 5f)  // 5% di probabilità ogni 3 secondi
+        if (spawnChance <= 100f)  // 5% di probabilità ogni 3 secondi
         {
             SpawnInsects(10 - spawnedInsects.Count);
         }
