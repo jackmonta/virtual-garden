@@ -22,6 +22,8 @@ public class GardenPlant : MonoBehaviour
     public bool plantIsDead = false;
     private Color originalColor;
 
+
+    private float _accumulatedCoins = 0;
     private int _coins = 0;
     public bool spawnedCoins = false;
     public int Coins
@@ -29,7 +31,7 @@ public class GardenPlant : MonoBehaviour
         get => _coins;
         private set {
             _coins = value;
-            if (_coins >= 10 && !spawnedCoins && TutorialUI.firstLaunch != 0) 
+            if (_coins >= Plant.CoinPerSecond*15 && !spawnedCoins && TutorialUI.firstLaunch != 0) 
             {
                 Debug.Log("Spawning coins...");
                 SpawnCoins();
@@ -38,8 +40,6 @@ public class GardenPlant : MonoBehaviour
         } 
     }
     private List<GameObject> coinGameobjects = new List<GameObject>();
-    private float lastCoinDropTime = 0f;
-    private float waterCoinDropCooldown = 3f;
     private static GameObject coinPrefab;
     private static readonly (Vector3 position, Quaternion rotation)[] coinSpawnOffsets = new (Vector3, Quaternion)[]
     {
@@ -90,7 +90,7 @@ public class GardenPlant : MonoBehaviour
             if(spawnedInsects.Count == 0){
                TrySpawnInsect();
             } else {
-               DecreaseHealth(2f);
+               DecreaseHealth(3f);
             }
         }
     }
@@ -113,9 +113,8 @@ public class GardenPlant : MonoBehaviour
     
 
     void Update()
-    {
-        DecreaseHealth(1f * Time.deltaTime);
-        
+    {   
+     
         if (DetectTouch())
         {
             SetSelectedPlant(this);
@@ -123,6 +122,16 @@ public class GardenPlant : MonoBehaviour
             if (CanCollectCoins())
             {
                 StartCoroutine(AnimateCoinsToWallet());
+            }
+        }
+
+        if (Plant.CurrentHealth.Value > 0){
+            DecreaseHealth(1f * Time.deltaTime);
+            _accumulatedCoins += 1 * Time.deltaTime;
+            if (_accumulatedCoins >= 1)
+            {
+                Coins += Plant.CoinPerSecond;
+                _accumulatedCoins = 0;
             }
         }
         
@@ -240,31 +249,22 @@ public class GardenPlant : MonoBehaviour
         if (Plant == null || plantIsDead) return;
 
         Plant.IncreaseHealth(1f);
-        if (Plant.Health == Plant.CurrentHealth.Value && Time.time - lastCoinDropTime > waterCoinDropCooldown)
-        {
-            Coins += 3;
-            lastCoinDropTime = Time.time;
-        }
 
         if (selectedPlant == this)
             HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
-
-        //TutorialUI.onPlantWatered.Invoke();
-        //if(TutorialUI.firstLaunch == 0)
-            //SpawnInsects(10 - spawnedInsects.Count);
     }
     
     private void TrySpawnInsect()
     {
         if (spawnedInsects.Count >= 10 || TutorialUI.firstLaunch == 0) return; 
         float spawnChance = UnityEngine.Random.Range(0f, 100f);
-        if (spawnChance <= 100f)  // 5% di probabilità ogni 3 secondi
+        if (spawnChance <= 2f)  // 2% di probabilità ogni 3 secondi
         {
             SpawnInsects(10 - spawnedInsects.Count);
         }
     }
     
-    // Metodo per spawnare 20 insetti attorno alla pianta
+    
     public void SpawnInsects(int numberOfInsects)
     {
         float insectSpawnRadius = 0.1f;
@@ -298,11 +298,6 @@ public class GardenPlant : MonoBehaviour
         foreach (GameObject insect in spawnedInsects)
             Destroy(insect);
         spawnedInsects.Clear();
-        Coins += 7;
-
-        //TutorialUI.onInsectsKilled.Invoke();
-        //if(TutorialUI.firstLaunch == 0)
-            //Plant.CurrentHealth = 0f;
     }
     
     private void SetPlantColor(Color color)

@@ -13,6 +13,10 @@ public class Plant : ScriptableObject
     public int Price { get { return price; } }
     
     [SerializeField]
+    private int coinPerSecond;
+    public int CoinPerSecond { get { return coinPerSecond; } }
+    
+    [SerializeField]
     private float health;
     public float Health { get { return health; } }
     

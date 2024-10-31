@@ -114,7 +114,7 @@ public class TutorialUI : MonoBehaviour
             if (step.Sentence.Contains("If a plant runs out of water"))
             {
                 selectedPlant.Plant.CurrentHealth = 0f;
-            } else if (step.Sentence.Contains("By doing these actions"))
+            } else if (step.Sentence.Contains("By doing these actions") || step.Sentence.Contains("You can then use them"))
             {
                 GardenPlant.SetSelectedPlant(null);
             }
@@ -126,7 +126,7 @@ public class TutorialUI : MonoBehaviour
         {
             selectedPlant = null;
             firstLaunch = 1;
-            //PlayerPrefs.SetInt("FirstLaunch", 1);
+            PlayerPrefs.SetInt("FirstLaunch", 1);
             PlayerPrefs.Save();
             HideUI();
         }
