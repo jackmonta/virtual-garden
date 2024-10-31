@@ -39,8 +39,9 @@ public class TutorialUI : MonoBehaviour
     public static UnityEvent onPlantWatered = new UnityEvent();
     public static UnityEvent onInsectsKilled = new UnityEvent();
     public static UnityEvent onPlantRevived = new UnityEvent();
-    
     public static UnityEvent onCoinsCollected = new UnityEvent();
+
+    public static UnityEvent<TutorialAction> onNextAction = new UnityEvent<TutorialAction>();
 
     void Awake()
     {
@@ -104,6 +105,7 @@ public class TutorialUI : MonoBehaviour
         if (iterator.MoveNext())
         {
             TutorialStep step = iterator.Current;
+            onNextAction.Invoke(step.ActionRequired);
 
             tutorialText.text = step.Sentence;
             
