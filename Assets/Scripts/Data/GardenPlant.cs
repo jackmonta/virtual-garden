@@ -81,8 +81,11 @@ public class GardenPlant : MonoBehaviour
             highlightMaterial = Resources.Load<Material>("Shaders/Outline Material");
         
         Debug.Log("Created new GardenPlant");
-        TutorialUI.onPlantPlaced.Invoke();
-        TutorialUI.selectedPlant = this;
+        if (TutorialUI.firstLaunch == 0)
+        {
+            TutorialUI.selectedPlant = this;
+            TutorialUI.onPlantPlaced.Invoke();
+        }
 
         while(true) 
         {
