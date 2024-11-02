@@ -29,9 +29,6 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateHealthBar(float health)
     {
-        //float roundedHealth = Mathf.Round(health);
-        //if (healthBar.value == roundedHealth) return;
-
         healthBar.value = health;
         healthFill.color = gradient.Evaluate(healthBar.normalizedValue);
     }

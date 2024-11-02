@@ -140,6 +140,7 @@ public class GardenPlant : MonoBehaviour
         
         if (Plant.CurrentHealth.Value <= 0){
             plantIsDead = true;
+            HealthBar.Instance.UpdateHealthBar(0);
             Color darkGrey = new Color(0.2f, 0.2f, 0.2f); 
             SetPlantColor(darkGrey); 
         } else if (Plant.CurrentHealth.Value <= Plant.getHealth()*0.2 && dropObj == null){
