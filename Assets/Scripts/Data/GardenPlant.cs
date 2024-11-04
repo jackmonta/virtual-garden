@@ -60,14 +60,13 @@ public class GardenPlant : MonoBehaviour
         
         if (vaseParticleSystem == null)
         {
-            Debug.LogError("ParticleSystem is missing from VaseObj 2.");
+            Debug.LogError("ParticleSystem is missing from VaseObj.");
             
             foreach (Transform child in VaseObj.transform)
             {
                 Debug.Log("Child: " + child.name);
             }
         }
-
         
         originalColor = PlantObj.GetComponent<Renderer>().material.color;
     
@@ -85,7 +84,8 @@ public class GardenPlant : MonoBehaviour
         {
             TutorialUI.selectedPlant = this;
             TutorialUI.onPlantPlaced.Invoke();
-        }
+        } else if (!Plant.CurrentHealth.HasValue)
+            Plant.CurrentHealth = Plant.Health;
 
         while(true) 
         {

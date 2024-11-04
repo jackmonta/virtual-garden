@@ -73,11 +73,10 @@ public class Garden : MonoBehaviour
 
         plantObj.transform.localScale = Vector3.one * 0.07f;
         vaseObj.transform.SetParent(plantObj.transform);
-        plantObj.AddComponent<GardenPlant>();
-        plantObj.GetComponent<GardenPlant>().Plant = plantToSpawn;
-        plantObj.GetComponent<GardenPlant>().insectPrefab = insectPrefab;
-        plantObj.GetComponent<GardenPlant>().dropPrefab = dropPrefab;
-        
+        GardenPlant gardenPlant = plantObj.AddComponent<GardenPlant>();
+        gardenPlant.Plant = plantToSpawn;
+        gardenPlant.insectPrefab = insectPrefab;
+        gardenPlant.dropPrefab = dropPrefab;
         return plantObj;
     }
 

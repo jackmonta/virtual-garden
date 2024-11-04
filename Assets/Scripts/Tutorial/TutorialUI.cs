@@ -9,26 +9,29 @@ public class TutorialUI : MonoBehaviour
     private static Canvas tutorialCanvas;
     public static Button invisibleButton;
     private static TextMeshProUGUI tutorialText;
+    private static AudioSource audioSource;
     public static TutorialUI Instance { get; private set; }
     public static int firstLaunch;
     
     public static GardenPlant selectedPlant;
 
+
+
     private static List<TutorialStep> tutorialSteps = new List<TutorialStep>()
     {
-        new TutorialStep("Hi, welcome to Virtual Garden!"),
-        new TutorialStep("Now select a plant from the inventory below.", TutorialAction.SelectPlant),
-        new TutorialStep("Then, tap on the garden to place the plant.", TutorialAction.PlacePlant),
-        new TutorialStep("Tap on the flower to select it.", TutorialAction.HighlightPlant),
-        new TutorialStep("Here you can operate various actions on the flower."),
-        new TutorialStep("Click on the Water button to water the plant.", TutorialAction.WaterPlant),
-        new TutorialStep("Oh no! insects are attacking the flower, click on the Insect button to kill them.", TutorialAction.KillInsects),
-        new TutorialStep("If a plant runs out of water, then it will die and become dark."),
-        new TutorialStep("To revive it, click on the revitalizing button.", TutorialAction.RevivePlant),
-        new TutorialStep("By doing these actions, you can keep your garden healthy, and you will farm coins."), 
-        new TutorialStep("Tap on the plant to collect the coins.", TutorialAction.CollectCoins),
-        new TutorialStep("You can then use them to buy more plants and tools."),
-        new TutorialStep("Enjoy your garden!")
+        new TutorialStep("Hi, welcome to Virtual Garden!", "Audio/Welcome"),
+        new TutorialStep("Now, select a plant from the inventory below.", "Audio/SelectPlant", TutorialAction.SelectPlant),
+        new TutorialStep("Then, tap on the garden to place the plant.", "Audio/PlacePlant", TutorialAction.PlacePlant),
+        new TutorialStep("Tap on the plant to select it.", "Audio/HighlightPlant", TutorialAction.HighlightPlant),
+        new TutorialStep("Here, you can perform various actions on the plant.", "Audio/ActionsPlant"),
+        new TutorialStep("Click on the watering can button to water the plant.", "Audio/WateringCan", TutorialAction.WaterPlant),
+        new TutorialStep("Oh no! Insects are attacking the plant. Click on the insecticide to get rid of them.", "Audio/Insects", TutorialAction.KillInsects),
+        new TutorialStep("Insects double the rate of health loss. If a plant runs out of water, it will die and turn dark.", "Audio/PlantOutOfWater"),
+        new TutorialStep("To revive it, click on the revitalizing button.", "Audio/Revitalizing", TutorialAction.RevivePlant),
+        new TutorialStep("By performing these actions, you can keep your garden healthy and earn coins.", "Audio/KeepHealthy"),
+        new TutorialStep("Tap on the plant to collect the coins.", "Audio/CollectCoins", TutorialAction.CollectCoins),
+        new TutorialStep("You can then use these coins to buy more plants and tools from the shop.", "Audio/Shop"),
+        new TutorialStep("Enjoy your garden!", "Audio/Enjoy")
     };
 
     private static IEnumerator<TutorialStep> iterator;
@@ -61,13 +64,14 @@ public class TutorialUI : MonoBehaviour
         firstLaunch = PlayerPrefs.GetInt("FirstLaunch");
         
         invisibleButton = GameObject.Find("UI/Idle/InvisibleButton").GetComponent<Button>();
-        Debug.Log(invisibleButton.gameObject.name);
         invisibleButton.onClick.AddListener(() => Debug.Log("Button clicked"));
         invisibleButton.gameObject.SetActive(false);
 
         tutorialCanvas = GetComponent<Canvas>();
         tutorialText = GetComponentInChildren<TextMeshProUGUI>();
         tutorialCanvas.enabled = false;
+
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     public static void ShowUI()
@@ -110,7 +114,8 @@ public class TutorialUI : MonoBehaviour
             onNextAction.Invoke(step.ActionRequired);
 
             tutorialText.text = step.Sentence;
-            
+            PlayAudio(step.AudioClipPath);
+
             if (step.Sentence.Contains("If a plant runs out of water"))
             {
                 selectedPlant.Plant.CurrentHealth = 0f;
@@ -183,5 +188,22 @@ public class TutorialUI : MonoBehaviour
         onCoinsCollected.RemoveListener(EnableNextButton);
 
         SetNextStep();
+    }
+
+    private static void PlayAudio(string clipPath)
+    {
+        if (!string.IsNullOrEmpty(clipPath))
+        {
+            AudioClip clip = Resources.Load<AudioClip>(clipPath);
+            if (clip != null)
+            {
+                audioSource.clip = clip;
+                audioSource.Play();
+            }
+            else
+            {
+                Debug.LogWarning("Audio clip not found at path: " + clipPath);
+            }
+        }
     }
 }

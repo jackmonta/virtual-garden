@@ -1757,6 +1757,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.79999995
       objectReference: {fileID: 0}
+    - target: {fileID: 3285644841284125572, guid: f61a9166e5eb54a4da5d04f019d35e8f,
+        type: 3}
+      propertyPath: m_text
+      value: Hi, welcome to Virtual Garden!
+      objectReference: {fileID: 0}
     - target: {fileID: 8266163827667565489, guid: f61a9166e5eb54a4da5d04f019d35e8f,
         type: 3}
       propertyPath: m_Name
