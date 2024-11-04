@@ -96,6 +96,7 @@ public class TutorialUI : MonoBehaviour
     private void WelcomeBackGreetings()
     {
         tutorialText.text = "Welcome back to Virtual Garden!";
+        PlayAudio("Audio/WelcomeBack");
         invisibleButton.gameObject.SetActive(true);
         invisibleButton.onClick.AddListener(() => HideUI());
     }
