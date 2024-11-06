@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GardenPlant : MonoBehaviour
 {
@@ -238,6 +239,10 @@ public class GardenPlant : MonoBehaviour
                 Ray ray = Camera.main.ScreenPointToRay(touch.position);
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
+                    bool uiHit = IsPointerOverUI(touch.position);
+                    if (uiHit)
+                        return false;
+
                     GameObject hitObject = hit.collider.gameObject;
                     
                     if (hitObject == PlantObj || hitObject == VaseObj)
@@ -246,6 +251,19 @@ public class GardenPlant : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private bool IsPointerOverUI(Vector2 pos)
+    {   
+        PointerEventData eventData = new PointerEventData(EventSystem.current)
+        {
+            position = pos
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        return results.Count > 0;
     }
 
     void OnParticleCollision(GameObject other)
