@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 
-[System.Serializable]
+[Serializable]
 public class ShopData
 {
     public List<Plant> plants;
     public List<NonPlantItemData> nonPlantItems;
 }
 
-[System.Serializable]
+[Serializable]
 public class NonPlantItemData
 {
     public string name;

@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 
 [CreateAssetMenu(fileName = "New nonPlant", menuName = "nonPlant", order = 1)]
-[System.Serializable]
+[Serializable]
 public class NonPlantItem : ScriptableObject
 {
     [SerializeField]

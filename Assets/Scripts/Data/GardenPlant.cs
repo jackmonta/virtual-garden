@@ -294,9 +294,9 @@ public class GardenPlant : MonoBehaviour
         for (int i = 0; i < numberOfInsects; i++)
         {
             Vector3 randomPosition = transform.position + new Vector3(
-                UnityEngine.Random.Range(-insectSpawnRadius, insectSpawnRadius), 
+                Random.Range(-insectSpawnRadius, insectSpawnRadius), 
                 insectSpawnHeight,
-                UnityEngine.Random.Range(-insectSpawnRadius, insectSpawnRadius)
+                Random.Range(-insectSpawnRadius, insectSpawnRadius)
             );
 
             GameObject insect = Instantiate(insectPrefab, randomPosition, Quaternion.identity);
@@ -309,7 +309,7 @@ public class GardenPlant : MonoBehaviour
             {
                 flyScript.target = this.transform;  // La pianta diventa il target
                 flyScript.radius = insectSpawnRadius;  // Imposta il raggio di volo
-                flyScript.speed = UnityEngine.Random.Range(0.5f, 2f);  // Velocità casuale per ogni insetto
+                flyScript.speed = Random.Range(0.5f, 2f);  // Velocità casuale per ogni insetto
             }
             
         }
@@ -402,7 +402,6 @@ public class GardenPlant : MonoBehaviour
         coinGameobjects.Clear();
         spawnedCoins = false; // Permette di spawnare nuovi coin
             
-        //Wallet.Instance.AddMoney(Coins);
         Debug.Log("Colleccted: " + Coins + " coins");
         Coins = 0;
         TutorialUI.onCoinsCollected.Invoke();
