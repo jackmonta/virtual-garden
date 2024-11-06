@@ -4,6 +4,7 @@ using UnityEngine.XR.ARFoundation;
 public class PlaneTouchDetection : MonoBehaviour
 {
     [SerializeField] private GameObject XROrigin;
+    [SerializeField] private Canvas scanSurfaceCanvas;
     private ARPlaneManager planeManager;
 
     private void Start()
@@ -15,6 +16,9 @@ public class PlaneTouchDetection : MonoBehaviour
         }
 
         planeManager = XROrigin.GetComponent<ARPlaneManager>();
+
+        if (scanSurfaceCanvas != null)
+            scanSurfaceCanvas.gameObject.SetActive(true);
     }
 
     private void Update()
@@ -28,6 +32,9 @@ public class PlaneTouchDetection : MonoBehaviour
                 if (clickedPlane != null)
                 {
                     planeManager.enabled = false; // stopping plane search
+
+                    if (scanSurfaceCanvas != null)
+                        scanSurfaceCanvas.gameObject.SetActive(false);
 
                     // handling planes
                     foreach (ARPlane plane in planeManager.trackables)
