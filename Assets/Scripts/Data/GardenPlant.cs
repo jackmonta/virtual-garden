@@ -19,6 +19,7 @@ public class GardenPlant : MonoBehaviour
     public GameObject PlantObj { get; private set; }
     public GameObject VaseObj { get; private set; }
     private ParticleSystem vaseParticleSystem;
+   
 
     public bool plantIsDead = false;
     private Color originalColor;
