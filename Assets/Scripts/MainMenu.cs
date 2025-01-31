@@ -38,6 +38,7 @@ public class MainMenu : MonoBehaviour
 
     private bool IsGameStarted()
     {
+        TutorialUI.firstLaunch = PlayerPrefs.GetInt("FirstLaunch");
         return TutorialUI.firstLaunch != 0;
     }
 
@@ -48,6 +49,7 @@ public class MainMenu : MonoBehaviour
             string filePath = Application.persistentDataPath + path;
             if (System.IO.File.Exists(filePath))
                 System.IO.File.Delete(filePath);
+            PlayerPrefs.SetInt("FirstLaunch", 0);
         }
     }
 }

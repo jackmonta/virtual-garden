@@ -61,8 +61,6 @@ public class TutorialUI : MonoBehaviour
     
     void Start()
     {
-        firstLaunch = PlayerPrefs.GetInt("FirstLaunch");
-        
         invisibleButton = GameObject.Find("UI/Idle/InvisibleButton").GetComponent<Button>();
         invisibleButton.onClick.AddListener(() => Debug.Log("Button clicked"));
         invisibleButton.gameObject.SetActive(false);

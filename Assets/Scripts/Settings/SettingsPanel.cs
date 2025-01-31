@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingsPanel : MonoBehaviour
 {
     public static SettingsPanel Instance { get; private set; }
     [SerializeField] private Button resumeButton;
+    [SerializeField] private Button menuButton;
     [SerializeField] private Button quitButton;
 
     void Awake()
@@ -16,17 +18,52 @@ public class SettingsPanel : MonoBehaviour
         }
 
         Instance = this;
+        this.gameObject.SetActive(false);
+        Debug.Log("Settings STARTED");
+    }
+
+    public void Show()
+    {
+        Debug.Log("Game paused");
+        Pause();
+        this.gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        Resume();
+        this.gameObject.SetActive(false);
     }
 
     void Start()
     {
         resumeButton.onClick.AddListener(() => {
            Debug.Log("resuming game..."); 
+           Hide();
+        });
+        menuButton.onClick.AddListener(() => {
+           Debug.Log("Going to menu..."); 
+           SwitchToMenu();
         });
         quitButton.onClick.AddListener(() => {
            Debug.Log("quitting game..."); 
            CloseGame();
         });
+    }
+
+    private void SwitchToMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    private void Pause()
+    {
+        Time.timeScale = 0;
+    }
+
+    private void Resume()
+    {
+        Time.timeScale = 1;
     }
 
     private void CloseGame()
