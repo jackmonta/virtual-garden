@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class GameSaver : MonoBehaviour
 {
-    private void SaveInventory()
+    private static void SaveInventory()
     {
         if (Inventory.Instance == null)
         {
@@ -22,7 +22,7 @@ public class GameSaver : MonoBehaviour
         DataManager.SaveToDisk(Inventory.inventoryDataPath, plantsToSerialize);
     }
 
-    private void SaveShop()
+    private static void SaveShop()
     {
         if (Shop.Instance == null)
         {
@@ -47,7 +47,7 @@ public class GameSaver : MonoBehaviour
         DataManager.SaveToDisk(Shop.shopDataPath, shopData);
     }
     
-    private void SaveWallet()
+    private static void SaveWallet()
     {
         if (Wallet.Instance == null)
         {
@@ -59,7 +59,7 @@ public class GameSaver : MonoBehaviour
     }
     
 
-    private void SaveAll()
+    public static void SaveAll()
     {
         Debug.Log("Saving Game...");
 

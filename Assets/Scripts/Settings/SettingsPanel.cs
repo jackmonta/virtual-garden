@@ -19,7 +19,6 @@ public class SettingsPanel : MonoBehaviour
 
         Instance = this;
         this.gameObject.SetActive(false);
-        Debug.Log("Settings STARTED");
     }
 
     public void Show()
@@ -53,6 +52,7 @@ public class SettingsPanel : MonoBehaviour
 
     private void SwitchToMenu()
     {
+        GameSaver.SaveAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 

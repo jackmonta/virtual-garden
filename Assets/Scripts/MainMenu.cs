@@ -49,7 +49,9 @@ public class MainMenu : MonoBehaviour
             string filePath = Application.persistentDataPath + path;
             if (System.IO.File.Exists(filePath))
                 System.IO.File.Delete(filePath);
+                
             PlayerPrefs.SetInt("FirstLaunch", 0);
+            TutorialUI.firstLaunch = PlayerPrefs.GetInt("FirstLaunch");
         }
     }
 }
