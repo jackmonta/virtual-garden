@@ -164,4 +164,11 @@ public class Garden : MonoBehaviour
         return copy;
     }
 
+    public void Reset()
+    {
+        plants = new Dictionary<Plant, GameObject>();
+        GardenPlant.colliderList = new List<Collider>();
+        GardenPlant.selectedPlant = null;
+    }
+
 }

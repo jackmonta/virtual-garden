@@ -20,8 +20,11 @@ public class Wallet : MonoBehaviour
         }
 
         walletDataPath = Application.persistentDataPath + "/walletData.json";
+        LoadDataFromDisk();
+    }
 
-        // loading data from disk
+    public void LoadDataFromDisk()
+    {
         try {
             Instance.Money = DataManager.LoadFromDisk<IntWrapper>(walletDataPath).value;
             Debug.Log("Wallet loaded from disk: " + Instance.Money + " coins.");

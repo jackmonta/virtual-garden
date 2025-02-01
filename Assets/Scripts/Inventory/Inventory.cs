@@ -25,8 +25,13 @@ public class Inventory : MonoBehaviour
         }
 
         inventoryDataPath = Application.persistentDataPath + "/inventoryData.json";
-        
-        // loading data from disk
+        LoadDataFromDisk();
+
+        StartCoroutine(CreatePlantButtons());
+    }
+
+    public void LoadDataFromDisk()
+    {
         try {
             plants = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plants;
             List<float> currentHealths = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plantHealths;
@@ -40,9 +45,7 @@ public class Inventory : MonoBehaviour
             Debug.Log("No plants loaded from disk, loading starter set.");
             plants = starterPlants;
         }
-
-        StartCoroutine(CreatePlantButtons());
-
+        
         selectedPlant = null;
     }
 

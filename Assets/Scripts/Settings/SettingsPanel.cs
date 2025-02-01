@@ -53,7 +53,9 @@ public class SettingsPanel : MonoBehaviour
     private void SwitchToMenu()
     {
         GameSaver.SaveAll();
+        Garden.Instance.Reset();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Resume();
     }
 
     private void Pause()

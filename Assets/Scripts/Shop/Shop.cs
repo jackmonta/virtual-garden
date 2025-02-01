@@ -26,8 +26,11 @@ public class Shop : MonoBehaviour
         }
 
         shopDataPath = Application.persistentDataPath + "/shopData.json";
+        LoadDataFromDisk();
+    }
 
-        // Carica dati da disco
+    public void LoadDataFromDisk()
+    {
         try {
             ShopData data = DataManager.LoadFromDisk<ShopData>(shopDataPath);
             ShopPlants = data.plants;

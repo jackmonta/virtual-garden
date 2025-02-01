@@ -46,12 +46,22 @@ public class MainMenu : MonoBehaviour
     {
         foreach (string path in fileNames)
         {
+            // deleting data files
             string filePath = Application.persistentDataPath + path;
             if (System.IO.File.Exists(filePath))
                 System.IO.File.Delete(filePath);
                 
+            // resetting tutorial
             PlayerPrefs.SetInt("FirstLaunch", 0);
             TutorialUI.firstLaunch = PlayerPrefs.GetInt("FirstLaunch");
+
+            // refreshing data
+            if (Inventory.Instance != null)
+                Inventory.Instance.LoadDataFromDisk();
+            if (Shop.Instance != null)
+                Shop.Instance.LoadDataFromDisk();
+            if (Wallet.Instance != null)
+                Wallet.Instance.LoadDataFromDisk();
         }
     }
 }
