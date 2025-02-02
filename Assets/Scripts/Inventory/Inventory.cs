@@ -44,6 +44,7 @@ public class Inventory : MonoBehaviour
         {
             Debug.Log("No plants loaded from disk, loading starter set.");
             plants = starterPlants;
+            plants.ForEach(plant => plant.SetMaxHealth());
         }
         
         selectedPlant = null;

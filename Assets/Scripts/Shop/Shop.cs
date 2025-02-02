@@ -55,6 +55,8 @@ public class Shop : MonoBehaviour
             Debug.Log("No file found, created new shop");
             ShopPlants = starterShopPlants;
             ShopNonPlantItems = starterShopNonPlantItems;
+            ShopPlants.ForEach(plant => plant.SetMaxHealth());
+            ShopNonPlantItems.ForEach(item => item.ClickCount = 1);
         }
     }
 

@@ -86,6 +86,8 @@ public class TutorialUI : MonoBehaviour
     {
         iterator = tutorialSteps.GetEnumerator();
         SetNextStep();
+        
+        
 
         invisibleButton.gameObject.SetActive(true);
         invisibleButton.onClick.AddListener(() => SetNextStep());

@@ -279,11 +279,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
---- !u!1 &128822827
-=======
---- !u!1 &82726011
->>>>>>> bee
+--- !u!1 &127751655
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,7 +287,27 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
+  - component: {fileID: 374782159}
+  - component: {fileID: 374782158}
+  - component: {fileID: 374782157}
+  - component: {fileID: 374782156}
+  - component: {fileID: 374782161}
+  - component: {fileID: 374782160}
+  m_Layer: 0
+  m_Name: infoButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &128822827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
   - component: {fileID: 128822828}
   - component: {fileID: 128822832}
   - component: {fileID: 128822831}
@@ -299,43 +315,25 @@ GameObject:
   - component: {fileID: 128822829}
   m_Layer: 0
   m_Name: OpenSettingButton
-=======
-  - component: {fileID: 82726012}
-  - component: {fileID: 82726016}
-  - component: {fileID: 82726015}
-  - component: {fileID: 82726014}
-  - component: {fileID: 82726013}
-  m_Layer: 0
-  m_Name: GearButton
->>>>>>> bee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
 --- !u!224 &128822828
-=======
---- !u!224 &82726012
->>>>>>> bee
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 128822827}
-=======
-  m_GameObject: {fileID: 82726011}
->>>>>>> bee
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.4, y: 2.4, z: 2.4}
   m_ConstrainProportionsScale: 1
   m_Children:
-<<<<<<< HEAD
   - {fileID: 75725518}
-  m_Father: {fileID: 1862018167}
+  m_Father: {fileID: 1940496808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -343,27 +341,12 @@ RectTransform:
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &128822829
-=======
-  - {fileID: 405620133}
-  m_Father: {fileID: 1940496808}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 630, y: -100}
-  m_SizeDelta: {x: 50, y: 50}
-  m_Pivot: {x: 0, y: 1}
---- !u!114 &82726013
->>>>>>> bee
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 128822827}
-=======
-  m_GameObject: {fileID: 82726011}
->>>>>>> bee
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
@@ -372,21 +355,13 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1
-<<<<<<< HEAD
 --- !u!114 &128822830
-=======
---- !u!114 &82726014
->>>>>>> bee
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 128822827}
-=======
-  m_GameObject: {fileID: 82726011}
->>>>>>> bee
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -420,22 +395,13 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-<<<<<<< HEAD
   m_TargetGraphic: {fileID: 128822831}
-=======
-  m_TargetGraphic: {fileID: 82726015}
->>>>>>> bee
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-<<<<<<< HEAD
         m_TargetAssemblyTypeName: SettingsUI, Assembly-CSharp
         m_MethodName: ShowSettings
-=======
-        m_TargetAssemblyTypeName: WaterinCanButtonAnimation, Assembly-CSharp
-        m_MethodName: StartAnimation
->>>>>>> bee
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -445,32 +411,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-<<<<<<< HEAD
 --- !u!114 &128822831
-=======
---- !u!114 &82726015
->>>>>>> bee
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 128822827}
-=======
-  m_GameObject: {fileID: 82726011}
->>>>>>> bee
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-<<<<<<< HEAD
   m_Color: {r: 0.690566, g: 0.6837165, b: 0.6449626, a: 0}
-=======
-  m_Color: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 0}
->>>>>>> bee
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -487,44 +441,14 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-<<<<<<< HEAD
 --- !u!222 &128822832
-=======
---- !u!222 &82726016
->>>>>>> bee
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 128822827}
   m_CullTransparentMesh: 1
-=======
-  m_GameObject: {fileID: 82726011}
-  m_CullTransparentMesh: 1
---- !u!1 &127751655
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 374782159}
-  - component: {fileID: 374782158}
-  - component: {fileID: 374782157}
-  - component: {fileID: 374782156}
-  - component: {fileID: 374782161}
-  - component: {fileID: 374782160}
-  m_Layer: 0
-  m_Name: infoButton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
->>>>>>> bee
 --- !u!1 &143451661
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,7 +1142,7 @@ RectTransform:
   m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 82726012}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1321,11 +1245,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-<<<<<<< HEAD
   m_AnchoredPosition: {x: -50, y: -292}
-=======
-  m_AnchoredPosition: {x: -50, y: -200}
->>>>>>> bee
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &484662610
@@ -1815,15 +1735,9 @@ RectTransform:
   - {fileID: 1776744317}
   m_Father: {fileID: 1574156349}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -60, y: -320}
-=======
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -60, y: 600}
->>>>>>> bee
   m_SizeDelta: {x: 100, y: 350}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &737653066
@@ -3661,11 +3575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-<<<<<<< HEAD
   m_AnchoredPosition: {x: -50, y: -130}
-=======
-  m_AnchoredPosition: {x: -50, y: -50}
->>>>>>> bee
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1632253637
@@ -4244,7 +4154,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1056382641}
-  - {fileID: 128822828}
   m_Father: {fileID: 1571486779}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4313,7 +4222,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &1862018172
 MonoBehaviour:
@@ -4375,7 +4284,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 82726012}
+  - {fileID: 128822828}
   - {fileID: 1624105738}
   m_Father: {fileID: 1571486779}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5341,11 +5250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-<<<<<<< HEAD
   m_AnchoredPosition: {x: -50, y: 20}
-=======
-  m_AnchoredPosition: {x: -50, y: 100}
->>>>>>> bee
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &2132021169
@@ -5562,3 +5467,4 @@ SceneRoots:
   - {fileID: 1796759435}
   - {fileID: 553990103}
   - {fileID: 1571486779}
+  - {fileID: 405620133}

@@ -17,7 +17,7 @@ public class NonPlantItem : ScriptableObject
     private Sprite icon;
     public Sprite Icon { get { return icon; } }
     
-    private int clickCount = 1;
+    private int clickCount = 0;
     public int ClickCount 
     { 
         get { return clickCount; } 
@@ -47,5 +47,10 @@ public class NonPlantItem : ScriptableObject
     public void NotifyCountChanged()
     {
         OnClickCountChanged?.Invoke(); // Solleva l'evento
+    }
+
+    public void ResetCounter()
+    {
+        clickCount = 1;
     }
 }
