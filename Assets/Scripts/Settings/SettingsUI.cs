@@ -5,7 +5,7 @@ public class SettingsUI : MonoBehaviour
 {
     public static SettingsUI Instance { get; private set; }
     [SerializeField] GameObject openSettingButton;
-    private bool isSettingOpen = false;
+    public bool isSettingOpen = false;
 
     void Awake()
     {
@@ -24,11 +24,11 @@ public class SettingsUI : MonoBehaviour
     {
         openSettingButton.GetComponent<Button>().onClick.AddListener(() => {
             if (!isSettingOpen)
+            {
                 SettingsPanel.Instance.Show();
-            else
-                SettingsPanel.Instance.Hide();
-            isSettingOpen = ! isSettingOpen;
-
+                isSettingOpen = true;
+            }
+            
             Debug.Log("Open settings button clicked");
         });
 

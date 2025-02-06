@@ -1009,7 +1009,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 374782162}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -4162,7 +4162,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!114 &1862018172
 MonoBehaviour:
@@ -4177,6 +4177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openSettingButton: {fileID: 128822827}
+  isSettingOpen: 0
 --- !u!1 &1940496806
 GameObject:
   m_ObjectHideFlags: 0
@@ -4224,8 +4225,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 128822828}
   - {fileID: 1624105738}
+  - {fileID: 128822828}
   m_Father: {fileID: 1571486779}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

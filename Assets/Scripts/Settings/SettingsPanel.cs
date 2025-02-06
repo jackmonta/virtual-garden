@@ -31,6 +31,7 @@ public class SettingsPanel : MonoBehaviour
     public void Hide()
     {
         Resume();
+        SettingsUI.Instance.isSettingOpen = false;
         this.gameObject.SetActive(false);
     }
 
