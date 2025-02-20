@@ -2585,6 +2585,14 @@ MonoBehaviour:
     type: 3}
   insectPrefab4: {fileID: 3714596114234100490, guid: 78d652d2d104f46498fe2f97c7a236cf,
     type: 3}
+  butterflyPrefab1: {fileID: 779119558453463945, guid: 163535fa95bcb465aac1dfc5ce1fc081,
+    type: 3}
+  butterflyPrefab2: {fileID: 6417709718195808446, guid: 3cf18c1aa856240bc8645b7daa93d066,
+    type: 3}
+  butterflyPrefab3: {fileID: 4102589043675382127, guid: af8e11ede0d0c49cc89ce79e13b6afef,
+    type: 3}
+  coinPrefab: {fileID: 2039273680877712075, guid: 3e6dfa0ee507587479698f03cc3c4dcf,
+    type: 3}
   audioSource: {fileID: 1170142958}
 --- !u!224 &1170142957
 RectTransform:
@@ -4635,7 +4643,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0007417803, y: -90}
+  m_AnchoredPosition: {x: -0.0000041877474, y: -90}
   m_SizeDelta: {x: 0, y: -200}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1976923997
