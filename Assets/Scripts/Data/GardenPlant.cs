@@ -12,7 +12,11 @@ public class GardenPlant : MonoBehaviour
     private static Material highlightMaterial;
     public Plant Plant { get; set; }
     
-    public GameObject insectPrefab { get; set; }
+    public GameObject insectPrefab1 { get; set; }
+    public GameObject insectPrefab2 { get; set; }
+    public GameObject insectPrefab3 { get; set; }
+    public GameObject insectPrefab4 { get; set; }
+
     public GameObject dropPrefab { get; set; }
     private GameObject dropObj;
     private List<GameObject> spawnedInsects = new List<GameObject>();
@@ -299,9 +303,32 @@ public class GardenPlant : MonoBehaviour
                 insectSpawnHeight,
                 Random.Range(-insectSpawnRadius, insectSpawnRadius)
             );
+            
+            GameObject insect = null;
+            int insectType = UnityEngine.Random.Range(0, 4);
 
-            GameObject insect = Instantiate(insectPrefab, randomPosition, Quaternion.identity);
-            insect.transform.localScale /= 50f;
+            switch (insectType)
+            {
+        		case 0:
+            		insect = Instantiate(insectPrefab1, randomPosition, Quaternion.identity);
+					insect.transform.localScale /= 50f;
+           		    break;
+        		case 1:
+            		insect = Instantiate(insectPrefab2, randomPosition, Quaternion.identity);
+					insect.transform.localScale /= 50f;
+            		break;
+       			case 2:
+          		 	insect = Instantiate(insectPrefab3, randomPosition, Quaternion.identity);
+                    insect.transform.localScale /= 50f;
+            		break;
+        		case 3:
+            		insect = Instantiate(insectPrefab4, randomPosition, Quaternion.identity);
+                    insect.transform.localScale /= 500f;
+            		break;
+        		default:
+            		Debug.Log("Error: non valid number insect spawn switch");
+            		break;
+    		}
             spawnedInsects.Add(insect);
 
             // Aggiungi il comportamento di volo attorno alla pianta
@@ -311,6 +338,16 @@ public class GardenPlant : MonoBehaviour
                 flyScript.target = this.transform;  // La pianta diventa il target
                 flyScript.radius = insectSpawnRadius;  // Imposta il raggio di volo
                 flyScript.speed = Random.Range(0.5f, 2f);  // Velocità casuale per ogni insetto
+                switch (insectType)
+                {
+                    case 1:
+                    case 2:
+                        flyScript.rotation = true;
+                        break;
+                    default:
+                        flyScript.rotation = false;
+						break;
+                }
             }
             
         }

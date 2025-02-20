@@ -2714,9 +2714,15 @@ MonoBehaviour:
   gardenMaterial: {fileID: 2100000, guid: 03315046045cfd54584d2e95deff601b, type: 2}
   vasePrefab: {fileID: 5829942184932698900, guid: 2d96a0ce369457d4ba673bcb9e178303,
     type: 3}
-  insectPrefab: {fileID: 2318808441750598162, guid: e83964681f4e64415b0b409e9b861629,
-    type: 3}
   dropPrefab: {fileID: 9167287300125332905, guid: 58bb9ed7f28b64a1caf4d3ca47662dd4,
+    type: 3}
+  insectPrefab1: {fileID: 2318808441750598162, guid: e83964681f4e64415b0b409e9b861629,
+    type: 3}
+  insectPrefab2: {fileID: 4369420126673566197, guid: aa0e4f41c318547a598a93a548b8298e,
+    type: 3}
+  insectPrefab3: {fileID: 6121803487477111641, guid: 248cd23d289ac462cab7057657d612d3,
+    type: 3}
+  insectPrefab4: {fileID: 3714596114234100490, guid: 78d652d2d104f46498fe2f97c7a236cf,
     type: 3}
   audioSource: {fileID: 1170142958}
 --- !u!224 &1170142957
@@ -4619,7 +4625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0004197962, y: -90}
+  m_AnchoredPosition: {x: 0.0007417803, y: -90}
   m_SizeDelta: {x: 0, y: -200}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1976923997
