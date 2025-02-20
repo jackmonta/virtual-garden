@@ -7,8 +7,11 @@ public class Garden : MonoBehaviour
 {
     [SerializeField] private Material gardenMaterial;
     [SerializeField] private GameObject vasePrefab;
-    [SerializeField] private GameObject insectPrefab;
     [SerializeField] private GameObject dropPrefab;
+	[SerializeField] private GameObject insectPrefab1;
+    [SerializeField] private GameObject insectPrefab2;
+	[SerializeField] private GameObject insectPrefab3;
+	[SerializeField] private GameObject insectPrefab4;
     public AudioSource audioSource;
     
     public static Garden Instance { get; set; }
@@ -75,8 +78,11 @@ public class Garden : MonoBehaviour
         vaseObj.transform.SetParent(plantObj.transform);
         GardenPlant gardenPlant = plantObj.AddComponent<GardenPlant>();
         gardenPlant.Plant = plantToSpawn;
-        gardenPlant.insectPrefab = insectPrefab;
         gardenPlant.dropPrefab = dropPrefab;
+        gardenPlant.insectPrefab1 = insectPrefab1;
+		gardenPlant.insectPrefab2 = insectPrefab2;
+		gardenPlant.insectPrefab3 = insectPrefab3;
+		gardenPlant.insectPrefab4 = insectPrefab4;
         return plantObj;
     }
 

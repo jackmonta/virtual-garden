@@ -6,6 +6,7 @@ public class FlyAround : MonoBehaviour
     public float speed = 1f; // Velocità di volo
     public float radius = 1f; // Raggio del volo
     public float heightVariation = 0.1f; // Variazione di altezza
+    public bool rotation = false;
 
     private Vector3 offset;
     private float angle;
@@ -28,5 +29,6 @@ public class FlyAround : MonoBehaviour
         Vector3 newPosition = new Vector3(x, offset.y, z) + target.position;
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * speed);
         transform.LookAt(target.position + Vector3.up * (2*heightVariation)); // Mantieni l'insetto rivolto verso la pianta
+        if (rotation) transform.rotation *= Quaternion.Euler(0, 180, 0);
     }
 }
