@@ -23,6 +23,9 @@ public class MainMenu : MonoBehaviour
             resumeGameButton.enabled = false;
             resumeGameButton.GetComponentInChildren<TextMeshProUGUI>().colorGradientPreset = disabledColor;
         }
+
+        if (TutorialUI.onlyTutorial == 1)
+            TutorialUI.onlyTutorial = 0;
     }
 
     public void PlayGame()
@@ -36,9 +39,16 @@ public class MainMenu : MonoBehaviour
         PlayGame();
     }
 
+    public void StartTutorial()
+    {
+        TutorialUI.onlyTutorial = 1;
+        PlayGame();
+    }
+
     private bool IsGameStarted()
     {
         TutorialUI.firstLaunch = PlayerPrefs.GetInt("FirstLaunch");
+        Debug.Log("FirstLaunch is " + TutorialUI.firstLaunch.ToString());
         return TutorialUI.firstLaunch != 0;
     }
 

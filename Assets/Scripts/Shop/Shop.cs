@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Shop : MonoBehaviour
@@ -32,6 +33,8 @@ public class Shop : MonoBehaviour
     public void LoadDataFromDisk()
     {
         try {
+            if (TutorialUI.onlyTutorial == 1) throw new Exception();
+
             ShopData data = DataManager.LoadFromDisk<ShopData>(shopDataPath);
             ShopPlants = data.plants;
             ShopNonPlantItems = starterShopNonPlantItems;

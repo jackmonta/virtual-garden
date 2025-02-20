@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class TutorialUI : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class TutorialUI : MonoBehaviour
     private static AudioSource audioSource;
     public static TutorialUI Instance { get; private set; }
     public static int firstLaunch;
+    public static int onlyTutorial;
     
     public static GardenPlant selectedPlant;
 
@@ -76,8 +78,12 @@ public class TutorialUI : MonoBehaviour
     {
         tutorialCanvas.enabled = true;
 
-        if (firstLaunch == 0)
+        if (firstLaunch == 0 || onlyTutorial == 1)
+        {
+            if (onlyTutorial == 1) firstLaunch = 0;
             Instance.StartTutorial();
+        }
+            
         else
             Instance.WelcomeBackGreetings();
     }
@@ -130,6 +136,13 @@ public class TutorialUI : MonoBehaviour
         }
         else
         {
+            if (onlyTutorial == 1)
+            {
+                Garden.Instance.Reset();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+                return;
+            }
+
             selectedPlant = null;
             firstLaunch = 1;
             PlayerPrefs.SetInt("FirstLaunch", 1);

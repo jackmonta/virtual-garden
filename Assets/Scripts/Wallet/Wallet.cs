@@ -26,6 +26,8 @@ public class Wallet : MonoBehaviour
     public void LoadDataFromDisk()
     {
         try {
+            if (TutorialUI.onlyTutorial == 1) throw new Exception();
+            
             Instance.Money = DataManager.LoadFromDisk<IntWrapper>(walletDataPath).value;
             Debug.Log("Wallet loaded from disk: " + Instance.Money + " coins.");
         } catch (Exception)

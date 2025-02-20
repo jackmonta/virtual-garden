@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class GameSaver : MonoBehaviour
 {
+    private static Dictionary<string, string> savedData = new();
     private static void SaveInventory()
     {
         if (Inventory.Instance == null)
@@ -61,6 +62,8 @@ public class GameSaver : MonoBehaviour
 
     public static void SaveAll()
     {
+        if (TutorialUI.onlyTutorial != 0) return;
+        
         Debug.Log("Saving Game...");
 
         SaveInventory();

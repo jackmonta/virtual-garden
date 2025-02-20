@@ -33,6 +33,8 @@ public class Inventory : MonoBehaviour
     public void LoadDataFromDisk()
     {
         try {
+            if (TutorialUI.onlyTutorial == 1) throw new Exception();
+            
             plants = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plants;
             List<float> currentHealths = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plantHealths;
             Debug.Log(plants.Count + " inventory plants loaded from disk.");
