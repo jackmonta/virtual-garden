@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class TutorialUI : MonoBehaviour
 {
@@ -14,11 +15,7 @@ public class TutorialUI : MonoBehaviour
     public static TutorialUI Instance { get; private set; }
     public static int firstLaunch;
     public static int onlyTutorial;
-    
     public static GardenPlant selectedPlant;
-
-
-
     private static List<TutorialStep> tutorialSteps = new List<TutorialStep>()
     {
         new TutorialStep("Hi, welcome to Virtual Garden!", "Audio/Welcome"),
@@ -35,9 +32,7 @@ public class TutorialUI : MonoBehaviour
         new TutorialStep("You can then use these coins to buy more plants and tools from the shop.", "Audio/Shop"),
         new TutorialStep("Enjoy your garden!", "Audio/Enjoy")
     };
-
     private static IEnumerator<TutorialStep> iterator;
-
     public static UnityEvent onPlantSelected = new UnityEvent();
     public static UnityEvent onPlantPlaced = new UnityEvent();
     public static UnityEvent onPlantHightlighted = new UnityEvent();
@@ -45,7 +40,6 @@ public class TutorialUI : MonoBehaviour
     public static UnityEvent onInsectsKilled = new UnityEvent();
     public static UnityEvent onPlantRevived = new UnityEvent();
     public static UnityEvent onCoinsCollected = new UnityEvent();
-
     public static UnityEvent<TutorialAction> onNextAction = new UnityEvent<TutorialAction>();
 
     void Awake()
@@ -72,6 +66,7 @@ public class TutorialUI : MonoBehaviour
         tutorialCanvas.enabled = false;
 
         audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = Resources.Load<AudioMixer>("Audio/MasterMixer").FindMatchingGroups("Master")[0];
     }
 
     public static void ShowUI()
