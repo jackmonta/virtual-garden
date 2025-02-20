@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] Button resumeGameButton;
     [SerializeField] TMP_ColorGradient disabledColor;
+    [SerializeField] GameObject creditsPanel;
     private readonly List<string> fileNames = new()
     {
         "/inventoryData.json",
@@ -26,6 +27,8 @@ public class MainMenu : MonoBehaviour
 
         if (TutorialUI.onlyTutorial == 1)
             TutorialUI.onlyTutorial = 0;
+        
+        creditsPanel.SetActive(false);
     }
 
     public void PlayGame()
@@ -43,6 +46,12 @@ public class MainMenu : MonoBehaviour
     {
         TutorialUI.onlyTutorial = 1;
         PlayGame();
+    }
+
+    public void OpenCredits()
+    {
+        this.gameObject.SetActive(false);
+        creditsPanel.SetActive(true);
     }
 
     private bool IsGameStarted()
