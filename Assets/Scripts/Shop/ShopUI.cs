@@ -5,7 +5,7 @@ public class ShopUI : MonoBehaviour
 {
     public static ShopUI Instance { get; private set; }
     [SerializeField] private GameObject shopPanel;
-    [SerializeField] private Button openButton;
+    [SerializeField] private GameObject openButton;
 
     void Awake()
     {
@@ -24,7 +24,8 @@ public class ShopUI : MonoBehaviour
     {
         Button closeButton = shopPanel.GetComponent<ShopPanel>().CloseShopButton;
 
-        openButton.onClick.AddListener(() => {
+        openButton.GetComponent<Button>().onClick.AddListener(() => {
+            Debug.Log("Opened Shop");
             shopPanel.SetActive(true);
             openButton.gameObject.SetActive(false);
         });
@@ -41,5 +42,6 @@ public class ShopUI : MonoBehaviour
     public void ShowUI()
     {
         openButton.gameObject.SetActive(true);
+        Debug.Log("Open Button is now Active");
     }
 }
