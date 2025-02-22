@@ -131,6 +131,79 @@ public class Garden : MonoBehaviour
         coin.GetComponent<AudioSource>().Stop();
         Destroy(coin);
     }
+    /*
+    public void UpgradePlant()
+    {
+        Plant plant = GardenPlant.selectedPlant.Plant;
+        
+        if (!plants.ContainsKey(plant))
+        {
+            Debug.LogError("Plant not found in dictionary.");
+            return;
+        }
+        
+        GameObject oldPlantObj = plants[plant];
+        GameObject vaseObj = oldPlantObj.transform.GetChild(0).gameObject;
+        
+        Collider oldPlantCollider = oldPlantObj.GetComponent<Collider>();
+        Collider oldVaseCollider = vaseObj.GetComponent<Collider>();
+        if (oldPlantCollider != null) GardenPlant.colliderList.Remove(oldPlantCollider);
+        if (oldVaseCollider != null) GardenPlant.colliderList.Remove(oldVaseCollider);
+        
+        plant.Upgrade();
+        
+        float vaseHeight = vaseObj.GetComponentInChildren<Renderer>().bounds.size.y;
+        Vector3 vaseTopPosition = vaseObj.transform.position + new Vector3(0, vaseHeight / 2, 0);
+
+        GameObject plantObj = Instantiate(plant.Prefab, vaseTopPosition, Quaternion.identity);
+        plantObj.name = "Plant";
+        
+        plantObj.transform.localScale = Vector3.one * 0.07f;
+        vaseObj.transform.SetParent(plantObj.transform);
+        
+        GardenPlant gardenPlant = plantObj.AddComponent<GardenPlant>();
+        gardenPlant = oldPlantObj.GetComponent<GardenPlant>();
+        GardenPlant.selectedPlant = null;
+        
+        Debug.Log("Plant upgraded.");
+        
+        if (plantObj != null)
+        {
+            plants[plant] = plantObj;
+        }
+        Destroy(oldPlantObj);
+    }*/
+    
+    public void UpgradePlant(Plant plant)
+    {
+        if (!plants.ContainsKey(plant))
+        {
+            Debug.LogError("Plant not found in dictionary.");
+            return;
+        }
+        
+        GameObject oldPlantObj = plants[plant];
+        GameObject vaseObj = oldPlantObj.transform.GetChild(0).gameObject;
+        Vector3 vasePosition = vaseObj.transform.position;
+        
+        Collider oldPlantCollider = oldPlantObj.GetComponent<Collider>();
+        Collider oldVaseCollider = vaseObj.GetComponent<Collider>();
+        if (oldPlantCollider != null) GardenPlant.colliderList.Remove(oldPlantCollider);
+        if (oldVaseCollider != null) GardenPlant.colliderList.Remove(oldVaseCollider);
+        
+        Destroy(oldPlantObj);
+        Destroy(vaseObj);
+        
+        GameObject plantObj = SpawnPlant(plant, vasePosition);
+        
+        Debug.Log("Plant upgraded.");
+        
+        if (plantObj != null)
+        {
+            plants[plant] = plantObj;
+        }
+        
+    }
 
     private GameObject SpawnPlant(Plant plantToSpawn, Vector3 touchPosition)
     {
@@ -147,9 +220,10 @@ public class Garden : MonoBehaviour
 
         GameObject plantObj = Instantiate(plantToSpawn.Prefab, vaseTopPosition, Quaternion.identity);
         plantObj.name = "Plant";
-
+        
         plantObj.transform.localScale = Vector3.one * 0.07f;
         vaseObj.transform.SetParent(plantObj.transform);
+        
         GardenPlant gardenPlant = plantObj.AddComponent<GardenPlant>();
         gardenPlant.Plant = plantToSpawn;
         gardenPlant.dropPrefab = dropPrefab;
