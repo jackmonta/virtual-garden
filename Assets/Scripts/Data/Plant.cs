@@ -27,6 +27,13 @@ public class Plant : ScriptableObject
         get { return currentHealth.HasValue ? currentHealth.Value : null; }
         set { currentHealth = value; }
     }
+
+    private int currentLevel;
+    public int CurrentLevel { get { return currentLevel; } }
+
+    [SerializeField]
+    private PlantUpgrade[] upgrades;
+    public PlantUpgrade[] Upgrades { get { return upgrades; } }
     
     [SerializeField]
     private Sprite icon;
@@ -68,5 +75,15 @@ public class Plant : ScriptableObject
     
     public float getHealth() {
         return health;
+    }
+
+    public bool CanUpgrade(int level)
+    {
+        return level >= 0 && level < upgrades.Length;
+    }
+
+    public PlantUpgrade GetUpgrade(int level)
+    {
+        return CanUpgrade(level) ? upgrades[level] : null;
     }
 }
