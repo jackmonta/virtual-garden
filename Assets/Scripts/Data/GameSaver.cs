@@ -16,9 +16,11 @@ public class GameSaver : MonoBehaviour
         PlantList plantsToSerialize = new PlantList();
         plantsToSerialize.plants = combinedPlants;
         plantsToSerialize.plantHealths = new List<float>();
+        plantsToSerialize.plantLevels = new List<int>();
         foreach (var plant in combinedPlants)
         {
             plantsToSerialize.plantHealths.Add(plant.CurrentHealth.HasValue ? plant.CurrentHealth.Value : plant.Health);
+            plantsToSerialize.plantLevels.Add(plant.CurrentLevel.HasValue ? plant.CurrentLevel.Value : 0);
         }
         DataManager.SaveToDisk(Inventory.inventoryDataPath, plantsToSerialize);
     }
