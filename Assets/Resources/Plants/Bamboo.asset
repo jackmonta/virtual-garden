@@ -16,5 +16,10 @@ MonoBehaviour:
   price: 900
   coinPerSecond: 12
   health: 300
+  upgrades:
+  - price: 0
+    prefab: {fileID: 7757002829371337659, guid: 4d0aa42ebe707417894eb8b70eef4afd,
+      type: 3}
+  - price: 10
+    prefab: {fileID: 918448647417637815, guid: 884962f0dd4264c159596390ad8fd36a, type: 3}
   icon: {fileID: 21300000, guid: 5346f65219a1449e3b7806a5d89a3ab5, type: 3}
-  prefab: {fileID: 7757002829371337659, guid: 4d0aa42ebe707417894eb8b70eef4afd, type: 3}

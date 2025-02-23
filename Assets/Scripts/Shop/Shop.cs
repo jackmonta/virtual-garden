@@ -59,6 +59,12 @@ public class Shop : MonoBehaviour
             ShopPlants = starterShopPlants;
             ShopNonPlantItems = starterShopNonPlantItems;
             ShopPlants.ForEach(plant => plant.SetMaxHealth());
+            /*
+			ShopPlants.ForEach(plant => {
+				    plant.SetMaxHealth();
+					plant.CurrentLevel = 0;
+    		});
+		    */
             ShopNonPlantItems.ForEach(item => item.ClickCount = 1);
         }
     }

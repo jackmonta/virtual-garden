@@ -28,8 +28,8 @@ public class Plant : ScriptableObject
         set { currentHealth = value; }
     }
 
-    private int currentLevel;
-    public int CurrentLevel { get { return currentLevel; } }
+    private int currentLevel = 0;
+    public int CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
 
     [SerializeField]
     private PlantUpgrade[] upgrades;
@@ -39,9 +39,19 @@ public class Plant : ScriptableObject
     private Sprite icon;
     public Sprite Icon { get { return icon; } }
 
-    [SerializeField]
-    private GameObject prefab;
-    public GameObject Prefab { get { return prefab; } }
+
+    public GameObject Prefab { get { return upgrades[currentLevel].Prefab; } }
+
+	public bool Upgrade()
+    {
+        if (currentLevel >= 0 && currentLevel < upgrades.Length - 1)
+        {
+            currentLevel++;
+			return true;
+        }
+		
+		return false;
+    }
 
     public void IncreaseHealth(float amount)
     {
@@ -75,15 +85,5 @@ public class Plant : ScriptableObject
     
     public float getHealth() {
         return health;
-    }
-
-    public bool CanUpgrade(int level)
-    {
-        return level >= 0 && level < upgrades.Length;
-    }
-
-    public PlantUpgrade GetUpgrade(int level)
-    {
-        return CanUpgrade(level) ? upgrades[level] : null;
     }
 }
