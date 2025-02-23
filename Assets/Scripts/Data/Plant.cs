@@ -28,6 +28,7 @@ public class Plant : ScriptableObject
         set { currentHealth = value; }
     }
 
+    [SerializeField]
     private int currentLevel = 0;
     public int CurrentLevel { get { return currentLevel; } set { currentLevel = value; } }
 
