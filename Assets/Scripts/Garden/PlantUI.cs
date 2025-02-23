@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlantUI : MonoBehaviour
 {
     public static PlantUI Instance { get; private set; }
+    [SerializeField] GameObject plantLevel;
 
     void Awake()
     {
@@ -25,7 +26,10 @@ public class PlantUI : MonoBehaviour
     public static void ShowUI(bool show)
     {
         if (Instance.gameObject.activeSelf != show)
+        {
             Instance.gameObject.SetActive(show);
+            Instance.plantLevel.SetActive(show);
+        }
     }
 
     public static bool isActive()

@@ -3158,6 +3158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196bf6d566f1bce43910974b7f8cf191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plantLevel: {fileID: 1855246210410010263}
 --- !u!114 &1574156351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3610,6 +3611,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Settings
+      objectReference: {fileID: 0}
+    - target: {fileID: 110983250027272199, guid: f22c0bd090c79ec4899f7f5fd5830d60,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4116788206982117685, guid: f22c0bd090c79ec4899f7f5fd5830d60,
         type: 3}
@@ -4498,7 +4504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00006589537, y: -90}
+  m_AnchoredPosition: {x: 0.00023483306, y: -90}
   m_SizeDelta: {x: 0, y: -200}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1976923997
@@ -5279,6 +5285,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatusBar
       objectReference: {fileID: 0}
+    - target: {fileID: 4100361806531844056, guid: 00a156bfb0438e44ab90a3023de70012,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100361806531844056, guid: 00a156bfb0438e44ab90a3023de70012,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6242926482130203824, guid: 00a156bfb0438e44ab90a3023de70012,
         type: 3}
       propertyPath: m_Pivot.x
@@ -5317,7 +5333,7 @@ PrefabInstance:
     - target: {fileID: 6242926482130203824, guid: 00a156bfb0438e44ab90a3023de70012,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 128
+      value: 220
       objectReference: {fileID: 0}
     - target: {fileID: 6242926482130203824, guid: 00a156bfb0438e44ab90a3023de70012,
         type: 3}
@@ -5387,6 +5403,12 @@ PrefabInstance:
 --- !u!1 &1855246210410010262 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8880753038727406799, guid: 00a156bfb0438e44ab90a3023de70012,
+    type: 3}
+  m_PrefabInstance: {fileID: 1855246210410010261}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1855246210410010263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 422279890870146821, guid: 00a156bfb0438e44ab90a3023de70012,
     type: 3}
   m_PrefabInstance: {fileID: 1855246210410010261}
   m_PrefabAsset: {fileID: 0}
