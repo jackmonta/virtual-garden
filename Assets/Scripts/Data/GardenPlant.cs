@@ -95,7 +95,7 @@ public class GardenPlant : MonoBehaviour
 
         while(true) 
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
             if(spawnedInsects.Count == 0){
                TrySpawnInsect();
             } else {
@@ -139,7 +139,7 @@ public class GardenPlant : MonoBehaviour
             _accumulatedCoins += 1 * Time.deltaTime;
             if (_accumulatedCoins >= 1)
             {
-                Coins += Plant.CoinPerSecond;
+                Coins += Plant.CoinPerSecond*(Plant.CurrentLevel.Value+1);
                 _accumulatedCoins = 0;
             }
         }
@@ -285,7 +285,7 @@ public class GardenPlant : MonoBehaviour
     {
         if (spawnedInsects.Count >= 10 || TutorialUI.firstLaunch == 0) return; 
         float spawnChance = UnityEngine.Random.Range(0f, 100f);
-        if (spawnChance <= 2f)  // 2% di probabilità ogni 3 secondi
+        if (spawnChance <= 2f)  // 2% di probabilità ogni 5 secondi
         {
             SpawnInsects(10 - spawnedInsects.Count);
         }

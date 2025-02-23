@@ -19,7 +19,7 @@ MonoBehaviour:
   upgrades:
   - price: 0
     prefab: {fileID: 363813997328107391, guid: 8060a77496d57447bbed961c6848948b, type: 3}
-  - price: 10
+  - price: 450
     prefab: {fileID: 1887868626592565176, guid: 8a7401a3913a64599a21d100d706166b,
       type: 3}
   icon: {fileID: 21300000, guid: 7404f92868a414414ab1114f13ffb1f8, type: 3}

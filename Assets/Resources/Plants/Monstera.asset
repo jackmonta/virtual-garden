@@ -20,7 +20,7 @@ MonoBehaviour:
   - price: 0
     prefab: {fileID: 8141138377590759617, guid: 501b506c1d3cd4b0d9463f7fb72e3805,
       type: 3}
-  - price: 10
+  - price: 750
     prefab: {fileID: 7836738596694340333, guid: e71a45c7293c94471a80b8249858a9b2,
       type: 3}
   icon: {fileID: 21300000, guid: 64463897a25aa44f4abd0d6724c9758d, type: 3}

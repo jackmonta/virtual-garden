@@ -386,7 +386,7 @@ public class Garden : MonoBehaviour
             {
                 targetPosition = planeCenter + new Vector3(
                     Random.Range(-maxRadius, maxRadius),
-                    Random.Range(0, maxHeight),
+                    Random.Range(0.5f, maxHeight),
                     Random.Range(-maxRadius, maxRadius)
                 );
             } while (Vector3.Distance(planeCenter, targetPosition) > maxRadius);
