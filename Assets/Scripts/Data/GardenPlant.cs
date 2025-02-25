@@ -140,6 +140,8 @@ public class GardenPlant : MonoBehaviour
             if (_accumulatedCoins >= 1)
             {
                 Plant.EarnCoins();
+                if (this == selectedPlant)
+                    PlantUI.Instance.UpdateLevel();
                 Coins += Plant.CoinPerSecond*(Plant.CurrentLevel.Value+1);
                 _accumulatedCoins = 0;
             }

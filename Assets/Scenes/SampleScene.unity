@@ -5300,6 +5300,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatusBar
       objectReference: {fileID: 0}
+    - target: {fileID: 1776310039434649713, guid: 00a156bfb0438e44ab90a3023de70012,
+        type: 3}
+      propertyPath: levelupButton
+      value: 
+      objectReference: {fileID: 374782151}
     - target: {fileID: 2918047016204784048, guid: 00a156bfb0438e44ab90a3023de70012,
         type: 3}
       propertyPath: m_AnchoredPosition.y
