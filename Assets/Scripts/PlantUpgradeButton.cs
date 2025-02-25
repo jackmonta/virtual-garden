@@ -9,7 +9,7 @@ public class PlantUpgradeButton : MonoBehaviour
         Plant plant = GardenPlant.selectedPlant.Plant;
         if(plant == null) return;
         if (!plant.Upgrade()) return;
-        GardenPlant.selectedPlant = null;
+        GardenPlant.SetSelectedPlant(null);
         Garden.Instance.UpgradePlant(plant);
     }
 }

@@ -26,9 +26,13 @@ public class PlantLevel : MonoBehaviour
         levelSlider.value = 0;
     }
 
-    public void SetLevel(int level, float progress)
+    public void SetLevel(int? level, float progress)
     {
-        levelText.text = (level + 1).ToString();
+        if (level.HasValue)
+            levelText.text = (level + 1).ToString();
+        else
+            levelText.text = "1";
+            
         levelSlider.value = progress;
 
         if (progress >= 1)
