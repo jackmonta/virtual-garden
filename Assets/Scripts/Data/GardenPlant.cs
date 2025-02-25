@@ -140,6 +140,7 @@ public class GardenPlant : MonoBehaviour
             if (_accumulatedCoins >= 1)
             {
                 Coins += Plant.CoinPerSecond;
+                Plant.EarnCoins();
                 _accumulatedCoins = 0;
             }
         }

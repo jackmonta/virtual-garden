@@ -27,9 +27,24 @@ public class PlantUI : MonoBehaviour
     {
         if (Instance.gameObject.activeSelf != show)
         {
+            if (show)
+            {
+                PlantLevel.Instance.SetLevel(GardenPlant.selectedPlant.Plant.CurrentLevel, CalculatePlantProgress());
+            }
             Instance.gameObject.SetActive(show);
             Instance.plantLevel.SetActive(show);
         }
+    }
+
+    private static float CalculatePlantProgress()
+    {
+        GardenPlant selectedPlant = GardenPlant.selectedPlant;
+        return selectedPlant.Plant.EarnedCoins / (selectedPlant.Plant.Health / 2); // TODO: check progress calculation
+    }
+
+    public void UpdateLevel()
+    {
+        PlantLevel.Instance.SetLevel(GardenPlant.selectedPlant.Plant.CurrentLevel, CalculatePlantProgress());
     }
 
     public static bool isActive()

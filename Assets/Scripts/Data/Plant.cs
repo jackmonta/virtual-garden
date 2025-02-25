@@ -15,6 +15,8 @@ public class Plant : ScriptableObject
     [SerializeField]
     private int coinPerSecond;
     public int CoinPerSecond { get { return coinPerSecond; } }
+    private int earnedCoins = 0;
+    public int EarnedCoins { get { return earnedCoins; } }
     
     [SerializeField]
     private float health;
@@ -47,12 +49,17 @@ public class Plant : ScriptableObject
         if (currentLevel >= 0 && currentLevel < upgrades.Length - 1)
         {
             currentLevel++;
+            earnedCoins = 0;
 			return true;
         }
 		
 		return false;
     }
 
+    public void EarnCoins()
+    {
+        earnedCoins += coinPerSecond;
+    }
     public void IncreaseHealth(float amount)
     {
         if (IsCurrentHealthNull())
