@@ -448,4 +448,10 @@ public class GardenPlant : MonoBehaviour
         TutorialUI.onCoinsCollected.Invoke();
             
     }
+
+    public static float CalculatePlantProgress()
+    {
+        GardenPlant selectedPlant = GardenPlant.selectedPlant;
+        return selectedPlant.Plant.EarnedCoins / (selectedPlant.Plant.Health / 2); // TODO: check progress calculation
+    }
 }

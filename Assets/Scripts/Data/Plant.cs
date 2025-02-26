@@ -60,6 +60,11 @@ public class Plant : ScriptableObject
 		return false;
     }
 
+    public bool CanUpgrade()
+    {
+        return currentLevel.Value < upgrades.Length - 1;
+    }
+
     public void EarnCoins()
     {
         earnedCoins += coinPerSecond * (CurrentLevel.Value+1);

@@ -3159,6 +3159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantLevel: {fileID: 1855246210410010263}
+  plantLevelUpButton: {fileID: 374782151}
 --- !u!114 &1574156351
 MonoBehaviour:
   m_ObjectHideFlags: 0
