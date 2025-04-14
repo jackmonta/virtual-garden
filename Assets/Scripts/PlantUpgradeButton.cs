@@ -10,15 +10,20 @@ public class PlantUpgradeButton : MonoBehaviour
 
     public void StartPlantUpgrade()
     {
-        Plant plant = GardenPlant.selectedPlant.Plant;
+		GardenPlant gardenPlant = GardenPlant.selectedPlant;
+        Plant plant = gardenPlant.Plant;
         if(plant == null) return;
         if (!plant.Upgrade()) return;
-
+        
+        gardenPlant.potionRevitalizing();
+		if(gardenPlant.IsInfected()) gardenPlant.RemoveInsects();
+		//if(gardenPlant.CanCollectCoins()) StartCoroutine(gardenPlant.AnimateCoinsToWallet());
+		
         int plantLevel = plant.CurrentLevel.Value;
         Wallet.Instance.SubtractMoney(plant.Upgrades[plantLevel].Price);
-
-        Garden.Instance.UpgradePlant(plant);
         PlantLevel.Instance.SetLevel(plant.CurrentLevel, GardenPlant.CalculatePlantProgress());
         Instantiate(levelupPopup, GameObject.Find("SettingUI").transform);
+
+		Garden.Instance.UpgradePlant(plant);
     }
 }

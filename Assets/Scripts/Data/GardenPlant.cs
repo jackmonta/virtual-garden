@@ -10,6 +10,7 @@ public class GardenPlant : MonoBehaviour
     public static GardenPlant selectedPlant;
     public static List<Collider> colliderList;
     private static Material highlightMaterial;
+    private static Dictionary<GameObject, Material[]> originalMaterials = new();
     public Plant Plant { get; set; }
     
     public GameObject insectPrefab1 { get; set; }
@@ -117,6 +118,11 @@ public class GardenPlant : MonoBehaviour
         Plant.SetMaxHealth();
         if (selectedPlant == this)
             HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
+        
+		if(dropObj != null){
+            Destroy(dropObj);
+            dropObj = null;
+		}
     }
     
     
@@ -149,7 +155,6 @@ public class GardenPlant : MonoBehaviour
         
         if (Plant.CurrentHealth.Value <= 0){
             plantIsDead = true;
-            HealthBar.Instance.UpdateHealthBar(0);
             Color darkGrey = new Color(0.2f, 0.2f, 0.2f); 
             SetPlantColor(darkGrey); 
         } else if (Plant.CurrentHealth.Value <= Plant.getHealth()*0.2 && dropObj == null){
@@ -203,39 +208,51 @@ public class GardenPlant : MonoBehaviour
         HealthBar.Instance.UpdateHealthBar(plant.Plant.CurrentHealth.Value);
     } 
     
-    private static void HighlightSelectedPlant(bool highlight)
+private static void HighlightSelectedPlant(bool highlight)
+{
+    List<GameObject> objects = new List<GameObject>
     {
-        List<GameObject> objects = new List<GameObject>
-        {
-            selectedPlant.PlantObj,
-            selectedPlant.VaseObj
-        };
+        selectedPlant.PlantObj,
+        selectedPlant.VaseObj
+    };
+
+    foreach (GameObject obj in objects)
+    {
+        MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
+        if (renderer == null) continue;
 
         if (highlight)
         {
-            foreach (GameObject obj in objects)
-            {
-                Material[] materials = obj.GetComponent<MeshRenderer>().materials;
-                Debug.Log("Original materials for " + obj.name + ": " + string.Join(", ", materials.Select(m => m.name)));
-                List<Material> materialList = new List<Material>(materials)
-                {
-                    highlightMaterial
-                };
-                obj.GetComponent<MeshRenderer>().materials = materialList.ToArray();
-                Debug.Log("Updated materials for " + obj.name + ": " + string.Join(", ", obj.GetComponent<MeshRenderer>().materials.Select(m => m.name)));
-                Debug.Log("HIGHLIGHTED " + obj.name);
-            }
+            // Crea un nuovo GameObject figlio per highlight
+            GameObject outlineObj = new GameObject("Outline_" + obj.name);
+            outlineObj.transform.SetParent(obj.transform);
+            outlineObj.transform.localPosition = Vector3.zero;
+            outlineObj.transform.localRotation = Quaternion.identity;
+            outlineObj.transform.localScale = Vector3.one;
+
+            MeshFilter originalMesh = obj.GetComponent<MeshFilter>();
+            MeshFilter outlineMesh = outlineObj.AddComponent<MeshFilter>();
+            outlineMesh.sharedMesh = originalMesh.sharedMesh;
+
+            MeshRenderer outlineRenderer = outlineObj.AddComponent<MeshRenderer>();
+            int subMeshCount = renderer.sharedMaterials.Length;
+
+            Material[] outlineMaterials = Enumerable.Repeat(highlightMaterial, subMeshCount).ToArray();
+            outlineRenderer.materials = outlineMaterials;
+
+            outlineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            outlineRenderer.receiveShadows = false;
         }
         else
         {
-            foreach (GameObject obj in objects)
-            {
-                Material[] materials = obj.GetComponent<MeshRenderer>().materials;
-                obj.GetComponent<MeshRenderer>().materials = materials.Take(materials.Length - 1).ToArray();
-                Debug.Log("UN-HIGHLIGHTED " + obj.name);
-            }
+            Transform outlineTransform = obj.transform.Find("Outline_" + obj.name);
+            if (outlineTransform != null)
+                GameObject.Destroy(outlineTransform.gameObject);
         }
     }
+}
+
+    
     
     private bool DetectTouch()
     {
@@ -402,12 +419,12 @@ public class GardenPlant : MonoBehaviour
         }
     }
 
-    private bool CanCollectCoins()
+    public bool CanCollectCoins()
     {
         return coinGameobjects.Count > 0;
     }
     
-    private IEnumerator AnimateCoinsToWallet()
+    public IEnumerator AnimateCoinsToWallet()
     {
         int totalCoins = Coins;
         int baseAmount = totalCoins / coinGameobjects.Count;

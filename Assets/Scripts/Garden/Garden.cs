@@ -202,6 +202,12 @@ public class Garden : MonoBehaviour
         {
             plants[plant] = plantObj;
         }
+        else
+        {
+            plants.Remove(plant);
+            GardenPlant.SetSelectedPlant(null);
+            Inventory.AddPlant(plant);
+        }
         
     }
 
@@ -218,7 +224,7 @@ public class Garden : MonoBehaviour
         float vaseHeight = vaseObj.GetComponentInChildren<Renderer>().bounds.size.y;
         Vector3 vaseTopPosition = vaseObj.transform.position + new Vector3(0, vaseHeight / 2, 0);
 
-        GameObject plantObj = Instantiate(plantToSpawn.Prefab, vaseTopPosition, Quaternion.identity);
+        GameObject plantObj = Instantiate(plantToSpawn.Prefab, vaseTopPosition, plantToSpawn.Prefab.transform.rotation);
         plantObj.name = "Plant";
         
         plantObj.transform.localScale = Vector3.one * 0.07f;
