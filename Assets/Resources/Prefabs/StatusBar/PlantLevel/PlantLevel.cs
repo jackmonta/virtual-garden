@@ -8,7 +8,6 @@ public class PlantLevel : MonoBehaviour
     [SerializeField] Slider levelSlider;
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] GameObject plantLevelIcon;
-    [SerializeField] GameObject levelupButton;
     void Awake()
     {
         if (Instance == null)
@@ -37,6 +36,5 @@ public class PlantLevel : MonoBehaviour
         levelSlider.value = progress;
 
         plantLevelIcon.SetActive(progress >= 1);
-        levelupButton.SetActive(progress >= 1);
     }
 }

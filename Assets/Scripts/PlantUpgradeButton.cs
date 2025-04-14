@@ -19,6 +19,6 @@ public class PlantUpgradeButton : MonoBehaviour
 
         Garden.Instance.UpgradePlant(plant);
         PlantLevel.Instance.SetLevel(plant.CurrentLevel, GardenPlant.CalculatePlantProgress());
-        Instantiate(levelupPopup, GameObject.Find("InventoryUI").transform);
+        Instantiate(levelupPopup, GameObject.Find("SettingUI").transform);
     }
 }
