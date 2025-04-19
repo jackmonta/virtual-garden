@@ -28,6 +28,7 @@ public class InventoryUI : MonoBehaviour
     {
         inventoryCanvas = GetComponent<Canvas>();
         inventoryCanvas.enabled = false;
+        plantButtons = new Dictionary<GameObject, Plant>();
     }
 
     public static void ShowUI()

@@ -42,6 +42,7 @@ public class Garden : MonoBehaviour
         }
 
         plants = new Dictionary<Plant, GameObject>();
+        GardenPlant.colliderList = new List<Collider>(); 
     }
 
     private void Update()
@@ -205,7 +206,7 @@ public class Garden : MonoBehaviour
         else
         {
             plants.Remove(plant);
-            GardenPlant.SetSelectedPlant(null);
+            //GardenPlant.SetSelectedPlant(null);
             Inventory.AddPlant(plant);
         }
         
@@ -223,6 +224,12 @@ public class Garden : MonoBehaviour
 
         float vaseHeight = vaseObj.GetComponentInChildren<Renderer>().bounds.size.y;
         Vector3 vaseTopPosition = vaseObj.transform.position + new Vector3(0, vaseHeight / 2, 0);
+        
+        if (plantToSpawn.Prefab == null)
+        {
+            Debug.LogError($"Plant prefab for {plantToSpawn} is null!");
+            return null;
+        }
 
         GameObject plantObj = Instantiate(plantToSpawn.Prefab, vaseTopPosition, plantToSpawn.Prefab.transform.rotation);
         plantObj.name = "Plant";
@@ -242,7 +249,31 @@ public class Garden : MonoBehaviour
 
     GameObject SpawnPrefab(GameObject prefab, Vector3 position)
     {
+        if (prefab == null)
+        {
+            Debug.LogError("SpawnPrefab called with null prefab!");
+            return null;
+        }
+        
+        
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
+        
+        if (GardenPlant.colliderList == null)
+        {
+            Debug.LogError("GardenPlant.colliderList is null!");
+            Debug.Log("prefab: " + prefab);
+            Debug.Log("position: " + position);
+            Debug.Log("Current frame: " + Time.frameCount);  // Check the frame
+            Debug.Log("Garden.Instance: " + (Garden.Instance == null ? "null" : "not null")); 
+            return obj;
+        }
+        
+        Collider coll = obj.GetComponent<Collider>();
+        if (coll == null)
+        {
+            Debug.LogWarning($"Spawned object {obj.name} has no collider!");
+            return obj; // or Destroy(obj) and return null
+        }
 
         // checking collisions
         if (GardenPlant.colliderList != null)

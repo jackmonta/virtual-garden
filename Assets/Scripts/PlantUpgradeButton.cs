@@ -12,9 +12,9 @@ public class PlantUpgradeButton : MonoBehaviour
     {
 		GardenPlant gardenPlant = GardenPlant.selectedPlant;
         Plant plant = gardenPlant.Plant;
-        if(plant == null) return;
+        if (plant == null) return;
         if (!plant.Upgrade()) return;
-        
+
         gardenPlant.potionRevitalizing();
 		if(gardenPlant.IsInfected()) gardenPlant.RemoveInsects();
 		//if(gardenPlant.CanCollectCoins()) StartCoroutine(gardenPlant.AnimateCoinsToWallet());
@@ -24,6 +24,7 @@ public class PlantUpgradeButton : MonoBehaviour
         PlantLevel.Instance.SetLevel(plant.CurrentLevel, GardenPlant.CalculatePlantProgress());
         Instantiate(levelupPopup, GameObject.Find("SettingUI").transform);
 
+        GardenPlant.SetSelectedPlant(null);
 		Garden.Instance.UpgradePlant(plant);
     }
 }

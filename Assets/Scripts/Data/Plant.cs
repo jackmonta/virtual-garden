@@ -62,7 +62,7 @@ public class Plant : ScriptableObject
 
     public bool CanUpgrade()
     {
-        return currentLevel.Value < upgrades.Length - 1;
+        return currentLevel.Value < upgrades.Length - 1 && Wallet.Instance.CanAfford(upgrades[currentLevel.Value + 1].Price);
     }
 
     public void EarnCoins()
