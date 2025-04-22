@@ -104,6 +104,11 @@ public class Garden : MonoBehaviour
         }
 
         GameObject coin = Instantiate(coinPrefab, position, rotation);
+		ParticleSystem ps = coin.GetComponentInChildren<ParticleSystem>();
+    	if (ps != null)
+    	{
+        	ps.Play();
+    	}
 
         StartCoroutine(AnimateCoinToWallet(coin)); // Avvia l'animazione
     }
@@ -119,6 +124,9 @@ public class Garden : MonoBehaviour
         Vector3 startPosition = coin.transform.position;
         Vector3 targetScreenPosition = new Vector3(0, Screen.height * 0.9f, Camera.main.nearClipPlane);
         Vector3 targetPosition = Camera.main.ScreenToWorldPoint(targetScreenPosition);
+		
+		coin.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		yield return new WaitForSeconds(0.5f);
 
         while (elapsedTime < duration)
         {
