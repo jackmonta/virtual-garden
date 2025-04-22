@@ -50,7 +50,7 @@ public class Plant : ScriptableObject
 
 	public bool Upgrade()
     {
-        if (currentLevel.Value >= 0 && currentLevel.Value < upgrades.Length - 1)
+        if (CanUpgrade())
         {
             currentLevel++;
             earnedCoins = 0;
@@ -62,7 +62,7 @@ public class Plant : ScriptableObject
 
     public bool CanUpgrade()
     {
-        return currentLevel.Value < upgrades.Length - 1 && Wallet.Instance.CanAfford(upgrades[currentLevel.Value + 1].Price);
+        return currentLevel.Value >= 0 && currentLevel.Value < upgrades.Length - 1 && Wallet.Instance.CanAfford(upgrades[currentLevel.Value + 1].Price);
     }
 
     public void EarnCoins()

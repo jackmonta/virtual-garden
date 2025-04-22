@@ -132,48 +132,6 @@ public class Garden : MonoBehaviour
         coin.GetComponent<AudioSource>().Stop();
         Destroy(coin);
     }
-    /*
-    public void UpgradePlant()
-    {
-        Plant plant = GardenPlant.selectedPlant.Plant;
-        
-        if (!plants.ContainsKey(plant))
-        {
-            Debug.LogError("Plant not found in dictionary.");
-            return;
-        }
-        
-        GameObject oldPlantObj = plants[plant];
-        GameObject vaseObj = oldPlantObj.transform.GetChild(0).gameObject;
-        
-        Collider oldPlantCollider = oldPlantObj.GetComponent<Collider>();
-        Collider oldVaseCollider = vaseObj.GetComponent<Collider>();
-        if (oldPlantCollider != null) GardenPlant.colliderList.Remove(oldPlantCollider);
-        if (oldVaseCollider != null) GardenPlant.colliderList.Remove(oldVaseCollider);
-        
-        plant.Upgrade();
-        
-        float vaseHeight = vaseObj.GetComponentInChildren<Renderer>().bounds.size.y;
-        Vector3 vaseTopPosition = vaseObj.transform.position + new Vector3(0, vaseHeight / 2, 0);
-
-        GameObject plantObj = Instantiate(plant.Prefab, vaseTopPosition, Quaternion.identity);
-        plantObj.name = "Plant";
-        
-        plantObj.transform.localScale = Vector3.one * 0.07f;
-        vaseObj.transform.SetParent(plantObj.transform);
-        
-        GardenPlant gardenPlant = plantObj.AddComponent<GardenPlant>();
-        gardenPlant = oldPlantObj.GetComponent<GardenPlant>();
-        GardenPlant.selectedPlant = null;
-        
-        Debug.Log("Plant upgraded.");
-        
-        if (plantObj != null)
-        {
-            plants[plant] = plantObj;
-        }
-        Destroy(oldPlantObj);
-    }*/
     
     public void UpgradePlant(Plant plant)
     {
@@ -206,7 +164,6 @@ public class Garden : MonoBehaviour
         else
         {
             plants.Remove(plant);
-            //GardenPlant.SetSelectedPlant(null);
             Inventory.AddPlant(plant);
         }
         
@@ -244,6 +201,7 @@ public class Garden : MonoBehaviour
 		gardenPlant.insectPrefab2 = insectPrefab2;
 		gardenPlant.insectPrefab3 = insectPrefab3;
 		gardenPlant.insectPrefab4 = insectPrefab4;
+		Debug.Log("end plant spawn");
         return plantObj;
     }
 
@@ -255,37 +213,19 @@ public class Garden : MonoBehaviour
             return null;
         }
         
-        
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
         
-        if (GardenPlant.colliderList == null)
-        {
-            Debug.LogError("GardenPlant.colliderList is null!");
-            Debug.Log("prefab: " + prefab);
-            Debug.Log("position: " + position);
-            Debug.Log("Current frame: " + Time.frameCount);  // Check the frame
-            Debug.Log("Garden.Instance: " + (Garden.Instance == null ? "null" : "not null")); 
-            return obj;
-        }
-        
-        Collider coll = obj.GetComponent<Collider>();
-        if (coll == null)
-        {
-            Debug.LogWarning($"Spawned object {obj.name} has no collider!");
-            return obj; // or Destroy(obj) and return null
-        }
-
         // checking collisions
         if (GardenPlant.colliderList != null)
         {
             Collider collider = obj.GetComponent<Collider>();
-
-            foreach (Collider otherCollider in GardenPlant.colliderList)    
+            foreach (Collider otherCollider in GardenPlant.colliderList){
                 if (collider.bounds.Intersects(otherCollider.bounds))
                 {
                     Destroy(obj);
                     return null;
                 }
+			}  
         }
 
         return obj;
