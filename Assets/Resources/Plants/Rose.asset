@@ -24,3 +24,8 @@ MonoBehaviour:
     prefab: {fileID: 1190015405846041408, guid: d859957376dde40caa96fa9d53f28af9,
       type: 3}
   icon: {fileID: 21300000, guid: 28699641a4fc14d558dfed77bdc0913d, type: 3}
+  desc: 'Rose (Rosa spp.)\nElegant and fragrant flower, ideal for gardens and bouquets.\n\nCare
+    Tips\n    Sun: At least 6 hours daily.\n    Water: Keep soil moist, avoid wetting
+    leaves.\n    Soil: Fertile, well-draining.\n    Fertilizer: Every 4-6 weeks in
+    spring/summer.\n    Prune in winter and remove faded blooms.\n    Protect from
+    frost and watch for pests.'
