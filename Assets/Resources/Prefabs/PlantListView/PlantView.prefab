@@ -360,7 +360,7 @@ MonoBehaviour:
   closeButton: {fileID: 5563118332022189346}
   xButton: {fileID: 8498030415249629664}
   Name: {fileID: 8384144481125630221}
-  Desc: {fileID: 0}
+  Desc: {fileID: 2670035557707425032}
   Icon: {fileID: 2672114306237078551}
   Health: {fileID: 4659846372107891307}
   Price: {fileID: 2724812361520225019}
