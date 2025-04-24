@@ -38,7 +38,7 @@ public class GardenPlant : MonoBehaviour
         get => _coins;
         private set {
             _coins = value;
-            if (_coins >= Plant.CoinPerSecond*15 && !spawnedCoins && TutorialUI.firstLaunch != 0) 
+            if (_coins >= Plant.CoinPerSecond*30 && !spawnedCoins && TutorialUI.firstLaunch != 0) 
             {
                 Debug.Log("Spawning coins...");
                 SpawnCoins();
@@ -94,6 +94,8 @@ public class GardenPlant : MonoBehaviour
         } else if (!Plant.CurrentHealth.HasValue)
             Plant.CurrentHealth = Plant.Health;
 
+		if (!Plant.CurrentLevel.HasValue) Plant.CurrentLevel = 0;
+
         while(true) 
         {
             yield return new WaitForSeconds(5f);
@@ -143,11 +145,11 @@ public class GardenPlant : MonoBehaviour
         if (Plant.CurrentHealth.Value > 0){
             DecreaseHealth(1f * Time.deltaTime);
             _accumulatedCoins += 1 * Time.deltaTime;
+			Plant.EarnCoins(1 * Time.deltaTime);
+			if (this == selectedPlant)
+                    PlantUI.Instance.UpdateLevel();
             if (_accumulatedCoins >= 1)
             {
-                Plant.EarnCoins();
-                if (this == selectedPlant)
-                    PlantUI.Instance.UpdateLevel();
                 Coins += Plant.CoinPerSecond*(Plant.CurrentLevel.Value+1);
                 _accumulatedCoins = 0;
             }
@@ -469,6 +471,9 @@ private static void HighlightSelectedPlant(bool highlight)
     public static float CalculatePlantProgress()
     {
         GardenPlant selectedPlant = GardenPlant.selectedPlant;
-        return selectedPlant.Plant.EarnedCoins / (selectedPlant.Plant.Health / 2); // TODO: check progress calculation
+		float value = (float) (selectedPlant.Plant.EarnedCoins / (System.Math.Pow(selectedPlant.Plant.Price, 1.1) + selectedPlant.Plant.Health));
+        if(selectedPlant.Plant.CurrentLevel.Value > 0)
+            value /= 4;
+        return value;
     }
 }

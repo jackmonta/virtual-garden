@@ -38,10 +38,12 @@ public class Inventory : MonoBehaviour
             plants = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plants;
             List<float> currentHealths = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plantHealths;
 			List<int> currentLevels = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).plantLevels;
+            List<float> currentEarnedCoins = DataManager.LoadFromDisk<PlantList>(inventoryDataPath).earnedCoins;
             Debug.Log(plants.Count + " inventory plants loaded from disk.");
             for (int i = 0; i < plants.Count; i++){
                 plants[i].CurrentHealth = currentHealths[i];
 				plants[i].CurrentLevel = currentLevels[i];
+                plants[i].EarnedCoins = currentEarnedCoins[i];
                 Debug.Log(plants[i].Name + " current health: " + plants[i].CurrentHealth);
             }
         } catch (Exception)
@@ -53,6 +55,7 @@ public class Inventory : MonoBehaviour
 			plants.ForEach(plant => {
        			plant.SetMaxHealth();
        			plant.CurrentLevel = 0;
+                plant.EarnedCoins = 0;
     		});
             
         }

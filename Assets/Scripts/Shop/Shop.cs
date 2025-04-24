@@ -63,6 +63,7 @@ public class Shop : MonoBehaviour
 			ShopPlants.ForEach(plant => {
 				    plant.SetMaxHealth();
 					plant.CurrentLevel = 0;
+                    plant.EarnedCoins = 0;
     		});
 		    
             ShopNonPlantItems.ForEach(item => item.ClickCount = 1);

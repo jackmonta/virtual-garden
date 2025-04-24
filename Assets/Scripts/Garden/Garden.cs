@@ -53,7 +53,7 @@ public class Garden : MonoBehaviour
         var touchPoint = DetectGardenTouch();
         if (touchPoint.HasValue && Inventory.GetSelectedPlant() != null)
         {
-            Vector3 touchPosition = DetectGardenTouch().Value;
+            Vector3 touchPosition = touchPoint.Value;
             Plant plantToSpawn = Inventory.GetSelectedPlant();
             GameObject plantObj = SpawnPlant(plantToSpawn, touchPosition);
 

@@ -34,7 +34,6 @@ public class PlantLevel : MonoBehaviour
             levelText.text = "1";
 
         levelSlider.value = progress;
-
-        plantLevelIcon.SetActive(progress >= 1);
+        plantLevelIcon.SetActive(progress >= 1 && GardenPlant.selectedPlant.Plant.CurrentLevel < GardenPlant.selectedPlant.Plant.Upgrades.Length - 1);
     }
 }
