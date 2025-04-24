@@ -24,3 +24,8 @@ MonoBehaviour:
     prefab: {fileID: 1775965634335972069, guid: b3b833daa69b14179b9b409658579d35,
       type: 3}
   icon: {fileID: 21300000, guid: 5346f65219a1449e3b7806a5d89a3ab5, type: 3}
+  desc: 'Bamboo (Bambusoideae)\nFast-growing grass known for its tall, slender stems.\n\nCare
+    Tips\n    Sun: Prefers partial shade to full sun.\n    Water: Regular watering,
+    especially in dry periods.\n    Soil: Well-draining, slightly acidic soil.\n   
+    Fertilizer: Fertilize in spring for best growth.\n    Prune: Trim to maintain
+    shape and size.\n    Protect from freezing temperatures.'

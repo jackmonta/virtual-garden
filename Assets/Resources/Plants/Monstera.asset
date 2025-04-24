@@ -24,3 +24,9 @@ MonoBehaviour:
     prefab: {fileID: 7836738596694340333, guid: e71a45c7293c94471a80b8249858a9b2,
       type: 3}
   icon: {fileID: 21300000, guid: 64463897a25aa44f4abd0d6724c9758d, type: 3}
+  desc: 'Monstera (Monstera deliciosa)\nTropical plant with large, split leaves,
+    popular for indoor decoration.\n\nCare Tips\n    Sun: Indirect bright light.\n   
+    Water: Keep soil slightly moist, water when topsoil is dry.\n    Soil: Well-draining,
+    peat-based soil.\n    Fertilizer: Monthly in spring and summer.\n    Prune to
+    control growth and remove damaged leaves.\n    Protect from direct sunlight and
+    drafts.'

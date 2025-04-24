@@ -8,6 +8,8 @@ public class SettingsPanel : MonoBehaviour
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button menuButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private Button plantButton;
+    [SerializeField] private GameObject plantView;
 
     void Awake()
     {
@@ -19,6 +21,7 @@ public class SettingsPanel : MonoBehaviour
 
         Instance = this;
         this.gameObject.SetActive(false);
+        plantView.gameObject.SetActive(false);
     }
 
     public void Show()
@@ -49,6 +52,10 @@ public class SettingsPanel : MonoBehaviour
            Debug.Log("quitting game..."); 
            CloseGame();
         });
+        plantButton.onClick.AddListener(() => {
+            Debug.Log("opening plant list...");
+            OpenPlantList();
+        });
     }
 
     private void SwitchToMenu()
@@ -72,5 +79,10 @@ public class SettingsPanel : MonoBehaviour
     private void CloseGame()
     {
         Application.Quit();
+    }
+
+    private void OpenPlantList()
+    {
+        plantView.gameObject.SetActive(true);
     }
 }

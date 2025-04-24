@@ -24,3 +24,9 @@ MonoBehaviour:
     prefab: {fileID: 3510810776644084069, guid: 249cd2094b19b4f74990f99ffa96832a,
       type: 3}
   icon: {fileID: 21300000, guid: 42636d456ac0345b8930ae5bda0153bf, type: 3}
+  desc: 'Lotus (Nymphaea spp.)\nWater plant known for its beautiful flowers that
+    bloom on the surface of ponds.\n\nCare Tips\n    Sun: Full sun.\n    Water: Keep
+    the roots submerged in water, but avoid covering the leaves.\n    Soil: Fertile,
+    silty soil in the water.\n    Fertilizer: Use aquatic plant fertilizer during
+    the growing season.\n    Prune: Remove faded flowers and dead leaves.\n    Protect
+    from cold temperatures.'

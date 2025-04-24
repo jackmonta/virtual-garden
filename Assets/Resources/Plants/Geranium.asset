@@ -23,3 +23,9 @@ MonoBehaviour:
     prefab: {fileID: 1887868626592565176, guid: 8a7401a3913a64599a21d100d706166b,
       type: 3}
   icon: {fileID: 21300000, guid: 7404f92868a414414ab1114f13ffb1f8, type: 3}
+  desc: 'Geranium (Pelargonium spp.)\nColorful and hardy plant, perfect for borders
+    and containers.\n\nCare Tips\n    Sun: Full sun or partial shade.\n    Water:
+    Water regularly but allow soil to dry out between waterings.\n    Soil: Well-draining,
+    fertile soil.\n    Fertilizer: Monthly during the growing season.\n    Prune
+    regularly to encourage new growth.\n    Protect from frost and ensure good air
+    circulation.'

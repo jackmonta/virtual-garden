@@ -45,6 +45,10 @@ public class Plant : ScriptableObject
     [SerializeField]
     private Sprite icon;
     public Sprite Icon { get { return icon; } }
+
+    [SerializeField]
+    private string desc;
+    public string Desc { get { return desc; } }
     
     public GameObject Prefab { get { return upgrades[currentLevel.Value].Prefab; } }
 
