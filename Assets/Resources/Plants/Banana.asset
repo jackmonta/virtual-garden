@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Banana
   price: 400
-  coinPerSecond: 5
+  coinPerSecond: 8
   health: 200
   upgrades:
   - price: 0

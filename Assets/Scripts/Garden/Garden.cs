@@ -136,7 +136,7 @@ public class Garden : MonoBehaviour
             yield return null;
         }
 
-        Wallet.Instance.AddMoney(1);
+        Wallet.Instance.AddMoney(10);
         coin.GetComponent<AudioSource>().Stop();
         Destroy(coin);
     }

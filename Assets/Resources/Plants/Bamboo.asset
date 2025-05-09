@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Bamboo
   price: 900
-  coinPerSecond: 12
+  coinPerSecond: 18
   health: 300
   upgrades:
   - price: 0

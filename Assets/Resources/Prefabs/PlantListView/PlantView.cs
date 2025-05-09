@@ -30,7 +30,7 @@ public class PlantView : MonoBehaviour
         Desc.text = plant.Desc.Replace("\\n", "\n");
         Icon.sprite = plant.Icon;
         Health.text = plant.Health.ToString();
-        Price.text = plant.Price.ToString();
+        Price.text = Price.text = plant.Upgrades[1].Price.ToString();
         Upgrades.text = (plant.Upgrades.Length - 1).ToString();
         CoinPerSec.text = plant.CoinPerSecond.ToString();
     }

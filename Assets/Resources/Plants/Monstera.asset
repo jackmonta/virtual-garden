@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Monstera
   price: 250
-  coinPerSecond: 3
+  coinPerSecond: 5
   health: 150
   upgrades:
   - price: 0

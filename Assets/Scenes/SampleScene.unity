@@ -2029,6 +2029,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlantListView
       objectReference: {fileID: 0}
+    - target: {fileID: 110983250027272199, guid: fc322d7649009ec4c8afbac5df6fa199,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1032592987030888167, guid: fc322d7649009ec4c8afbac5df6fa199,
         type: 3}
       propertyPath: m_AnchorMax.y

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Coconut
   price: 1200
-  coinPerSecond: 18
+  coinPerSecond: 24
   health: 400
   upgrades:
   - price: 0

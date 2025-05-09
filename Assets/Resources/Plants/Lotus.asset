@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Lotus
   price: 600
-  coinPerSecond: 8
+  coinPerSecond: 12
   health: 250
   upgrades:
   - price: 0

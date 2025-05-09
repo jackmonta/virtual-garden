@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Geranium
   price: 150
-  coinPerSecond: 2
+  coinPerSecond: 3
   health: 125
   upgrades:
   - price: 0

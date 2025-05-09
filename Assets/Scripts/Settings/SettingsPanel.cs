@@ -21,7 +21,6 @@ public class SettingsPanel : MonoBehaviour
 
         Instance = this;
         this.gameObject.SetActive(false);
-        plantView.gameObject.SetActive(false);
     }
 
     public void Show()
@@ -40,6 +39,8 @@ public class SettingsPanel : MonoBehaviour
 
     void Start()
     {
+        plantView.gameObject.SetActive(false);
+        
         resumeButton.onClick.AddListener(() => {
            Debug.Log("resuming game..."); 
            Hide();

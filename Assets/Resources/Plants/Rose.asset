@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Rose
   price: 0
-  coinPerSecond: 1
+  coinPerSecond: 2
   health: 100
   upgrades:
   - price: 0
