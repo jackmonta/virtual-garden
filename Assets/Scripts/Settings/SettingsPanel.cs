@@ -58,6 +58,10 @@ public class SettingsPanel : MonoBehaviour
             Debug.Log("opening plant list...");
             OpenPlantList();
         });
+        achievementsButton.onClick.AddListener(() => {
+            Debug.Log("opening achievements...");
+            AchivementsView.Instance.Show();
+        });
     }
 
     private void SwitchToMenu()
