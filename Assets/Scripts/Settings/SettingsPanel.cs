@@ -9,6 +9,7 @@ public class SettingsPanel : MonoBehaviour
     [SerializeField] private Button menuButton;
     [SerializeField] private Button quitButton;
     [SerializeField] private Button plantButton;
+    [SerializeField] private Button achievementsButton;
     [SerializeField] private GameObject plantView;
 
     void Awake()
@@ -56,6 +57,10 @@ public class SettingsPanel : MonoBehaviour
         plantButton.onClick.AddListener(() => {
             Debug.Log("opening plant list...");
             OpenPlantList();
+        });
+        achievementsButton.onClick.AddListener(() => {
+            Debug.Log("opening achievements...");
+            AchivementsView.Instance.Show();
         });
     }
 
