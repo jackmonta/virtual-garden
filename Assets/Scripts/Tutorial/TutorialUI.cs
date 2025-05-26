@@ -10,6 +10,8 @@ public class TutorialUI : MonoBehaviour
 {
     private static Canvas tutorialCanvas;
     public static Button invisibleButton;
+    
+    private static GameObject triangleButton;
     private static TextMeshProUGUI tutorialText;
     private static AudioSource audioSource;
     public static TutorialUI Instance { get; private set; }
@@ -63,6 +65,7 @@ public class TutorialUI : MonoBehaviour
 
         tutorialCanvas = GetComponent<Canvas>();
         tutorialText = GetComponentInChildren<TextMeshProUGUI>();
+        triangleButton = GameObject.Find("UI/TutorialUI/SpeakingFarmer/SpeechBubble/triangle");
         tutorialCanvas.enabled = false;
 
         audioSource = gameObject.AddComponent<AudioSource>();
@@ -87,8 +90,6 @@ public class TutorialUI : MonoBehaviour
     {
         iterator = tutorialSteps.GetEnumerator();
         SetNextStep();
-        
-        
 
         invisibleButton.gameObject.SetActive(true);
         invisibleButton.onClick.AddListener(() => SetNextStep());
@@ -110,6 +111,8 @@ public class TutorialUI : MonoBehaviour
 
     private static void SetNextStep()
     {
+        triangleButton.SetActive(false);
+        
         if (iterator.MoveNext())
         {
             TutorialStep step = iterator.Current;
@@ -124,6 +127,10 @@ public class TutorialUI : MonoBehaviour
             } else if (step.Sentence.Contains("By doing these actions") || step.Sentence.Contains("You can then use them"))
             {
                 GardenPlant.SetSelectedPlant(null);
+            }
+            else if (step.Sentence.Contains("Hi, welcome to Virtual Garden!") || step.Sentence.Contains("Here, you can perform") || step.Sentence.Contains("Insects double the rate") || step.Sentence.Contains("By performing these actions") || step.Sentence.Contains("You can then use these") || step.Sentence.Contains("Enjoy your garden!"))
+            {
+                triangleButton.SetActive(true);
             }
 
             if (step.ActionRequired != TutorialAction.None)

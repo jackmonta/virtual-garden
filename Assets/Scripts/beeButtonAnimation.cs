@@ -1,6 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
+
 
 public class beeButtonAnimation : MonoBehaviour
 {
@@ -9,6 +11,11 @@ public class beeButtonAnimation : MonoBehaviour
     private static beeButtonAnimation _instance;
     private GameObject currentBee;
     private BeeController beeController;
+
+    [SerializeField] private Button buttonObject;
+    
+    private Color originalColor = Color.white;
+    [SerializeField] private Color clickedColor;
 
     public static beeButtonAnimation Instance
     {
@@ -57,6 +64,9 @@ public class beeButtonAnimation : MonoBehaviour
             if (beeController != null)
             {
                 beeController.StartReturnSequence();
+                
+                buttonObject.image.color = Color.white;
+                
             }
             else
             {
@@ -94,5 +104,7 @@ public class beeButtonAnimation : MonoBehaviour
         // Aggiungi il comportamento di movimento
         beeController = beeInstance.AddComponent<BeeController>();
         beeController.Setup(spawnPosition, nearCameraPosition);
+        
+        buttonObject.image.color = clickedColor;
     }
 }

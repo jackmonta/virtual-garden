@@ -41,7 +41,7 @@ public class BeeController : MonoBehaviour
     private IEnumerator PlayIntroSequence()
     {
         // Movimento verso il punto vicino alla telecamera
-        float approachDuration = 2.5f;
+        float approachDuration = 2f;
         float elapsedTime = 0f;
         while (elapsedTime < approachDuration)
         {
