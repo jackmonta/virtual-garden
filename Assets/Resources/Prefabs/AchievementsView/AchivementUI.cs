@@ -23,8 +23,8 @@ public class AchivementUI : MonoBehaviour
     public void SetAchivement(Achievement achievement)
     {
         this.achivement = achievement;
-        // achivement.OnAchievementUnlocked += UnlockedAchivement;
-        // title.text = achivement.title;
-        // icon.sprite = achivement.icon;
+        achivement.OnAchievementUnlocked += UnlockedAchivement;
+        title.text = achivement.title;
+        icon.sprite = achivement.icon;
     }
 }

@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 7444604609671287576}
   - component: {fileID: 5075051159017870153}
   - component: {fileID: 5563118332022189346}
+  - component: {fileID: 4706303334468296897}
   m_Layer: 0
   m_Name: Quit
   m_TagString: Untagged
@@ -350,7 +351,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5075051159017870153}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4706303334468296897}
+        m_TargetAssemblyTypeName: ButtonAudioTrigger, Assembly-CSharp
+        m_MethodName: PlayGlobalAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4706303334468296897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825552869900474140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e36db0901d34278850f4a26aa2e514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &885928419556643128
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +424,7 @@ GameObject:
   - component: {fileID: 3393659328889075314}
   - component: {fileID: 2720656868578006002}
   - component: {fileID: 8498030415249629664}
+  - component: {fileID: 5098905570208267387}
   m_Layer: 0
   m_Name: Resume
   m_TagString: Untagged
@@ -507,7 +533,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2720656868578006002}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5098905570208267387}
+        m_TargetAssemblyTypeName: ButtonAudioTrigger, Assembly-CSharp
+        m_MethodName: PlayGlobalAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5098905570208267387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930572216144000443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e36db0901d34278850f4a26aa2e514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2990334754742173904
 GameObject:
   m_ObjectHideFlags: 0
