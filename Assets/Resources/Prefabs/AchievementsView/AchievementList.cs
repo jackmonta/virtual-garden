@@ -5,4 +5,7 @@ using System.Collections.Generic;
 public class AchievementList
 {
     public List<Achievement> achievements;
+    
+    public List<bool> collected;
+    public List<bool> done;
 }

@@ -75,12 +75,21 @@ public class AchievementsView : MonoBehaviour
     public void LoadDataFromDisk()
     {
         Debug.Log("Loading Achievements...");
-        try {
-            achievements = DataManager.LoadFromDisk<AchievementList>(achievementsDataPath).achievements;
-        } catch
+        
+        achievements = new List<Achievement>(starterAchievements);
+
+        try
+        {
+            AchievementList achievementList = DataManager.LoadFromDisk<AchievementList>(achievementsDataPath);
+            for (int i = 0; i < achievementList.achievements.Count; i++)
+            {
+                achievements[i].Done = achievementList.done[i];
+                achievements[i].Collected = achievementList.collected[i];
+            }
+        }
+        catch
         {
             Debug.Log("No achievements loaded from disk, loading starter set.");
-            achievements = starterAchievements;
             foreach (Achievement achievement in achievements)
             {
                 achievement.Done = false;
@@ -110,8 +119,19 @@ public class AchievementsView : MonoBehaviour
         }
     }
 
-    public List<Achievement> GetAchievements()
+    public List<Achievement> GetCopyAchievements()
     {
-        return achievements;
+        List<Achievement> copy = new List<Achievement>();
+        foreach (var achievement in achievements)
+        {
+            Achievement clonedAchievement = ScriptableObject.CreateInstance<Achievement>();
+            clonedAchievement.title = achievement.title;
+            clonedAchievement.Done = achievement.Done;
+            clonedAchievement.Collected = achievement.Collected;
+            // Copy other fields if necessary
+        
+            copy.Add(clonedAchievement);
+        }
+        return copy;
     }
 }

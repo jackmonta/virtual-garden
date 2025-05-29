@@ -10,12 +10,13 @@ public class AchievementUI : MonoBehaviour
     [SerializeField] private Button collectButton;
     [SerializeField] private AudioSource collectSound;
     [SerializeField] private TextMeshProUGUI goldCoin;
+    [SerializeField] private Image tick;
     private Achievement achievement;
     
     private void UnlockedAchievement(Achievement achievement)
     {
         achievement.OnAchievementUnlocked -= UnlockedAchievement;
-        collectButton.GetComponentInChildren<TextMeshProUGUI>().text = "Collect!";
+        collectButton.GetComponentInChildren<TextMeshProUGUI>().text = "Collect";
         collectButton.interactable = true;
     }
     
@@ -27,8 +28,9 @@ public class AchievementUI : MonoBehaviour
             collectSound.Play();
             achievement.Collected = true;
             AchievementsView.Instance.UpdateNotification();
-            collectButton.GetComponentInChildren<TextMeshProUGUI>().text = "Collected!";
+            collectButton.GetComponentInChildren<TextMeshProUGUI>().text = "Collected";
             collectButton.interactable = false;
+            tick.gameObject.SetActive(true);
         }
     }
 
@@ -39,19 +41,22 @@ public class AchievementUI : MonoBehaviour
         
         if(achievement.Done == true && achievement.Collected == true)
         {
-            collectButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Collected!";
+            collectButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Collected";
             collectButton.interactable = false;
+            tick.gameObject.SetActive(true);
         }
         else if (achievement.Done == true)
         {
-            collectButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Collect!";
+            collectButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Collect";
             collectButton.interactable = true;
+            tick.gameObject.SetActive(false);
         }
         else
         {
-            collectButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Complete the quest...";
+            collectButton.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "Locked";
             achievement.OnAchievementUnlocked += UnlockedAchievement;
             collectButton.interactable = false;
+            tick.gameObject.SetActive(false);
         }
         
         title.text = achievement.title;

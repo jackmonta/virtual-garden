@@ -70,9 +70,16 @@ public class GameSaver : MonoBehaviour
             Debug.Log("No achievements instance");
             return;
         }
-		List<Achievement> achievements = AchievementsView.Instance.GetAchievements();
+		List<Achievement> achievements = new List<Achievement>(AchievementsView.Instance.GetCopyAchievements());
         AchievementList achievementList = new AchievementList();
         achievementList.achievements = achievements;
+        achievementList.done = new List<bool>();
+        achievementList.collected = new List<bool>();
+        foreach (var achievement in achievements)
+        {
+            achievementList.done.Add(achievement.Done);
+            achievementList.collected.Add(achievement.Collected);
+        }
         DataManager.SaveToDisk(AchievementsView.achievementsDataPath, achievementList);
     }
     
