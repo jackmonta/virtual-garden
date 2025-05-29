@@ -352,6 +352,7 @@ MonoBehaviour:
   title: {fileID: 6556236770476949260}
   icon: {fileID: 4086780202170583329}
   collectButton: {fileID: 7394182627454435800}
+  collectButtonText: {fileID: 2150237359549352288}
   collectSound: {fileID: 4500178579925606733}
   goldCoin: {fileID: 2926248583092998030}
   tick: {fileID: 1114636350758922162}

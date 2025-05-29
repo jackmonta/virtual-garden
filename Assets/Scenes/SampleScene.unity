@@ -1292,7 +1292,6 @@ GameObject:
   - component: {fileID: 647657701}
   - component: {fileID: 647657700}
   - component: {fileID: 647657703}
-  - component: {fileID: 647657702}
   m_Layer: 0
   m_Name: Text potion
   m_TagString: Untagged
@@ -1345,20 +1344,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &647657702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 569772973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02836cf59211c4b1089414f384a7326a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  notificationText: {fileID: 647657703}
-  nonPlantItem: {fileID: 11400000, guid: bdd5fff7ce19a4d5688fbde88bd04bc7, type: 2}
 --- !u!114 &647657703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3609,7 +3594,6 @@ GameObject:
   - component: {fileID: 1525072780}
   - component: {fileID: 1525072783}
   - component: {fileID: 1525072782}
-  - component: {fileID: 1525072781}
   m_Layer: 0
   m_Name: Text potion
   m_TagString: Untagged
@@ -3636,20 +3620,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1525072781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525072779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02836cf59211c4b1089414f384a7326a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  notificationText: {fileID: 1525072782}
-  nonPlantItem: {fileID: 11400000, guid: bdd5fff7ce19a4d5688fbde88bd04bc7, type: 2}
 --- !u!114 &1525072782
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class PlantUpgradeButton : MonoBehaviour
         if (plant == null) return;
         if (!plant.Upgrade()) return;
 
-        gardenPlant.potionRevitalizing();
+        gardenPlant.upgradeRevitalizing();
 		if(gardenPlant.IsInfected()) gardenPlant.RemoveInsects();
 		//if(gardenPlant.CanCollectCoins()) StartCoroutine(gardenPlant.AnimateCoinsToWallet());
 		

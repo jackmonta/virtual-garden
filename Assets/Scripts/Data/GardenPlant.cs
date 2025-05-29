@@ -130,6 +130,19 @@ public class GardenPlant : MonoBehaviour
 		}
     }
     
+    public void upgradeRevitalizing()
+    {
+        plantIsDead = false;
+        Plant.SetMaxHealth();
+        if (selectedPlant == this)
+            HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
+        
+        if(dropObj != null){
+            Destroy(dropObj);
+            dropObj = null;
+        }
+    }
+    
     
 
     void Update()
