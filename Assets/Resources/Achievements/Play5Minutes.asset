@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Play 5 minutes
   icon: {fileID: -8801819111103863087, guid: 12d33c45df2a46642bbc13c03009055b, type: 3}
+  coinsReward: 50

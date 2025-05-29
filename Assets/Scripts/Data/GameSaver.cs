@@ -62,6 +62,19 @@ public class GameSaver : MonoBehaviour
         int money = Wallet.Instance.Money;
         DataManager.SaveToDisk(Wallet.walletDataPath, money);
     }
+
+	private static void SaveAchievements()
+    {
+        if (AchievementsView.Instance == null)
+        {
+            Debug.Log("No achievements instance");
+            return;
+        }
+		List<Achievement> achievements = AchievementsView.Instance.GetAchievements();
+        AchievementList achievementList = new AchievementList();
+        achievementList.achievements = achievements;
+        DataManager.SaveToDisk(AchievementsView.achievementsDataPath, achievementList);
+    }
     
 
     public static void SaveAll()
@@ -73,6 +86,7 @@ public class GameSaver : MonoBehaviour
         SaveInventory();
         SaveShop();
         SaveWallet();
+        SaveAchievements();
 
         Debug.Log("Game Saved!");
     }

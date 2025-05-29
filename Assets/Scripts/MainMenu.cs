@@ -13,7 +13,8 @@ public class MainMenu : MonoBehaviour
     {
         "/inventoryData.json",
         "/shopData.json",
-        "/walletData.json"
+        "/walletData.json",
+        "/achievementData.json"
     };
 
     void Start()
@@ -81,6 +82,8 @@ public class MainMenu : MonoBehaviour
                 Shop.Instance.LoadDataFromDisk();
             if (Wallet.Instance != null)
                 Wallet.Instance.LoadDataFromDisk();
+            if (AchievementsView.Instance != null)
+                AchievementsView.Instance.LoadDataFromDisk();
         }
     }
 }

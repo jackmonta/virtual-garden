@@ -6,6 +6,16 @@ public class Achievement : ScriptableObject
 {
     public string title;
     public Sprite icon;
+    public int coinsReward;
+    
+    private bool collected = false;
+    public bool Collected
+    {
+        get { return collected; }
+        set { collected = value; }
+    }
+    
+    
     private bool done = false;
     public bool Done
     {

@@ -20,7 +20,7 @@ public class AchievementsView : MonoBehaviour
             Instance = this;
         
         achievementsDataPath = Application.persistentDataPath + "/achievementData.json";
-        LoadAchievements();
+        LoadDataFromDisk();
     }
 
     void Start()
@@ -39,7 +39,7 @@ public class AchievementsView : MonoBehaviour
         this.gameObject.SetActive(true);
     }
 
-    void LoadAchievements()
+    public void LoadDataFromDisk()
     {
         Debug.Log("Loading Achievements...");
         try {
@@ -57,5 +57,20 @@ public class AchievementsView : MonoBehaviour
             AchievementUI achievementComponent = achievementUI.GetComponent<AchievementUI>();
             achievementComponent.SetAchievement(achievement);
         }
+    }
+    
+    
+    public void UnlockAchievement(string achievementId)
+    {
+        foreach (var achievement in achievements)
+        {
+            if (achievement.title == achievementId && !achievement.Done) 
+                achievement.Done = true;
+        }
+    }
+
+    public List<Achievement> GetAchievements()
+    {
+        return achievements;
     }
 }

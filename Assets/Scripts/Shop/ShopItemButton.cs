@@ -13,6 +13,8 @@ public class ShopItemButton : MonoBehaviour
 
     public Plant Plant { get; private set; }
     public NonPlantItem NonPlantItem { get; private set; }
+    
+    private bool isFirstPlant = true;
 
     void Start()
     {
@@ -31,6 +33,11 @@ public class ShopItemButton : MonoBehaviour
                 Wallet.Instance.SubtractMoney(Plant.Price);
                 Shop.RemovePlant(Plant);
                 Inventory.AddPlant(Plant);
+                if (isFirstPlant)
+                {
+                    isFirstPlant = false;
+                    AchievementsView.Instance.UnlockAchievement("Buy 1 Plant");
+                }
             }
             else audioSource_wrong.Play();
         }
