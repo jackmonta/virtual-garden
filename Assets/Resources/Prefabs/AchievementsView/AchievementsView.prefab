@@ -224,8 +224,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starterAchievements:
+  - {fileID: 11400000, guid: 080708482d34c364a805b3320857d60f, type: 2}
+  - {fileID: 11400000, guid: 1f935cbe159c02743b3ce402313636d1, type: 2}
+  - {fileID: 11400000, guid: 6a972e9e3ab9d4e2db3ac912ff17272c, type: 2}
   - {fileID: 11400000, guid: 623be1e8710e46641b43395214d1a065, type: 2}
-  - {fileID: 11400000, guid: 7a3759174e560944f8e9c4031f68c2ec, type: 2}
+  - {fileID: 11400000, guid: e0ae6d806b7131f468492668f909c4ec, type: 2}
+  - {fileID: 11400000, guid: 9b3d5126f8c07444fa67dda84eb0d739, type: 2}
   closeButton: {fileID: 5563118332022189346}
   xButton: {fileID: 8498030415249629664}
 --- !u!1 &825552869900474140

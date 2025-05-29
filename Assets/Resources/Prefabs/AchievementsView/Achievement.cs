@@ -15,7 +15,6 @@ public class Achievement : ScriptableObject
         set { collected = value; }
     }
     
-    
     private bool done = false;
     public bool Done
     {

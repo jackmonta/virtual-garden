@@ -149,6 +149,7 @@ public class TutorialUI : MonoBehaviour
             firstLaunch = 1;
             PlayerPrefs.SetInt("FirstLaunch", 1);
             PlayerPrefs.Save();
+            AchievementsView.Instance.UnlockAchievement("Complete the tutorial");
             HideUI();
         }
     }

@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 009cb0359983f544a9374e6a00eae04f, type: 3}
-  m_Name: Water10Times
+  m_Name: RevitalizePlant
   m_EditorClassIdentifier: 
-  title: 
-  icon: {fileID: 0}
+  title: Revitalize one plant
+  icon: {fileID: 21300000, guid: 909cda4c98e9d4ece9fae31fb54cda93, type: 3}
+  coinsReward: 100

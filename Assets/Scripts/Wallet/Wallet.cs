@@ -40,6 +40,8 @@ public class Wallet : MonoBehaviour
     public void AddMoney(int amount)
     {
         Money += amount;
+        if(Money >= 500)
+            AchievementsView.Instance.UnlockAchievement("Save up to 500 coins");
     }
 
     public void SubtractMoney(int amount)

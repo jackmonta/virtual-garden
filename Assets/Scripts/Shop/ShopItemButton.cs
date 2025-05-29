@@ -36,7 +36,7 @@ public class ShopItemButton : MonoBehaviour
                 if (isFirstPlant)
                 {
                     isFirstPlant = false;
-                    AchievementsView.Instance.UnlockAchievement("Buy 1 Plant");
+                    AchievementsView.Instance.UnlockAchievement("Buy one plant");
                 }
             }
             else audioSource_wrong.Play();

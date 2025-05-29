@@ -48,6 +48,11 @@ public class AchievementsView : MonoBehaviour
         {
             Debug.Log("No achievements loaded from disk, loading starter set.");
             achievements = starterAchievements;
+            foreach (Achievement achievement in achievements)
+            {
+                achievement.Done = false;
+                achievement.Collected = false;
+            }
         }
 
         foreach (Achievement achievement in achievements)

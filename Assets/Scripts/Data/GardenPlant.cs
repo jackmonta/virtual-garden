@@ -121,6 +121,9 @@ public class GardenPlant : MonoBehaviour
         if (selectedPlant == this)
             HealthBar.Instance.UpdateHealthBar(Plant.CurrentHealth.Value);
         
+        if(TutorialUI.firstLaunch != 0)
+            AchievementsView.Instance.UnlockAchievement("Revitalize one plant");
+        
 		if(dropObj != null){
             Destroy(dropObj);
             dropObj = null;
@@ -380,6 +383,8 @@ private static void HighlightSelectedPlant(bool highlight)
         foreach (GameObject insect in spawnedInsects)
             Destroy(insect);
         spawnedInsects.Clear();
+        if(TutorialUI.firstLaunch != 0) 
+            AchievementsView.Instance.UnlockAchievement("Kill the Insects");
     }
     
     private void SetPlantColor(Color color)

@@ -164,6 +164,7 @@ public class Garden : MonoBehaviour
         GameObject plantObj = SpawnPlant(plant, vasePosition);
         
         Debug.Log("Plant upgraded.");
+        AchievementsView.Instance.UnlockAchievement("Upgrade one plant");
         
         if (plantObj != null)
         {

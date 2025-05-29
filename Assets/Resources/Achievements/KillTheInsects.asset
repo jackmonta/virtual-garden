@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009cb0359983f544a9374e6a00eae04f, type: 3}
   m_Name: KillTheInsects
   m_EditorClassIdentifier: 
-  title: 
-  icon: {fileID: 0}
+  title: Kill the Insects
+  icon: {fileID: 21300000, guid: 9bc1bb9f8edb546f58f14bc80f5bae87, type: 3}
+  coinsReward: 50

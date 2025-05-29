@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 009cb0359983f544a9374e6a00eae04f, type: 3}
   m_Name: UpgradeOnePlant
   m_EditorClassIdentifier: 
-  title: 
-  icon: {fileID: 0}
+  title: Upgrade one plant
+  icon: {fileID: 3511996523978390141, guid: 35ada85acb95b7941aab7c68c4e1dcec, type: 3}
+  coinsReward: 200
