@@ -80,6 +80,7 @@ public class AchievementsView : MonoBehaviour
 
         try
         {
+            if (TutorialUI.onlyTutorial == 1) throw new Exception();
             AchievementList achievementList = DataManager.LoadFromDisk<AchievementList>(achievementsDataPath);
             for (int i = 0; i < achievementList.achievements.Count; i++)
             {
