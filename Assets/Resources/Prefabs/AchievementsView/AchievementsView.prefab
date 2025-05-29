@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbce8e48a6504534a99a8ebc479700da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starterAchivements:
+  starterAchievements:
   - {fileID: 11400000, guid: 623be1e8710e46641b43395214d1a065, type: 2}
   - {fileID: 11400000, guid: 7a3759174e560944f8e9c4031f68c2ec, type: 2}
   closeButton: {fileID: 5563118332022189346}
@@ -386,7 +386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7130976931291452028}
   m_Layer: 0
-  m_Name: AchivementsScroll
+  m_Name: AchievementsScroll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 1490902437516510035}
   - component: {fileID: 812006423961497111}
   m_Layer: 0
-  m_Name: AchivementContent
+  m_Name: AchievementContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

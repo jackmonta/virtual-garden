@@ -60,7 +60,7 @@ public class SettingsPanel : MonoBehaviour
         });
         achievementsButton.onClick.AddListener(() => {
             Debug.Log("opening achievements...");
-            AchivementsView.Instance.Show();
+            AchievementsView.Instance.Show();
         });
     }
 
