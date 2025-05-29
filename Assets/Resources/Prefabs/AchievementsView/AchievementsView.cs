@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +13,8 @@ public class AchievementsView : MonoBehaviour
 
     [SerializeField] private Button closeButton;
     [SerializeField] private Button xButton;
+    [SerializeField] private GameObject settingsNotification;
+    [SerializeField] private GameObject achievementNotification;
 
     private void Awake()
     {
@@ -21,6 +25,35 @@ public class AchievementsView : MonoBehaviour
         
         achievementsDataPath = Application.persistentDataPath + "/achievementData.json";
         LoadDataFromDisk();
+        UpdateNotification();
+    }
+
+    public void UpdateNotification()
+    {
+        int counter = GetReadyAchievements();
+        if (counter > 0)
+        {
+            settingsNotification.gameObject.SetActive(true);
+            achievementNotification.gameObject.SetActive(true);
+            settingsNotification.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = counter.ToString();
+            achievementNotification.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = counter.ToString();
+        }
+        else
+        {
+            settingsNotification.gameObject.SetActive(false);
+            achievementNotification.gameObject.SetActive(false);
+        }
+    }
+
+    private int GetReadyAchievements()
+    {
+        int counter = 0;
+        foreach (Achievement a in achievements)
+        {
+            if (a.Done == true && a.Collected == false) counter++;
+        }
+
+        return counter;
     }
 
     void Start()
@@ -64,8 +97,11 @@ public class AchievementsView : MonoBehaviour
     {
         foreach (var achievement in achievements)
         {
-            if (achievement.title == achievementId && !achievement.Done) 
+            if (achievement.title == achievementId && !achievement.Done)
+            {
                 achievement.Done = true;
+                UpdateNotification();
+            }
         }
     }
 

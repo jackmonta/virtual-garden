@@ -9,6 +9,7 @@ public class AchievementUI : MonoBehaviour
     [SerializeField] private Image icon;
     [SerializeField] private Button collectButton;
     [SerializeField] private AudioSource collectSound;
+    [SerializeField] private TextMeshProUGUI goldCoin;
     private Achievement achievement;
     
     private void UnlockedAchievement(Achievement achievement)
@@ -25,6 +26,7 @@ public class AchievementUI : MonoBehaviour
             Wallet.Instance.AddMoney(achievement.coinsReward);
             collectSound.Play();
             achievement.Collected = true;
+            AchievementsView.Instance.UpdateNotification();
             collectButton.GetComponentInChildren<TextMeshProUGUI>().text = "Collected!";
             collectButton.interactable = false;
         }
@@ -54,5 +56,6 @@ public class AchievementUI : MonoBehaviour
         
         title.text = achievement.title;
         icon.sprite = achievement.icon;
+        goldCoin.text = achievement.coinsReward.ToString();
     }
 }

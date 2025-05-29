@@ -228,6 +228,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7a3759174e560944f8e9c4031f68c2ec, type: 2}
   closeButton: {fileID: 5563118332022189346}
   xButton: {fileID: 8498030415249629664}
+  settingsNotification: {fileID: 2990334754742173904}
+  achievementNotification: {fileID: 0}
 --- !u!1 &825552869900474140
 GameObject:
   m_ObjectHideFlags: 0
