@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Save up to 500 coins
   icon: {fileID: -5629258083517393334, guid: 1ccb15b522eac084698d270f707ec810, type: 3}
-  coinsReward: 75
+  coinsReward: 100

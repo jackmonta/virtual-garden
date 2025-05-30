@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Complete the tutorial
   icon: {fileID: 21300000, guid: 37d4994279be742dbb1b6c1063b12c3d, type: 3}
-  coinsReward: 20
+  coinsReward: 25

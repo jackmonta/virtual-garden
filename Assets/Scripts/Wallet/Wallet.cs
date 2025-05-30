@@ -33,7 +33,7 @@ public class Wallet : MonoBehaviour
         } catch (Exception)
         {
             Debug.Log("No wallet data found, created new wallet");
-            Instance.Money = 10000;
+            Instance.Money = 100;
         }
     }
 

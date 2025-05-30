@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using System.Linq;
 
 public class TutorialUI : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class TutorialUI : MonoBehaviour
         new TutorialStep("By performing these actions, you can keep your garden healthy and earn coins.", "Audio/KeepHealthy"),
         new TutorialStep("Tap on the plant to collect the coins.", "Audio/CollectCoins", TutorialAction.CollectCoins),
         new TutorialStep("You can then use these coins to buy more plants and tools from the shop.", "Audio/Shop"),
+		new TutorialStep("Tap on the settings icon to see your achievements and to earn coins.", "Audio/Achievements"),
         new TutorialStep("Enjoy your garden!", "Audio/Enjoy")
     };
     private static IEnumerator<TutorialStep> iterator;
@@ -43,6 +45,17 @@ public class TutorialUI : MonoBehaviour
     public static UnityEvent onPlantRevived = new UnityEvent();
     public static UnityEvent onCoinsCollected = new UnityEvent();
     public static UnityEvent<TutorialAction> onNextAction = new UnityEvent<TutorialAction>();
+
+	private static readonly string[] clickherePhrases = new[]
+	{
+    	"Hi, welcome to Virtual Garden!",
+    	"Here, you can perform",
+    	"Insects double",
+    	"By performing these actions",
+    	"You can then use these",
+    	"Enjoy your garden!",
+    	"Tap on the settings"
+	};
 
     void Awake()
     {
@@ -128,7 +141,7 @@ public class TutorialUI : MonoBehaviour
             {
                 GardenPlant.SetSelectedPlant(null);
             }
-            else if (step.Sentence.Contains("Hi, welcome to Virtual Garden!") || step.Sentence.Contains("Here, you can perform") || step.Sentence.Contains("Insects double the rate") || step.Sentence.Contains("By performing these actions") || step.Sentence.Contains("You can then use these") || step.Sentence.Contains("Enjoy your garden!"))
+            else if (clickherePhrases.Any(phrase => step.Sentence.Contains(phrase)))
             {
                 triangleButton.SetActive(true);
             }
